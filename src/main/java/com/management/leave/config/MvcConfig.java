@@ -1,7 +1,8 @@
-package com.example;
+package com.management.leave.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -13,24 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Date;
 import java.util.Map;
 
-/**
- * Created by Medion on 2016-08-28.
- */
-
-@SpringBootApplication
-@Controller
-public class HomeControler extends WebMvcConfigurerAdapter{
-    public static void main(String[] args) throws Exception {
-        new SpringApplicationBuilder(HomeControler.class).run(args);
-    }
-
+@Configuration
+public class MvcConfig  extends WebMvcConfigurerAdapter{
     @GetMapping("/")
     public String home(Map<String, Object> model) {
         model.put("message", "Hello World");
@@ -50,31 +41,4 @@ public class HomeControler extends WebMvcConfigurerAdapter{
         registry.addViewController("/").setViewName("home");
     }
 
-    @Configuration
-    @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-    protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
-
-        @Autowired
-        DataSource dataSource;
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests().anyRequest().fullyAuthenticated().and().formLogin()
-                    .loginPage("/login").failureUrl("/login?error").permitAll().and()
-                    .logout().permitAll();
-        }
-
-        @Override
-        public void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication().withUser("admin").password("admin")
-                    .roles("ADMIN", "USER").and().withUser("user").password("user")
-                    .roles("USER");
-
-            auth.jdbcAuthentication().dataSource(dataSource)
-                    .usersByUsernameQuery(
-                            "select login,password, active from account where active = true and confirm = true and login=?")
-                    .authoritiesByUsernameQuery(
-                            "select login, level from account as a INNER JOIN access_level as al on al.account_id = a.account_id where login=?");
-        }
-    }
 }
