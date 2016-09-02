@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Configuration
+@EnableWebMvc
 public class MvcConfig  extends WebMvcConfigurerAdapter{
     @GetMapping("/")
     public String home(Map<String, Object> model) {
