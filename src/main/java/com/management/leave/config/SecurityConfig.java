@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @EnableWebSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -24,7 +23,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated().and().formLogin()
+        http
+                .authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/home").hasRole("ADMINISTRATOR")
+                .anyRequest()
+                .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()
                 .logout().permitAll();
     }
