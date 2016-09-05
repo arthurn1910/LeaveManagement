@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register</title>
+    </head>
+    <body onload="document.f.username.focus();">
+        <div class="container">
+            <div class="navbar">
+                <h1>Leave Management System</h1>
+            </div>
+            <div class="content">
+                <h2>Create account</h2>
+                <form method="POST" modelattribute="registerDTO">
+                    <input type="text" name="login" path="login" placeholder="Login" />
+                    <input type="password" name="password" path="password" placeholder="Password" />
+                    <input type="password" name="confirmPassword" path="confirmPassword" placeholder="Password" />
+                    <input type="text" name="name" path="name" placeholder="Name" />
+                    <input type="text" name="lastname" path="lastname" placeholder="Lastname" />
+                    <input type="text" name="email" path="email" placeholder="Email" />
+                    <input type="submit" value="Register" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
