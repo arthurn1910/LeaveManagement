@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,35 +21,45 @@ import javax.validation.Valid;
  */
 @Controller
 public class registerControler {
-//    @RequestMapping(value = "/register", method = RequestMethod.GET)
-//    public String register(Model model) {
-//        RegisterDTO registerDTO=new RegisterDTO();
-//        model.addAttribute("register", registerDTO);
-//        return "account/register";
-//    }
-//
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public String registerUser(@ModelAttribute("register") @Valid RegisterDTO registerDTO) {
-//        System.out.println("***************");
-//        System.out.println(registerDTO.getName());
-//        return "account/index";
-//    }
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
+        return "account/register";
+    }
 
-    @RequestMapping(value = "/register")
-    public String register(HttpServletRequest request, @RequestParam(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
             //formularz nie jest uzupełniony prawidłowo
-            System.out.println("*****************");
+            System.out.println("3311*****************");
             System.out.println(registerDTO.getName());
             System.out.println(registerDTO.getEmail());
             return "account/index";
         } else {
             //formularz wypełniony prawidłowo
-            System.out.println("!!!!!!!!!!!!!*****************");
+            System.out.println("2211!!!!!!!!!!!!!*****************");
             System.out.println();
+
+            for(ObjectError a : result.getAllErrors())
+                System.out.println(a.toString());
             return "account/register";
         }
     }
+
+//    @RequestMapping(value = "/register")
+//    public String register(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
+//        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
+//            //formularz nie jest uzupełniony prawidłowo
+//            System.out.println("*****************");
+//            System.out.println(registerDTO.getName());
+//            System.out.println(registerDTO.getEmail());
+//            return "account/index";
+//        } else {
+//            //formularz wypełniony prawidłowo
+//            System.out.println("!!!!!!!!!!!!!*****************");
+//            System.out.println();
+//            return "account/register";
+//        }
+//    }
 
 
 }

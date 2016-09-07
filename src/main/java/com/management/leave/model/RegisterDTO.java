@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.stereotype.Controller;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,28 +14,28 @@ import javax.validation.constraints.Size;
  */
 
 public class RegisterDTO {
-//    @NotEmpty
-//    @Min(3)
+    @NotEmpty
+    @Size(min=3, max=20)
     private String login;
 
-//    @NotNull
-//    @NotEmpty
-//    @Min(6)
+    @NotNull
+    @NotEmpty
+    @Size(min=6, max=20)
     private String password;
     private String confirmPassword;
 
-//    @NotNull
-//    @NotEmpty
-//    @Email
-//    @Size(min=1)
+    @NotNull
+    @NotEmpty
+    @Email
+    @Size(min=1)
     private String email;
 
-//    @NotNull
-//    @NotEmpty
+    @NotNull
+    @NotEmpty
     private String name;
 
-//    @NotNull
-//    @NotEmpty
+    @NotNull
+    @NotEmpty
     private String lastname;
 
     public String getLogin() {

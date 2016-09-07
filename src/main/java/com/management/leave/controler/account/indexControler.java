@@ -28,7 +28,7 @@ public class indexControler {
             model.addAttribute("user", name);
             model.addAttribute("role", role);
         }catch(Exception ex){
-            System.out.println("!!!!!!!!!!!!!!!brak użytkownika");
+            System.out.println("11!!!!!!!!!!!!!!!brak użytkownika");
             model.addAttribute("user", "brak");
             model.addAttribute("role", "brak");
         }
