@@ -22,15 +22,15 @@ import java.sql.SQLException;
 @Component
 public class AccountFacade{
 
-        @Autowired
-        AccountRepository accountRepository;
+        //@Autowired
+        //AccountRepository accountRepository;
 
 
         @Transactional
         public void zrobCos(Account account) {
             System.out.println("1");
             Account a=new Account();
-            accountRepository.save(account);
+            //accountRepository.save(account);
             if(a!=null)
                 System.out.println(a.getLogin());
             System.out.println("brak");
