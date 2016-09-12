@@ -1,15 +1,18 @@
 package com.management.leave.controler.account;
 
+import com.management.leave.endpoint.account.AccountEndpoint;
+import com.management.leave.entity.Account;
+import com.management.leave.manager.account.AccountManager;
 import com.management.leave.model.RegisterDTO;
+import com.management.leave.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +24,11 @@ import javax.validation.Valid;
  */
 @Controller
 public class registerControler {
+
+    @Autowired(required = true)
+    AccountRepository accountRepository;
+    //AccountEndpoint accountEndpoint;
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
         return "account/register";
@@ -29,18 +37,17 @@ public class registerControler {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            //formularz nie jest uzupełniony prawidłowo
-            System.out.println("3311*****************");
-            System.out.println(registerDTO.getName());
-            System.out.println(registerDTO.getEmail());
+            System.out.println("Controler register in");
+            //accountEndpoint.registerAccount(registerDTO);
+//            Account a=new Account("asaa","cccc");
+//            a.setVersion(0);
+//            a.setConfirm(Boolean.FALSE);
+//            a.setActive(Boolean.FALSE);
+//            a.setId(8L);
+//            accountRepository.save(a);
+            System.out.println("Controler register out");
             return "account/index";
         } else {
-            //formularz wypełniony prawidłowo
-            System.out.println("2211!!!!!!!!!!!!!*****************");
-            System.out.println();
-
-            for(ObjectError a : result.getAllErrors())
-                System.out.println(a.toString());
             return "account/register";
         }
     }

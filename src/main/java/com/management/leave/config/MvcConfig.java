@@ -32,7 +32,8 @@ import java.util.Map;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.management.leave.controler" })
+@ComponentScan(basePackages = { "com.management.leave.controler", "com.management.leave.endpoint", "com.management.leave.facade",
+            "com.management.leave.manager", "com.management.leave.entity" })
 public class MvcConfig  extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

@@ -3,6 +3,7 @@ package com.management.leave.controler.account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Medion on 2016-09-04.
