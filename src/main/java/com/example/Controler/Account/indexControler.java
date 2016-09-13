@@ -1,5 +1,4 @@
-package com.management.leave.controler.account;
-
+package com.example.Controler.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
