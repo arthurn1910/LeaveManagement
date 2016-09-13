@@ -1,6 +1,6 @@
-package com.example.Endpoint.Account;
+package com.example.leave.endpoint;
 
-import com.example.DTO.RegisterDTO;
+import com.example.leave.dto.RegisterDTO;
 
 /**
  * Created by Medion on 2016-09-13.

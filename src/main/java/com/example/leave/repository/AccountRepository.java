@@ -1,8 +1,7 @@
-package com.example.Repository;
+package com.example.leave.repository;
 
-import com.example.Entity.Account;
+import com.example.leave.entity.Account;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,5 +10,5 @@ import java.util.List;
  */
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
-    List<Account> findByFirstName(String firstName);
+    List<Account> findByLogin(String login);
 }

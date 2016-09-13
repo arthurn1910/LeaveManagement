@@ -1,4 +1,4 @@
-package com.example.Config;
+package com.example.leave.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,18 +1,16 @@
-package com.example.Controler.Account;
+package com.example.leave.controler.account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class indexControler {
+public class IndexControler {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("name", "ja!!!!!!!!!!!");

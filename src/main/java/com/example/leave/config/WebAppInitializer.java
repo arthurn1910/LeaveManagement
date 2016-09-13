@@ -1,10 +1,8 @@
-package com.example.Config;
+package com.example.leave.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
-import com.example.Config.MvcConfig;
-import com.example.Config.SecurityConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

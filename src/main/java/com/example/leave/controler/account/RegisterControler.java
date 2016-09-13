@@ -1,6 +1,6 @@
-package com.example.Controler.Account;
-import com.example.DTO.RegisterDTO;
-import com.example.Endpoint.Account.AccountEndpoint;
+package com.example.leave.controler.account;
+import com.example.leave.endpoint.AccountEndpoint;
+import com.example.leave.dto.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

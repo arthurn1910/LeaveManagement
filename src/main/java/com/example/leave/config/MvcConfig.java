@@ -1,15 +1,12 @@
-package com.example.Config;
+package com.example.leave.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.example.Config", "com.example.Controler", "com.example.Endpoint.Account", "com.example.Facade",
-        "com.example.Manager", "com.example.Entity","com.example.Repository" })
 public class MvcConfig  extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

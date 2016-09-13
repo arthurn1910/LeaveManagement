@@ -1,12 +1,9 @@
-package com.example.Endpoint.Account;
+package com.example.leave.endpoint;
 
-import com.example.DTO.RegisterDTO;
-import com.example.Entity.Account;
-import com.example.Manager.AccountManager;
-import com.example.Repository.AccountRepository;
+import com.example.leave.dto.RegisterDTO;
+import com.example.leave.entity.Account;
+import com.example.leave.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 /**

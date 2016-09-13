@@ -1,4 +1,4 @@
-package com.example.Manager;
+package com.example.leave.manager;
 
 import org.springframework.stereotype.Component;
 
