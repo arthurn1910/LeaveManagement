@@ -1,6 +1,7 @@
 package com.example.leave.dto;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -47,7 +48,8 @@ public class RegisterDTO {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password.equals(this.confirmPassword))
+            this.password = password;
     }
 
     public String getConfirmPassword() {
@@ -55,7 +57,8 @@ public class RegisterDTO {
     }
 
     public void setConfirmPassword(String confirm_password) {
-        this.confirmPassword = confirm_password;
+            this.confirmPassword = confirm_password;
+
     }
 
     public String getEmail() {

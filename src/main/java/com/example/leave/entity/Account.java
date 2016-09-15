@@ -1,5 +1,7 @@
 package com.example.leave.entity;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,7 +10,9 @@ import java.io.Serializable;
  */
 
 @Entity
-//@Table(name = "account")
+@Table(name = "account")
+@NamedQuery(name = "Account.getNewID",
+        query = "select max(id) from Account")
 public class Account implements Serializable {
 
     @Id
@@ -22,13 +26,27 @@ public class Account implements Serializable {
     private Boolean confirm;
     @Column(name = "active")
     private Boolean active;
-
     @Version
     private long version;
+
+    //@JoinColumn(name = "account_id", referencedColumnName = "user_data_id", updatable=false)
+   // @OneToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "id")
+   // private UserData userData;
 
     public Long getId() {
         return id;
     }
+
+//    public UserData getUserData() {
+//        return userData;
+//    }
+
+    public Account() {
+    }
+
+//    public void setUserData(UserData userData) {
+//        this.userData = userData;
+//    }
 
     public void setId(Long id) {
         this.id = id;
@@ -47,7 +65,7 @@ public class Account implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = new Md5PasswordEncoder().encodePassword(password,null);
     }
 
     public Boolean getConfirm() {
@@ -67,12 +85,21 @@ public class Account implements Serializable {
     }
 
 
-    public Account() {
-    }
-
     public Account(String login, String password) {
         this.login = login;
+        this.password = new Md5PasswordEncoder().encodePassword(password,null);
+        this.active=true;
+        this.confirm=false;
+        this.version=0;
+    }
+
+    public Account(Long id, String login, String password, Boolean confirm, Boolean active, long version) {
+        this.id = id;
+        this.login = login;
         this.password = password;
+        this.confirm = confirm;
+        this.active = active;
+        this.version = version;
     }
 
     public long getVersion() {
@@ -82,4 +109,5 @@ public class Account implements Serializable {
     public void setVersion(long version) {
         this.version = version;
     }
+
 }

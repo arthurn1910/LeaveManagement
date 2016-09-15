@@ -11,4 +11,6 @@ import java.util.List;
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
     List<Account> findByLogin(String login);
+
+    Long getNewID();
 }
