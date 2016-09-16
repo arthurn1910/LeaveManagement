@@ -35,8 +35,12 @@ public class UserData implements Serializable {
     @Version
     private long version;
 
-    //@OneToOne(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "user_data_id")
-    //private Account account;
+    @JoinColumn(name = "account_id", referencedColumnName = "account_id", updatable=false)
+    @OneToOne(optional = false)
+    private Account account;
+
+    public UserData() {
+    }
 
     public UserData(String name, String lastName, String email) {
         this.name = name;
@@ -62,6 +66,14 @@ public class UserData implements Serializable {
         this.expirienceDay = expirienceDay;
         this.createDate = createDate;
         this.version = version;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Long getId() {

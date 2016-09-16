@@ -1,6 +1,8 @@
 package com.example.leave.manager;
 
+import com.example.leave.entity.AccessLevel;
 import com.example.leave.entity.Account;
+//import com.example.leave.entity.UserData;
 import com.example.leave.facade.AccountFacade;
 import com.example.leave.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ public class AccountManager implements AccountManagerInterface {
     AccountFacade accountFacade;
 
     @Override
-    public void registerAccount(Account account) {
-        accountFacade.registerAccount(account);
+    public void registerAccount(Account account, AccessLevel accessLevel){
+        System.out.println("Manager in");
+        accountFacade.registerAccount(account, accessLevel);
+        System.out.println("Manager out");
     }
 }
