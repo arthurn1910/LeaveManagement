@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register</title>
+    </head>
+    <body onload="document.f.username.focus();">
+        <div class="container">
+            <div class="navbar">
+                <h1>Leave Management System</h1>
+            </div>
+            <div class="content">
+                <h2>Create account</h2>
+                <form method="POST" modelattribute="registerDTO">
+                    <input type="text" name="login" path="login" placeholder="Login" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="login" /></if>
+                    <input type="password" name="password" path="password" placeholder="Password" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="password" /></if>
+                    <input type="password" name="confirmPassword" path="confirmPassword" placeholder="Confirm Password" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="confirmPassword" /></if>
+                    <input type="text" name="name" path="name" placeholder="Name" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
+                    <input type="text" name="lastname" path="lastname" placeholder="Lastname" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
+                    <input type="text" name="email" path="email" placeholder="Email" />
+                    <if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
+                    <input type="submit" value="Register" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

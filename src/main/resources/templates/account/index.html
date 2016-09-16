@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${name}">Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <h1> Leave Management System</h1>
+        </div>
+    </div>
+    <h2>Hello. This is Leave Management System</h2>
+    <form th:action="@{/login}" method="post">
+        <input type="submit" value="Login"/>
+    </form>
+    <p th:text="'Hello, ' + ${user} + '!'" />
+    <p th:text="'Posiadasz role:, ' + ${role} + '!'" />
+</div>
+</body>
+</html>
