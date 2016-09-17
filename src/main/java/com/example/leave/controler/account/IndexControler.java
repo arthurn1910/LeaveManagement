@@ -20,7 +20,7 @@ public class IndexControler {
             String role="";
             for(GrantedAuthority auth : user.getAuthorities()) {
                 System.out.println(auth.getAuthority());
-                role=auth.getAuthority();
+                role+=auth.getAuthority()+" ";
             }
 
             model.addAttribute("user", name);

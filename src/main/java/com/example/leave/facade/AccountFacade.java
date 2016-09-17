@@ -8,6 +8,7 @@ import com.example.leave.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,24 +17,34 @@ import java.util.List;
  */
 @Component
 public class AccountFacade implements AccountFacadeInterface {
+
     @Autowired
     AccountRepository accountRepository;
     @Autowired
     AccessLevelRepository accessLevelRepository;
 
     @Override
+    @Transactional
     public void registerAccount(Account account, AccessLevel accessLevel){
-        System.out.println("F1");
         account.setId(accountRepository.getNewID()+1);
-        System.out.println("f2");
         accessLevel.setId(accessLevelRepository.getNewAccessLevelID()+1);
-        System.out.println("f3");
         accountRepository.save(account);
-        System.out.println("f4");
         accessLevel.setAccount(account);
         accessLevelRepository.save(accessLevel);
-        System.out.println("f5");
+    }
 
+    @Override
+    @Transactional
+    public Account getAccount(String login){
+        Account account=accountRepository.findByLogin(login);
+        return account;
+    }
 
+    @Override
+    @Transactional
+    public void editYourAccountData(Account account) {
+        System.out.println("Facade in");
+        accountRepository.save(account);
+        System.out.println("Facade out");
     }
 }

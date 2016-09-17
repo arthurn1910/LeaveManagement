@@ -22,4 +22,16 @@ public class AccountManager implements AccountManagerInterface {
         accountFacade.registerAccount(account, accessLevel);
         System.out.println("Manager out");
     }
+
+    @Override
+    public Account getAccount(String login){
+        return accountFacade.getAccount(login);
+    }
+
+    @Override
+    public void editYourAccountData(Account account) {
+        System.out.println("Manager in");
+        accountFacade.editYourAccountData(account);
+        System.out.println("Manager out");
+    }
 }

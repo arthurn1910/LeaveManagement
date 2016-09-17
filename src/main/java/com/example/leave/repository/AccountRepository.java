@@ -1,6 +1,8 @@
 package com.example.leave.repository;
 
 import com.example.leave.entity.Account;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.List;
  */
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
-    List<Account> findByLogin(String login);
-
+    Account findByLogin(String login);
     Long getNewID();
+
+    void edit(String firstname, String lastname, String userId);
 }

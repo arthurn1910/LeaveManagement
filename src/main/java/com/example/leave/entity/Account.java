@@ -13,8 +13,16 @@ import java.util.*;
 @Entity
 @Table(name = "account")
 @SecondaryTable(name="user_data")
-@NamedQuery(name = "Account.getNewID",
-        query = "select max(id) from Account")
+@NamedQueries({
+        @NamedQuery(name = "Account.getNewID",
+                query = "select max(id) from Account"),
+        @NamedQuery(name = "Account.findAccountByLogin",
+                query = "select '*' from Account a where a.login=:login"),
+
+        @NamedQuery(name = "Account.edit",
+                query = "update Account a set a.name = ?1, a.lastname = ?2 where a.email = ?3")
+})
+
 public class Account implements Serializable {
 
     @Id
@@ -35,12 +43,12 @@ public class Account implements Serializable {
     private long versionUserData;
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")
-    private Set<AccessLevel> accessLevelCollection = new HashSet<>();
+    private Collection<AccessLevel> accessLevelCollection = new ArrayList<>();
 
     @Column(name = "name", table = "user_data")
     private String name;
     @Column(name = "lastname", table = "user_data")
-    private String lastName;
+    private String lastname;
     @Column(name = "email", table = "user_data")
     private String email;
     @Column(name = "starting_date", table = "user_data")
@@ -62,12 +70,12 @@ public class Account implements Serializable {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -150,9 +158,9 @@ public class Account implements Serializable {
         this.version = version;
     }
 
-    public void setUserData(String name, String lastName, String email){
+    public void setUserData(String name, String lastname, String email){
         this.name=name;
-        this.lastName=lastName;
+        this.lastname=lastname;
         this.email=email;
         this.createDate=new Date();
         this.startingDate=new Date();
@@ -162,13 +170,13 @@ public class Account implements Serializable {
         this.versionUserData=0;
     }
 
-    /*public Collection<AccessLevel> getAccessLevelCollection() {
+    public Collection<AccessLevel> getAccessLevelCollection() {
         return accessLevelCollection;
     }
 
     public void setAccessLevelCollection(Collection<AccessLevel> accessLevelCollection) {
         this.accessLevelCollection = accessLevelCollection;
-    }*/
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -215,4 +223,53 @@ public class Account implements Serializable {
         this.version = version;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", confirm=" + confirm +
+                ", active=" + active +
+                ", version=" + version +
+                ", versionUserData=" + versionUserData +
+                ", accessLevelCollection={" + getAccessLevelToString()  +"}"+
+                ", name='" + name + '\'' +
+                ", lastName='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", startingDate=" + startingDate +
+                ", expirienceYear=" + expirienceYear +
+                ", expirienceMonth=" + expirienceMonth +
+                ", expirienceDay=" + expirienceDay +
+                ", createDate=" + createDate +
+                '}';
+    }
+
+    public String getAccessLevelToString() {
+        String tmp="";
+        for(AccessLevel a : this.getAccessLevelCollection())
+            tmp+="{"+a.getId()+", "+a.getActive()+", "+a.getLevel()+", "+a.getVersion()+"}";
+
+        return tmp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Account)) return false;
+
+        Account account = (Account) o;
+        if((this.id == null && account.id != null) || (this.id == null && !this.id.equals(account.id)))
+            return false;
+        if(this.version != ((Account) o).version || this.versionUserData != ((Account) o).versionUserData)
+            return false;
+        return true;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash+=(id !=null ? id.hashCode() : 0);
+        return hash;
+    }
 }
