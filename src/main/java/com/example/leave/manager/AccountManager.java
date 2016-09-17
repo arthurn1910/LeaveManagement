@@ -8,6 +8,8 @@ import com.example.leave.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by Medion on 2016-09-13.
  */
@@ -18,9 +20,7 @@ public class AccountManager implements AccountManagerInterface {
 
     @Override
     public void registerAccount(Account account, AccessLevel accessLevel){
-        System.out.println("Manager in");
         accountFacade.registerAccount(account, accessLevel);
-        System.out.println("Manager out");
     }
 
     @Override
@@ -29,9 +29,12 @@ public class AccountManager implements AccountManagerInterface {
     }
 
     @Override
-    public void editYourAccountData(Account account) {
-        System.out.println("Manager in");
+    public void editAccount(Account account) {
         accountFacade.editYourAccountData(account);
-        System.out.println("Manager out");
+    }
+
+    @Override
+    public List<Account> getUsers() {
+        return accountFacade.getUsers();
     }
 }

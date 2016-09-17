@@ -2,6 +2,8 @@ package com.example.leave.facade;
 
 import com.example.leave.entity.AccessLevel;
 import com.example.leave.entity.Account;
+
+import java.util.List;
 //import com.example.leave.entity.UserData;
 
 /**
@@ -13,4 +15,6 @@ public interface AccountFacadeInterface {
     Account getAccount(String login);
 
     void editYourAccountData(Account account);
+
+    List<Account> getUsers();
 }

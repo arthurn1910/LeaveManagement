@@ -2,6 +2,8 @@ package com.example.leave.manager;
 
 import com.example.leave.entity.AccessLevel;
 import com.example.leave.entity.Account;
+
+import java.util.List;
 //import com.example.leave.entity.UserData;
 
 /**
@@ -12,5 +14,7 @@ public interface AccountManagerInterface {
 
     Account getAccount(String login);
 
-    void editYourAccountData(Account account);
+    void editAccount(Account account);
+
+    List<Account> getUsers();
 }

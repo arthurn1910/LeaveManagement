@@ -1,11 +1,9 @@
 package com.example.leave.controler.account.authorizated;
 
-import com.example.leave.dto.EditAccountDTO;
-import com.example.leave.dto.RegisterDTO;
+import com.example.leave.dto.UserDTO;
 import com.example.leave.endpoint.AccountEndpoint;
 import com.example.leave.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -26,18 +24,18 @@ public class EditAccountControler {
     AccountEndpoint accountEndpoint;
 
     @RequestMapping(value = "/editAccount", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, @ModelAttribute(value = "editAccountDTO") @Valid EditAccountDTO editAccountDTO, BindingResult result) {
-        Account account=accountEndpoint.getAccountToEdit("manager");
-        editAccountDTO.setAccountData(account);
-        System.out.println(editAccountDTO.getName());
+    public String editAccount(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
+        Account account=accountEndpoint.getYourAccount();
+        accountDTO.setAccount(account);
+        System.out.println(accountDTO.getName());
         return "account/authorizated/editAccount";
     }
 
     @RequestMapping(value = "/editAccount", method = RequestMethod.POST)
-    public String registerUser(HttpServletRequest request, @ModelAttribute(value = "editAccountDTO") @Valid EditAccountDTO editAccountDTO, BindingResult result) {
+    public String editAccountData(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
             System.out.println("Controler register in");
-            accountEndpoint.editYourAccountData(editAccountDTO);
+            accountEndpoint.editYourAccountData(accountDTO);
             System.out.println("Controler register out");
             return "account/index";
         } else {
