@@ -29,10 +29,12 @@ public class RegisterDTO {
 
     @NotNull
     @NotEmpty
+    @Size(min=2)
     private String name;
 
     @NotNull
     @NotEmpty
+    @Size(min=2)
     private String lastname;
 
     public String getLogin() {

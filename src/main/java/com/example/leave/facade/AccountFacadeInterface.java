@@ -9,4 +9,8 @@ import com.example.leave.entity.Account;
  */
 public interface AccountFacadeInterface {
     void registerAccount(Account account, AccessLevel accessLevel);
+
+    Account getAccount(String login);
+
+    void editYourAccountData(Account account);
 }
