@@ -10,14 +10,14 @@
 	</div>
 	<div class="content">
 		<h2>Edit Account</h2>
-		<form method="POST" modelattribute="editAccountDTO">
-			<p th:text="'Name: ' + ${editAccountDTO.getName()} + '!'" />
+		<form method="POST" modelattribute="accountDTO">
+			<p th:text="'Name: ' + ${accountDTO.getName()} + '!'" />
 			<input type="text" name="name" path="name" placeholder="New Name" />
 			<if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
-			<p th:text="'Lastname: ' + ${editAccountDTO.getLastname()} + '!'" />
+			<p th:text="'Lastname: ' + ${accountDTO.getLastname()} + '!'" />
 			<input type="text" name="lastname" path="lastname" placeholder="New Lastname" />
 			<if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
-			<p th:text="'Email: ' + ${editAccountDTO.getEmail()} + '!'" />
+			<p th:text="'Email: ' + ${accountDTO.getEmail()} + '!'" />
 			<input type="text" name="email" path="email" placeholder="New Email" />
 			<if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
 			<input type="submit" value="Edit" />

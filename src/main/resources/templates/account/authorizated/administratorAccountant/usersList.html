@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users List</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Leave Management System</h1>
+    </div>
+    <div class="content">
+        <h2>Users List</h2>
+        <form method="POST" modelattribute="accountDTO">
+            <p th:text="'Name: ' + ${listUsersDTO.getAccountList().size()} + '!'" />
+
+            <table style="width:100%">
+                <tr>
+                    <th>login</th>
+                    <th>id</th>
+                    <th>active</th>
+                    <th>confirm</th>
+                </tr>
+                <tr th:each="account : ${listUsersDTO.getAccountList()}">
+                    <td th:text="${account.getLogin()}"/>
+                    <td th:text="${account.getId()}"/>
+                    <td th:text="${account.getActive()}"/>
+                    <td th:text="${account.getConfirm()}"/>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

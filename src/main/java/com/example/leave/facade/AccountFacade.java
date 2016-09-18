@@ -43,8 +43,12 @@ public class AccountFacade implements AccountFacadeInterface {
     @Override
     @Transactional
     public void editYourAccountData(Account account) {
-        System.out.println("Facade in");
         accountRepository.save(account);
-        System.out.println("Facade out");
+    }
+
+    @Override
+    @Transactional
+    public List<Account> getUsers() {
+        return (List<Account>) accountRepository.findAll();
     }
 }

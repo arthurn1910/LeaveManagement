@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Account</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Leave Management System</h1>
+    </div>
+    <div class="content">
+        <h2>Account Details</h2>
+        <form method="POST" modelattribute="accountDTO">
+            <p th:text="'Name: ' + ${accountDTO.getName()}"/>
+            <p th:text="'Lastname: ' + ${accountDTO.getLastname()}"/>
+            <p th:text="'Login: ' + ${accountDTO.getLogin()}"/>
+            <p th:text="'Email: ' + ${accountDTO.getEmail()}"/>
+            <p th:text="'Starting date : ' + ${accountDTO.getStartingDate()}"/>
+            <p th:text="'Create date : ' + ${accountDTO.getCreateDate()}"/>
+            <p th:text="'Expirience: ' + ${accountDTO.getExpirienceYear()}+' Year '+ ${accountDTO.getExpirienceMonth()}+' Month '+ ${accountDTO.getExpirienceDay()}+' Day '"/>
+            <p th:text="'Roles: ' + ${accountDTO.getRoles()}"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
