@@ -17,4 +17,8 @@ public interface AccountManagerInterface {
     void editAccount(Account account);
 
     List<Account> getUsers();
+
+    void changePassword(Account account);
+
+    void changeUserRole(Account account);
 }

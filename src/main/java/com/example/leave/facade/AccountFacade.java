@@ -51,4 +51,16 @@ public class AccountFacade implements AccountFacadeInterface {
     public List<Account> getUsers() {
         return (List<Account>) accountRepository.findAll();
     }
+
+    @Override
+    @Transactional
+    public void changePassword(Account account) {
+        accountRepository.save(account);
+    }
+
+    @Override
+    @Transactional
+    public void changeUserRole(Account account) {
+        accountRepository.save(account);
+    }
 }

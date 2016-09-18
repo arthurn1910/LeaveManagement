@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class HomeControler {
+public class HomeController {
     @RequestMapping("/home")
     public String index(Model model) {
         return "account/home";

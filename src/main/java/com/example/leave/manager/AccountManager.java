@@ -37,4 +37,14 @@ public class AccountManager implements AccountManagerInterface {
     public List<Account> getUsers() {
         return accountFacade.getUsers();
     }
+
+    @Override
+    public void changePassword(Account account) {
+        accountFacade.changePassword(account);
+    }
+
+    @Override
+    public void changeUserRole(Account account) {
+        accountFacade.changeUserRole(account);
+    }
 }

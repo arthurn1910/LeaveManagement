@@ -15,7 +15,7 @@ import javax.validation.Valid;
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class RegisterControler {
+public class RegisterController {
 
     @Autowired
     AccountEndpoint accountEndpoint;
@@ -28,14 +28,9 @@ public class RegisterControler {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            System.out.println("Controler register in");
             accountEndpoint.registerAccount(registerDTO);
-            System.out.println("Controler register out");
             return "account/index";
         } else {
-            for(ObjectError a:result.getAllErrors())
-                System.out.println(a.toString());
-            System.out.print(new Md5PasswordEncoder().encodePassword("zaq1@WSX",null));
             return "account/register";
         }
     }

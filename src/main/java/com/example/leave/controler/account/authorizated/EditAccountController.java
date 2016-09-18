@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class EditAccountControler {
+public class EditAccountController {
 
     @Autowired
     AccountEndpoint accountEndpoint;

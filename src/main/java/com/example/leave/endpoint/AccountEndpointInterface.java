@@ -1,7 +1,6 @@
 package com.example.leave.endpoint;
 
-import com.example.leave.dto.UserDTO;
-import com.example.leave.dto.RegisterDTO;
+import com.example.leave.dto.*;
 import com.example.leave.entity.Account;
 
 import java.util.List;
@@ -22,4 +21,12 @@ public interface AccountEndpointInterface {
     void editUserAccount(UserDTO userDto);
 
     List<Account> getUsers();
+
+    void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
+
+    void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO);
+
+    void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO);
+
+    Account getAccount();
 }

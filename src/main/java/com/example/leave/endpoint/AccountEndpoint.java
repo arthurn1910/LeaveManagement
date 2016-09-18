@@ -1,12 +1,12 @@
 package com.example.leave.endpoint;
 
-import com.example.leave.dto.UserDTO;
-import com.example.leave.dto.RegisterDTO;
+import com.example.leave.dto.*;
 import com.example.leave.entity.AccessLevel;
 import com.example.leave.entity.Account;
 //import com.example.leave.entity.UserData;
 import com.example.leave.manager.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -77,5 +77,35 @@ public class AccountEndpoint implements AccountEndpointInterface {
     public List<Account> getUsers() {
         List<Account> listUsers= accountManager.getUsers();
         return listUsers;
+    }
+
+    @Override
+    public void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
+        String password = new Md5PasswordEncoder().encodePassword(changePasswordDTO.getActualPassword(),null);
+        if(this.account.getPassword().equals(password)) {
+            account.setPassword(changePasswordDTO.getNewPassword());
+            accountManager.changePassword(account);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO) {
+        account.setPassword(changeUserPasswordDTO.getNewPassword());
+        accountManager.changePassword(account);
+    }
+
+    @Override
+    public Account getAccount() {
+        System.out.println("Endpoint "+ account.getLogin());
+        return account;
+    }
+
+    @Override
+    public void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO) {
+
+
+        accountManager.changeUserRole(account);
     }
 }

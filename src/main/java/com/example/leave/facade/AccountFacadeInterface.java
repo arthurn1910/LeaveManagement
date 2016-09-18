@@ -17,4 +17,8 @@ public interface AccountFacadeInterface {
     void editYourAccountData(Account account);
 
     List<Account> getUsers();
+
+    void changePassword(Account account);
+
+    void changeUserRole(Account account);
 }
