@@ -68,13 +68,13 @@ public class ChangeUserRoleDTO {
         String role="";
         for(AccessLevel accessLevel : accessLevelList){
             role=accessLevel.getLevel();
-            if(role.equals("manager"))
+            if(role.equals("ROLE_MANAGER"))
                 this.roleManager=true;
-            else if(role.equals("administrator"))
+            else if(role.equals("ROLE_ADMINISTRATOR"))
                 this.roleAdministrator=true;
-            if(role.equals("employee"))
+            if(role.equals("ROLE_EMPLOYEE"))
                 this.roleEmployee=true;
-            if(role.equals("accountant"))
+            if(role.equals("ROLE_ACCOUNTANT"))
                 this.roleAccountant=true;
         }
     }

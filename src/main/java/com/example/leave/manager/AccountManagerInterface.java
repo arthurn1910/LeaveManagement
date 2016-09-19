@@ -20,5 +20,7 @@ public interface AccountManagerInterface {
 
     void changePassword(Account account);
 
-    void changeUserRole(Account account);
+    void addRoleToUser(String role, Account account);
+
+    void removeRoleFromUser(String role, Account account);
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -104,8 +105,39 @@ public class AccountEndpoint implements AccountEndpointInterface {
 
     @Override
     public void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO) {
+        changeUserRoleDTO.setRoleManager(true);
+        if(changeUserRoleDTO.getRoleAccountant()!=checkRole("ROLE_ACCOUNTANT")){
+            if(changeUserRoleDTO.getRoleAccountant()==true)
+                accountManager.addRoleToUser("ROLE_ACCOUNTANT",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_ACCOUNTANT",account);
+        }
+        if(changeUserRoleDTO.getRoleAdministrator()!=checkRole("ROLE_ADMINISTRATOR")){
+            if(changeUserRoleDTO.getRoleAdministrator()==true)
+                accountManager.addRoleToUser("ROLE_ADMINISTRATOR",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_ADMINISTRATOR",account);
+        }
+        if(changeUserRoleDTO.getRoleEmployee()!=checkRole("ROLE_EMPLOYEE")){
+            if(changeUserRoleDTO.getRoleEmployee()==true)
+                accountManager.addRoleToUser("ROLE_EMPLOYEE",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_EMPLOYEE",account);
+        }
+        if(changeUserRoleDTO.getRoleManager()!=checkRole("ROLE_MANAGER")){
+            if(changeUserRoleDTO.getRoleManager()==true)
+                accountManager.addRoleToUser("ROLE_MANAGER",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_MANAGER",account);
+        }
+    }
 
-
-        accountManager.changeUserRole(account);
+    private Boolean checkRole(String role){
+        Collection<AccessLevel> accessLevelCollection=account.getAccessLevelCollection();
+        for(AccessLevel accessLevel: accessLevelCollection) {
+            if (accessLevel.getLevel().equals(role))
+                return true;
+        }
+        return false;
     }
 }
