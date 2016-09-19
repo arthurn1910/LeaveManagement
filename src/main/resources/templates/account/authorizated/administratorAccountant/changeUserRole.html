@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Change User Role</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Leave Management System</h1>
+    </div>
+    <div class="content">
+        <h2>Change User Role</h2>
+        <p th:text="'Login user: ' + ${changeUserRoleDTO.getLogin()}" />
+        <form method="POST" modelattribute="changePasswordDTO">
+            <p th:text="'Manager: '"/>
+            <input type="checkbox" id="roleManager" value="roleManager"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="roleManager" /></if>
+            <p th:text="'Employee: '"/>
+            <input type="checkbox" id="roleEmployee" value="roleEmployee"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="roleEmployee" /></if>
+            <p th:text="'Administrator: '"/>
+            <input type="checkbox" id="roleAdministrator" value="roleAdministrator"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="roleAdministrator" /></if>
+            <p th:text="'Accountant: '"/>
+            <input type="checkbox" id="roleAccountant" value="roleAccountant"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="roleAccountant" /></if>
+            <input type="submit" value="Change" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

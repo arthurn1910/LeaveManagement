@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Medion on 2016-09-17.
  */
 @Controller
-public class UsersListControler {
+public class UsersListController {
     @Autowired
     AccountEndpoint accountEndpoint;
 

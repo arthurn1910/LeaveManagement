@@ -1,16 +1,17 @@
 package com.example.leave.endpoint;
 
-import com.example.leave.dto.UserDTO;
-import com.example.leave.dto.RegisterDTO;
+import com.example.leave.dto.*;
 import com.example.leave.entity.AccessLevel;
 import com.example.leave.entity.Account;
 //import com.example.leave.entity.UserData;
 import com.example.leave.manager.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -77,5 +78,66 @@ public class AccountEndpoint implements AccountEndpointInterface {
     public List<Account> getUsers() {
         List<Account> listUsers= accountManager.getUsers();
         return listUsers;
+    }
+
+    @Override
+    public void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
+        String password = new Md5PasswordEncoder().encodePassword(changePasswordDTO.getActualPassword(),null);
+        if(this.account.getPassword().equals(password)) {
+            account.setPassword(changePasswordDTO.getNewPassword());
+            accountManager.changePassword(account);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO) {
+        account.setPassword(changeUserPasswordDTO.getNewPassword());
+        accountManager.changePassword(account);
+    }
+
+    @Override
+    public Account getAccount() {
+        System.out.println("Endpoint "+ account.getLogin());
+        return account;
+    }
+
+    @Override
+    public void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO) {
+        changeUserRoleDTO.setRoleManager(true);
+        if(changeUserRoleDTO.getRoleAccountant()!=checkRole("ROLE_ACCOUNTANT")){
+            if(changeUserRoleDTO.getRoleAccountant()==true)
+                accountManager.addRoleToUser("ROLE_ACCOUNTANT",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_ACCOUNTANT",account);
+        }
+        if(changeUserRoleDTO.getRoleAdministrator()!=checkRole("ROLE_ADMINISTRATOR")){
+            if(changeUserRoleDTO.getRoleAdministrator()==true)
+                accountManager.addRoleToUser("ROLE_ADMINISTRATOR",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_ADMINISTRATOR",account);
+        }
+        if(changeUserRoleDTO.getRoleEmployee()!=checkRole("ROLE_EMPLOYEE")){
+            if(changeUserRoleDTO.getRoleEmployee()==true)
+                accountManager.addRoleToUser("ROLE_EMPLOYEE",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_EMPLOYEE",account);
+        }
+        if(changeUserRoleDTO.getRoleManager()!=checkRole("ROLE_MANAGER")){
+            if(changeUserRoleDTO.getRoleManager()==true)
+                accountManager.addRoleToUser("ROLE_MANAGER",account);
+            else
+                accountManager.removeRoleFromUser("ROLE_MANAGER",account);
+        }
+    }
+
+    private Boolean checkRole(String role){
+        Collection<AccessLevel> accessLevelCollection=account.getAccessLevelCollection();
+        for(AccessLevel accessLevel: accessLevelCollection) {
+            if (accessLevel.getLevel().equals(role))
+                return true;
+        }
+        return false;
     }
 }

@@ -17,4 +17,10 @@ public interface AccountManagerInterface {
     void editAccount(Account account);
 
     List<Account> getUsers();
+
+    void changePassword(Account account);
+
+    void addRoleToUser(String role, Account account);
+
+    void removeRoleFromUser(String role, Account account);
 }

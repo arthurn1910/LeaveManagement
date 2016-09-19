@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class LoginControler {
+public class LoginController {
     @RequestMapping("/login")
     public String index(Model model) {
         return "account/login";

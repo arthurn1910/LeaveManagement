@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Medion on 2016-09-04.
  */
 @Controller
-public class IndexControler {
+public class IndexController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("name", "ja!!!!!!!!!!!");
