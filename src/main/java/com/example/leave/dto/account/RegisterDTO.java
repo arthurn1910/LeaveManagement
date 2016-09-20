@@ -1,4 +1,4 @@
-package com.example.leave.dto;
+package com.example.leave.dto.account;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;

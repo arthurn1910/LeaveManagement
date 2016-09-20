@@ -1,4 +1,4 @@
-package com.example.leave.dto;
+package com.example.leave.dto.account;
 
 import java.util.List;
 

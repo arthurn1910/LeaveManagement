@@ -1,7 +1,7 @@
-package com.example.leave.endpoint;
+package com.example.leave.endpoint.account;
 
-import com.example.leave.dto.*;
-import com.example.leave.entity.Account;
+import com.example.leave.dto.account.*;
+import com.example.leave.entity.account.Account;
 
 import java.util.List;
 

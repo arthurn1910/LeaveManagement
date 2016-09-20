@@ -1,4 +1,4 @@
-package com.example.leave.entity;
+package com.example.leave.entity.account;
 
 import javax.persistence.*;
 

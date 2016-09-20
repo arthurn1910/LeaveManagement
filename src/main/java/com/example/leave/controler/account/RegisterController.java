@@ -1,11 +1,9 @@
 package com.example.leave.controler.account;
-import com.example.leave.endpoint.AccountEndpoint;
-import com.example.leave.dto.RegisterDTO;
+import com.example.leave.endpoint.account.AccountEndpoint;
+import com.example.leave.dto.account.RegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

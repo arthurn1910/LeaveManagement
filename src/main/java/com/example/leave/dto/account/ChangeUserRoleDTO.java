@@ -1,8 +1,7 @@
-package com.example.leave.dto;
+package com.example.leave.dto.account;
 
-import com.example.leave.entity.AccessLevel;
-import com.example.leave.entity.Account;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import com.example.leave.entity.account.AccessLevel;
+import com.example.leave.entity.account.Account;
 
 import java.util.Collection;
 

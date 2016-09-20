@@ -1,10 +1,10 @@
-package com.example.leave.endpoint;
+package com.example.leave.endpoint.account;
 
-import com.example.leave.dto.*;
-import com.example.leave.entity.AccessLevel;
-import com.example.leave.entity.Account;
+import com.example.leave.dto.account.*;
+import com.example.leave.entity.account.AccessLevel;
+import com.example.leave.entity.account.Account;
 //import com.example.leave.entity.UserData;
-import com.example.leave.manager.AccountManager;
+import com.example.leave.manager.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;

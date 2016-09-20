@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users List</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Leave Management System</h1>
+    </div>
+    <div class="content">
+        <h2>Users List</h2>
+        <form method="POST" modelattribute="listGroupDTO">
+            <table style="width:100%">
+                    <tr>
+                <th>Title</th>
+                <th>Manager</th>
+                <th>Create Date</th>
+                <th>Number of employee</th>
+            </tr>
+                <tr th:each="teamGroup : ${listGroupDTO.getTeamGroupList()}">
+                    <td th:text="${teamGroup.getTitle()}"/>
+                    <td th:text="${teamGroup.getManager().getLastname()}"/>
+                    <td th:text="${teamGroup.getCreateDate()}"/>
+                    <td th:text="${teamGroup.getNumberOfEmployee()}"/>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

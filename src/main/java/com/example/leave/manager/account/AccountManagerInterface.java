@@ -1,7 +1,7 @@
-package com.example.leave.manager;
+package com.example.leave.manager.account;
 
-import com.example.leave.entity.AccessLevel;
-import com.example.leave.entity.Account;
+import com.example.leave.entity.account.AccessLevel;
+import com.example.leave.entity.account.Account;
 
 import java.util.List;
 //import com.example.leave.entity.UserData;
