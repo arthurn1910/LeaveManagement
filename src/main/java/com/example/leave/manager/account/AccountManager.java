@@ -1,9 +1,9 @@
-package com.example.leave.manager;
+package com.example.leave.manager.account;
 
-import com.example.leave.entity.AccessLevel;
-import com.example.leave.entity.Account;
-import com.example.leave.repository.AccessLevelRepository;
-import com.example.leave.repository.AccountRepository;
+import com.example.leave.entity.account.AccessLevel;
+import com.example.leave.entity.account.Account;
+import com.example.leave.repository.account.AccessLevelRepository;
+import com.example.leave.repository.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.example.leave.dto;
+package com.example.leave.dto.account;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

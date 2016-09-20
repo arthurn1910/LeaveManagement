@@ -1,8 +1,6 @@
-package com.example.leave.repository;
+package com.example.leave.repository.account;
 
-import com.example.leave.entity.AccessLevel;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import com.example.leave.entity.account.AccessLevel;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

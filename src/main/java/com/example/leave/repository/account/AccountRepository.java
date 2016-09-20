@@ -1,11 +1,7 @@
-package com.example.leave.repository;
+package com.example.leave.repository.account;
 
-import com.example.leave.entity.Account;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import com.example.leave.entity.account.Account;
 import org.springframework.data.repository.CrudRepository;
-
-import java.util.List;
 
 /**
  * Created by Medion on 2016-09-12.

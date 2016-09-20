@@ -1,9 +1,7 @@
 package com.example.leave.controler.account.authorizated;
 
-import com.example.leave.dto.ChangePasswordDTO;
-import com.example.leave.dto.UserDTO;
-import com.example.leave.endpoint.AccountEndpoint;
-import com.example.leave.entity.Account;
+import com.example.leave.dto.account.ChangePasswordDTO;
+import com.example.leave.endpoint.account.AccountEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
