@@ -22,6 +22,9 @@ public class TeamGroupMember implements Serializable{
     @ManyToOne
     private TeamGroup teamGroup;
 
+    @Column(name = "active")
+    private Boolean active;
+
     @Column(name = "version")
     @Version
     private long version;
@@ -33,6 +36,7 @@ public class TeamGroupMember implements Serializable{
         this.employee = employee;
         this.teamGroup = teamGroup;
         this.version=0;
+        this.active=false;
     }
 
     public Long getId() {
@@ -65,5 +69,13 @@ public class TeamGroupMember implements Serializable{
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

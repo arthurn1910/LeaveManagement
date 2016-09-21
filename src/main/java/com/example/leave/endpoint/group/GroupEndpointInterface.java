@@ -12,4 +12,10 @@ public interface GroupEndpointInterface {
     void createGroup(TeamGroupDTO createGroupDTO);
 
     List<TeamGroup> getAllGroups();
+
+    void joinToGroup(TeamGroupDTO teamGroupDTO);
+
+    void getYourAccount();
+
+    void getTeamGroup(Long id);
 }
