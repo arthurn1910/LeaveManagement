@@ -27,6 +27,7 @@ public class ImportantDates {
     @Version
     private long version;
 
+
     public ImportantDates() {
     }
 
@@ -84,4 +85,6 @@ public class ImportantDates {
     public void setVersion(long version) {
         this.version = version;
     }
+
+
 }

@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Medion on 2016-09-24.
  */
 @Controller
-public class ListMemberGroup {
+public class ListMemberGroupController {
     @Autowired
     GroupEndpoint groupEndpoint;
 
