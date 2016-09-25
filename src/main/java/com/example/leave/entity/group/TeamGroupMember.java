@@ -11,6 +11,10 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "team_group_member")
+@NamedQueries({
+        @NamedQuery(name = "TeamGroupMember.findAllByTeamGroupIDAndActive",
+                query = "select t from TeamGroupMember t where active=?2 and teamGroup=?1")
+})
 public class TeamGroupMember implements Serializable{
     @Id
     @Column(name = "team_group_id")
@@ -21,6 +25,9 @@ public class TeamGroupMember implements Serializable{
     @JoinColumn(name = "id_team_group", referencedColumnName = "team_group_id", updatable=false)
     @ManyToOne
     private TeamGroup teamGroup;
+
+    @Column(name = "active")
+    private Boolean active;
 
     @Column(name = "version")
     @Version
@@ -33,6 +40,7 @@ public class TeamGroupMember implements Serializable{
         this.employee = employee;
         this.teamGroup = teamGroup;
         this.version=0;
+        this.active=false;
     }
 
     public Long getId() {
@@ -65,5 +73,13 @@ public class TeamGroupMember implements Serializable{
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

@@ -40,6 +40,11 @@ public class GroupListController {
             System.out.println("!!!!!  "+teamGroupDTO1.getNumberOfEmployee() );
         }
         listGroupDTO.setTeamGroupList(teamGroupList);
+        joinToGroup(teamGroupList.get(1));
         return "group/groupList";
+    }
+
+    private void joinToGroup(TeamGroupDTO teamGroupDTO){
+        groupEndpoint.joinToGroup(teamGroupDTO);
     }
 }
