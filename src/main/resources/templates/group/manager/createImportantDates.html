@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User Account</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Create important Dates</h1>
+    </div>
+    <div class="content">
+        <h2 th:text="'Group: '+${importantDateDTO.getTeamGroup().getGroupTitle()}"/>
+        <form method="POST" modelattribute="importantDateDTO">
+            <p th:text="'Start Date: '"/>
+            <input type="date" name="dateStart" path="dateStart"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="dateStart" /></if>
+
+            <p th:text="'End Date: '"/>
+            <input type="date" name="dateEnd" path="dateEnd"/>
+            <if test="${pageContext.request.method=='POST'}"><errors path="dateEnd" /></if>
+            <input type="submit" value="Create" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

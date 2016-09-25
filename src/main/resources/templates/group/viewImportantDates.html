@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Important Dates</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Important Dates</h1>
+    </div>
+    <div class="content">
+        <p th:text="'Group: '+${listImportantDatesDTO.getTeamGroup().getTitle()}"/>
+        <form method="POST" modelattribute="listImportantDatesDTO">
+            <table style="width:100%">
+                    <tr>
+                <th>Start Date</th>
+                <th>End Date</th>
+
+            </tr>
+                <tr th:each="teamGroupDate : ${listImportantDatesDTO.getImportantDatesList()}">
+                    <td th:text="${teamGroupDate.getDateStart()}"/>
+                    <td th:text="${teamGroupDate.getDateEnd()}"/>
+                </tr>
+                <input type="submit" value="Remove Group" />
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

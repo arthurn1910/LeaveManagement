@@ -1,6 +1,7 @@
 package com.example.leave.manager.group;
 
 import com.example.leave.entity.account.Account;
+import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 
@@ -27,4 +28,10 @@ public interface GroupManagerInterface {
     void removeMember(TeamGroupMember teamGroupMember);
 
     List<TeamGroupMember> getMemberInGroup(String titleGroup);
+
+    void createImportantDate(ImportantDates importantDates);
+
+    List<ImportantDates> getImportantDates(TeamGroup teamGroup);
+
+    void removeImportantDate(ImportantDates importantDates);
 }

@@ -1,8 +1,10 @@
 package com.example.leave.manager.group;
 
 import com.example.leave.entity.account.Account;
+import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
+import com.example.leave.repository.group.ImportantDatesRepository;
 import com.example.leave.repository.group.TeamGroupMemberRepository;
 import com.example.leave.repository.group.TeamGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class GroupManager implements GroupManagerInterface {
 
     @Autowired
     TeamGroupMemberRepository teamGroupMemberRepository;
+
+    @Autowired
+    ImportantDatesRepository importantDatesRepository;
 
     @Override
     public void createGroup(TeamGroup createGroupDTO) {
@@ -77,4 +82,22 @@ public class GroupManager implements GroupManagerInterface {
         TeamGroup teamGroup=teamGroupRepository.findOneByTitle(titleGroup);
         return teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
     }
+
+    @Override
+    public void createImportantDate(ImportantDates importantDates) {
+        importantDates.setId(5L);
+        importantDatesRepository.save(importantDates);
+    }
+
+    @Override
+    public void removeImportantDate(ImportantDates importantDates) {
+        importantDatesRepository.delete(importantDates);
+    }
+
+    @Override
+    public List<ImportantDates> getImportantDates(TeamGroup teamGroup) {
+        return importantDatesRepository.findAllByTeamGroup(teamGroup);
+    }
+
+
 }

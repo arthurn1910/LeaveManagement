@@ -1,6 +1,8 @@
 package com.example.leave.endpoint.group;
 
+import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
+import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 
@@ -29,4 +31,12 @@ public interface GroupEndpointInterface {
     List<TeamGroupMember> getMemberInGroup(String s);
 
     void removeMember(TeamGroupMember teamGroupMember);
+
+    TeamGroup getTeamGroup();
+
+    void createImportantDate(ImportantDateDTO importantDateDTO);
+
+    void removeImportantDate(ImportantDates importantDates);
+
+    List<ImportantDates> getImportantDates(TeamGroup teamGroup);
 }

@@ -33,6 +33,9 @@ public class TeamGroup implements Serializable{
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "teamGroup")
     private Collection<TeamGroupMember> teamGroupMembers = new ArrayList<>();
 
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "teamGroup")
+    private Collection<ImportantDates> importantDates = new ArrayList<>();
+
     @Column(name = "version")
     @Version
     private long version;
@@ -81,6 +84,14 @@ public class TeamGroup implements Serializable{
 
     public Date getCreateDate() {
         return createDate;
+    }
+
+    public Collection<ImportantDates> getImportantDates() {
+        return importantDates;
+    }
+
+    public void setImportantDates(Collection<ImportantDates> importantDates) {
+        this.importantDates = importantDates;
     }
 
     public void setCreateDate(Date createDate) {
