@@ -14,15 +14,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "team_group")
-/*@NamedQueries({
-        @NamedQuery(name = "Account.getNewID",
-                query = "select max(id) from Account"),
-        @NamedQuery(name = "Account.findAccountByLogin",
-                query = "select '*' from Account a where a.login=:login"),
-
-        @NamedQuery(name = "Account.edit",
-                query = "update Account a set a.name = ?1, a.lastname = ?2 where a.email = ?3")
-})*/
+@NamedQueries({
+        @NamedQuery(name = "TeamGroup.findOneByAccount",
+                query = "select t from TeamGroup t where manager=?1")
+})
 public class TeamGroup implements Serializable{
     @Id
     @Column(name = "team_group_id")

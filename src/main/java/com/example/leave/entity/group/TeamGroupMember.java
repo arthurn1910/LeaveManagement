@@ -11,6 +11,10 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "team_group_member")
+@NamedQueries({
+        @NamedQuery(name = "TeamGroupMember.findAllByTeamGroupIDAndActive",
+                query = "select t from TeamGroupMember t where active=?2 and teamGroup=?1")
+})
 public class TeamGroupMember implements Serializable{
     @Id
     @Column(name = "team_group_id")

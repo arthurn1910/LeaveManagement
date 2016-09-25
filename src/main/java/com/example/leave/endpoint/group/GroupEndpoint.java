@@ -61,4 +61,37 @@ public class GroupEndpoint implements GroupEndpointInterface {
     public void getTeamGroup(Long id) {
         this.teamGroup=groupManager.getTeamGroup(id);
     }
+
+    @Override
+    public List<TeamGroupMember> getApplicationToGroup() {
+        System.out.println("2");
+        getYourAccount();
+        System.out.println("3");
+        List<TeamGroupMember> teamGroupMemberList=groupManager.getApplicationToGroup(this.account);
+        System.out.println("8 "+teamGroupMemberList.size()+ ""+teamGroupMemberList.get(0).getEmployee().getName());
+        //TeamGroupMember a=new TeamGroupMember();
+        //a.getEmployee().getName();
+        return teamGroupMemberList;
+    }
+
+    @Override
+    public void acceptApplication(TeamGroupMember teamGroupMember) {
+       teamGroupMember.setActive(true);
+        groupManager.acceptApplication(teamGroupMember);
+    }
+
+    @Override
+    public void rejectApplication(TeamGroupMember teamGroupMember) {
+        groupManager.rejectApplication(teamGroupMember);
+    }
+
+    @Override
+    public List<TeamGroupMember> getMemberInGroup(String titleGroup) {
+        return groupManager.getMemberInGroup(titleGroup);
+    }
+
+    @Override
+    public void removeMember(TeamGroupMember teamGroupMember) {
+        groupManager.removeMember(teamGroupMember);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.leave.manager.group;
 
+import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.repository.group.TeamGroupMemberRepository;
@@ -41,5 +42,39 @@ public class GroupManager implements GroupManagerInterface {
     public void joinToGroup(TeamGroupMember teamGroupMember) {
         teamGroupMember.setId(3L);
         teamGroupMemberRepository.save(teamGroupMember);
+    }
+
+    @Override
+    public List<TeamGroupMember> getApplicationToGroup(Account account) {
+        System.out.println("4 " +account.getName());
+        TeamGroup teamGroup=teamGroupRepository.findOneByAccount(account);
+        System.out.println("5 "+ teamGroup.getId()+" "+teamGroup.getTitle());
+        List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, false);
+        System.out.println("6 "+ teamGroupMemberList.size());
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList)
+            System.out.println(teamGroupMember.getEmployee().getName());
+        System.out.println("7");
+        return teamGroupMemberList;
+    }
+
+    @Override
+    public void rejectApplication(TeamGroupMember teamGroupMember) {
+        teamGroupMemberRepository.delete(teamGroupMember);
+    }
+
+    @Override
+    public void acceptApplication(TeamGroupMember teamGroupMember) {
+        teamGroupMemberRepository.save(teamGroupMember);
+    }
+
+    @Override
+    public void removeMember(TeamGroupMember teamGroupMember) {
+        teamGroupMemberRepository.delete(teamGroupMember);
+    }
+
+    @Override
+    public List<TeamGroupMember> getMemberInGroup(String titleGroup) {
+        TeamGroup teamGroup=teamGroupRepository.findOneByTitle(titleGroup);
+        return teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
     }
 }
