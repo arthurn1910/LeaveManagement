@@ -19,7 +19,6 @@ public class ListApplicationGroupDTO {
     }
 
     public void setTeamGroupMemberList(List<TeamGroupMember> teamGroupMemberList) {
-        System.out.println("7.1 "+teamGroupMemberList.size());
         this.teamGroupMemberList = teamGroupMemberList;
     }
 }

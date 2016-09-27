@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Member Group</title>
+</head>
+<body onload="document.f.username.focus();">
+<div class="container">
+    <div class="navbar">
+        <h1>Leave Management System</h1>
+    </div>
+    <div class="content">
+        <p th:text="'Group title: ' + ${leavePlannedInGroudDTO.getTeamGroup().getTitle()} + '      ID: '+ ${leavePlannedInGroudDTO.getTeamGroup().getId()} " />
+        <form method="POST" modelattribute="listApplicationGroupDTO">
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Lastname</th>
+                    <th>Login</th>
+                    <th>Date Start</th>
+                    <th>Date End</th>
+
+                </tr>
+                <tr th:each="memberLeave : ${leavePlannedInGroudDTO.getLeaveList()}">
+                    <td th:text="${memberLeave.getAccount().getName()}"/>
+                    <td th:text="${memberLeave.getAccount().getLastname()}"/>
+                    <td th:text="${memberLeave.getAccount().getLogin()}"/>
+                    <td th:text="${memberLeave.getDateStart()}"/>
+                    <td th:text="${memberLeave.getDateEnd()}"/>
+                </tr>
+                <input type="submit" value="Create Group" />
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

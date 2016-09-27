@@ -27,16 +27,13 @@ public class EditAccountController {
     public String editAccount(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
         Account account=accountEndpoint.getYourAccount();
         accountDTO.setAccount(account);
-        System.out.println(accountDTO.getName());
         return "account/authorizated/editAccount";
     }
 
     @RequestMapping(value = "/editAccount", method = RequestMethod.POST)
     public String editAccountData(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            System.out.println("Controler register in");
             accountEndpoint.editYourAccountData(accountDTO);
-            System.out.println("Controler register out");
             return "account/index";
         } else {
             for(ObjectError a:result.getAllErrors())

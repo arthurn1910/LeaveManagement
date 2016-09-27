@@ -1,5 +1,8 @@
 package com.example.leave.entity.account;
 
+import com.example.leave.entity.group.TeamGroup;
+import com.example.leave.entity.group.TeamGroupMember;
+import com.example.leave.entity.leave.Leave;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import javax.persistence.*;
@@ -45,6 +48,12 @@ public class Account implements Serializable {
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")
     private Collection<AccessLevel> accessLevelCollection = new ArrayList<>();
 
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")
+    private Collection<Leave> leaveCollection = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "employee")
+    private Collection<TeamGroupMember> teamGroupMemberCollection = new ArrayList<>();
+
     @Column(name = "name", table = "user_data")
     private String name;
     @Column(name = "lastname", table = "user_data")
@@ -88,6 +97,26 @@ public class Account implements Serializable {
 
     public Date getStartingDate() {
         return startingDate;
+    }
+
+    public Collection<Leave> getLeaveCollection() {
+        return leaveCollection;
+    }
+
+    public void setLeaveCollection(Collection<Leave> leaveCollection) {
+        this.leaveCollection = leaveCollection;
+    }
+
+    public Collection<TeamGroupMember> getTeamGroupMemberCollection() {
+        return teamGroupMemberCollection;
+    }
+
+    public void setTeamGroupMemberCollection(Collection<TeamGroupMember> teamGroupMemberCollection) {
+        this.teamGroupMemberCollection = teamGroupMemberCollection;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public void setStartingDate(Date startingDate) {

@@ -99,7 +99,6 @@ public class AccountEndpoint implements AccountEndpointInterface {
 
     @Override
     public Account getAccount() {
-        System.out.println("Endpoint "+ account.getLogin());
         return account;
     }
 

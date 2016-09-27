@@ -24,7 +24,6 @@ public class AccountDetailsController {
         @RequestMapping(value = "/accountDetails", method = RequestMethod.GET)
         public String AccountDetails(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
             accountDTO.setAccount(accountEndpoint.getYourAccount());
-            System.out.println("!!!!!!!!!!!"+accountDTO.getName());
             return "account/authorizated/accountDetails";
         }
 }

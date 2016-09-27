@@ -5,6 +5,7 @@ import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
+import com.example.leave.entity.leave.Leave;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface GroupEndpointInterface {
 
     void rejectApplication(TeamGroupMember teamGroupMember);
 
-    List<TeamGroupMember> getMemberInGroup(String s);
+    List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup);
 
     void removeMember(TeamGroupMember teamGroupMember);
 
@@ -39,4 +40,8 @@ public interface GroupEndpointInterface {
     void removeImportantDate(ImportantDates importantDates);
 
     List<ImportantDates> getImportantDates(TeamGroup teamGroup);
+
+    List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup);
+
+    void rejectPlannedLeave(Leave leave);
 }

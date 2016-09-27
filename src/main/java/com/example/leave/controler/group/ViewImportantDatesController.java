@@ -29,7 +29,6 @@ public class ViewImportantDatesController {
         teamGroup.setId(1L);
         groupEndpoint.getTeamGroup(teamGroup.getId());
         listImportantDatesDTO.setTeamGroup(groupEndpoint.getTeamGroup());
-        System.out.print("!!!  "+listImportantDatesDTO.getTeamGroup().getTitle());
         listImportantDatesDTO.setImportantDatesList(groupEndpoint.getImportantDates(teamGroup));
         return "group/viewImportantDates";
     }

@@ -24,7 +24,7 @@ public class TeamGroup implements Serializable{
     private Long id;
     @JoinColumn(name = "id_manager", referencedColumnName = "account_id", updatable=false)
     @ManyToOne
-    private Account manager;
+    private Account account;
     @Column(name = "group_title")
     private String title;
     @Column(name = "date_create")
@@ -43,16 +43,16 @@ public class TeamGroup implements Serializable{
     public TeamGroup() {
     }
 
-    public TeamGroup(Account manager, String groupTitle, Date createDate, long version) {
-        this.manager = manager;
+    public TeamGroup(Account account, String groupTitle, Date createDate, long version) {
+        this.account = account;
         this.title = groupTitle;
         this.createDate = createDate;
         this.version = version;
     }
 
-    public TeamGroup(Long id, Account manager, String groupTitle, Date createDate, long version) {
+    public TeamGroup(Long id, Account account, String groupTitle, Date createDate, long version) {
         this.id = id;
-        this.manager = manager;
+        this.account = account;
         this.title = groupTitle;
         this.createDate = createDate;
         this.version = version;
@@ -67,11 +67,11 @@ public class TeamGroup implements Serializable{
     }
 
     public Account getManager() {
-        return manager;
+        return account;
     }
 
     public void setManager(Account manager) {
-        this.manager = manager;
+        this.account = manager;
     }
 
     public String getGroupTitle() {

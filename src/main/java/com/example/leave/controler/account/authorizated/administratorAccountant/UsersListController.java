@@ -34,9 +34,6 @@ public class UsersListController {
             userDTO.setAccount(account);
             listUserDTO.add(userDTO);
         }
-        for(UserDTO account :listUserDTO){
-            System.out.println(account.getName());
-        }
         listUsersDTO.setAccountList(listUserDTO);
         return "account/authorizated/administratorAccountant/usersList";
     }
