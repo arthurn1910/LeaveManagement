@@ -6,6 +6,7 @@ import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
+import com.example.leave.entity.leave.Leave;
 import com.example.leave.manager.group.GroupManager;
 import com.example.leave.repository.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +67,8 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Override
     public List<TeamGroupMember> getApplicationToGroup() {
-        System.out.println("2");
         getYourAccount();
-        System.out.println("3");
         List<TeamGroupMember> teamGroupMemberList=groupManager.getApplicationToGroup(this.account);
-        System.out.println("8 "+teamGroupMemberList.size()+ ""+teamGroupMemberList.get(0).getEmployee().getName());
         //TeamGroupMember a=new TeamGroupMember();
         //a.getEmployee().getName();
         return teamGroupMemberList;
@@ -88,8 +86,8 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public List<TeamGroupMember> getMemberInGroup(String titleGroup) {
-        return groupManager.getMemberInGroup(titleGroup);
+    public List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup) {
+        return groupManager.getMemberInGroup(teamGroup);
     }
 
     @Override
@@ -129,5 +127,15 @@ public class GroupEndpoint implements GroupEndpointInterface {
     @Override
     public List<ImportantDates> getImportantDates(TeamGroup teamGroup) {
         return groupManager.getImportantDates(teamGroup);
+    }
+
+    @Override
+    public List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup) {
+        return groupManager.getAllLeavePlannedInGroup(teamGroup);
+    }
+
+    @Override
+    public void rejectPlannedLeave(Leave leave) {
+        groupManager.rejectPlannedLeave(leave);
     }
 }

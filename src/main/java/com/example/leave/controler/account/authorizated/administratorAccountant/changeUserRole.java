@@ -24,10 +24,6 @@ public class changeUserRole {
     @RequestMapping(value = "/changeUserRole", method = RequestMethod.GET)
     public String change(HttpServletRequest request, @ModelAttribute(value = "changeUserRoleDTO") @Valid ChangeUserRoleDTO changeUserRoleDTO, BindingResult result) {
         changeUserRoleDTO.setRole(accountEndpoint.getUserAccount("manager"));
-        System.out.println(changeUserRoleDTO.getRoleAccountant());
-        System.out.println(changeUserRoleDTO.getRoleAdministrator());
-        System.out.println(changeUserRoleDTO.getRoleEmployee());
-        System.out.println(changeUserRoleDTO.getRoleManager());
         changeUserRoleDTO.setLogin(accountEndpoint.getAccount().getLogin());
         changeUserRoleDTO.setRole(accountEndpoint.getAccount());
         return "account/authorizated/administratorAccountant/changeUserRole";
@@ -35,17 +31,10 @@ public class changeUserRole {
 
     @RequestMapping(value = "/changeUserRole", method = RequestMethod.POST)
     public String changeUserRole(HttpServletRequest request, @ModelAttribute(value = "changeUserRoleDTO") @Valid ChangeUserRoleDTO changeUserRoleDTO, BindingResult result) {
-        System.out.println(changeUserRoleDTO.getRoleAccountant());
-        System.out.println(changeUserRoleDTO.getRoleAdministrator());
-        System.out.println(changeUserRoleDTO.getRoleEmployee());
-        System.out.println(changeUserRoleDTO.getRoleManager());
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            System.out.println("Controller 1");
             accountEndpoint.changeUserRole(changeUserRoleDTO);
-            System.out.println("Controller 2");
             return "account/index";
         }
-        System.out.println("Controller 3");
         for(ObjectError o :result.getAllErrors())
             System.out.println("!!! "+o.toString());
         return "account/authorizated/administratorAccountant/changeUserRole";

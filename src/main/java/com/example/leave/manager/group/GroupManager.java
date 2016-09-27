@@ -4,12 +4,17 @@ import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
+import com.example.leave.entity.leave.Leave;
 import com.example.leave.repository.group.ImportantDatesRepository;
 import com.example.leave.repository.group.TeamGroupMemberRepository;
 import com.example.leave.repository.group.TeamGroupRepository;
+import com.example.leave.repository.leave.LeaveRepository;
+import com.example.leave.utils.Functions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +31,12 @@ public class GroupManager implements GroupManagerInterface {
 
     @Autowired
     ImportantDatesRepository importantDatesRepository;
+
+    @Autowired
+    LeaveRepository leaveRepository;
+
+    @Autowired
+    Functions functions;
 
     @Override
     public void createGroup(TeamGroup createGroupDTO) {
@@ -51,14 +62,8 @@ public class GroupManager implements GroupManagerInterface {
 
     @Override
     public List<TeamGroupMember> getApplicationToGroup(Account account) {
-        System.out.println("4 " +account.getName());
         TeamGroup teamGroup=teamGroupRepository.findOneByAccount(account);
-        System.out.println("5 "+ teamGroup.getId()+" "+teamGroup.getTitle());
         List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, false);
-        System.out.println("6 "+ teamGroupMemberList.size());
-        for(TeamGroupMember teamGroupMember : teamGroupMemberList)
-            System.out.println(teamGroupMember.getEmployee().getName());
-        System.out.println("7");
         return teamGroupMemberList;
     }
 
@@ -78,8 +83,7 @@ public class GroupManager implements GroupManagerInterface {
     }
 
     @Override
-    public List<TeamGroupMember> getMemberInGroup(String titleGroup) {
-        TeamGroup teamGroup=teamGroupRepository.findOneByTitle(titleGroup);
+    public List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup) {
         return teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
     }
 
@@ -100,4 +104,18 @@ public class GroupManager implements GroupManagerInterface {
     }
 
 
+    @Override
+    public List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup) {
+        List<TeamGroupMember> teamGroupMemberList=getMemberInGroup(teamGroup);
+        List<Leave> leaveList=new ArrayList<>();
+        Date date=functions.removeTimeInDate(new Date());
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList)
+            leaveList.addAll(leaveRepository.findAllByAccountAndActiveAndAfterDate(teamGroupMember.getEmployee(), true, date));
+        return leaveList;
+    }
+
+    @Override
+    public void rejectPlannedLeave(Leave leave) {
+        leaveRepository.delete(leave);
+    }
 }

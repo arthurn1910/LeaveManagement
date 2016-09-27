@@ -35,10 +35,6 @@ public class GroupListController {
             teamGroupDTO.setTeamGroup(teamGroup);
             teamGroupList.add(teamGroupDTO);
         }
-        for(TeamGroupDTO teamGroupDTO1 :teamGroupList){
-            System.out.println(teamGroupDTO1.getTitle());
-            System.out.println("!!!!!  "+teamGroupDTO1.getNumberOfEmployee() );
-        }
         listGroupDTO.setTeamGroupList(teamGroupList);
         joinToGroup(teamGroupList.get(1));
         return "group/groupList";

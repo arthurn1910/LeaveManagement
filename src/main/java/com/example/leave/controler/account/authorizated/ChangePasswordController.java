@@ -30,17 +30,13 @@ public class ChangePasswordController {
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(HttpServletRequest request, @ModelAttribute(value = "changePasswordDTO") @Valid ChangePasswordDTO changePasswordDTO, BindingResult result) {
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            System.out.println("Controller 1");
             try {
                 accountEndpoint.changePassword(changePasswordDTO);
             } catch (Exception e) {
-                System.out.println("Controller error");
                 return "account/authorizated/changePassword";
             }
-            System.out.println("Controller 2");
             return "account/index";
         }
-        System.out.println("Controller 3");
         for(ObjectError o :result.getAllErrors())
             System.out.println("!!! "+o.toString());
         return "account/authorizated/changePassword";

@@ -24,15 +24,9 @@ public class ListApplicationGroupController {
 
     @RequestMapping(value = "/listofapplication", method = RequestMethod.GET)
     public String getListApplication(HttpServletRequest request, @ModelAttribute(value = "listApplicationGroupDTO") @Valid ListApplicationGroupDTO listApplicationGroupDTO, BindingResult result) {
-        System.out.println("1");
         List<TeamGroupMember> teamGroupMemberList=groupEndpoint.getApplicationToGroup();
-        System.out.println("7.0 "+teamGroupMemberList.size());
         listApplicationGroupDTO.setTeamGroupMemberList(teamGroupMemberList);
-        System.out.println("8");
-        System.out.println("9 "+listApplicationGroupDTO.getTeamGroupMemberList().size());
 
-        for(TeamGroupMember teamGroupMember :listApplicationGroupDTO.getTeamGroupMemberList())
-            System.out.println(teamGroupMember.getEmployee().getName());
         return "group/manager/listOfApplication";
     }
 
