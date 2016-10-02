@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * Created by Medion on 2016-09-12.
@@ -22,17 +23,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/account/authorizated/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ACCOUNTANT') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/account/authorizated/administratorAccountant/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ACCOUNTANT')")
-                .antMatchers("/account/home").access("hasRole('ROLE_ADMINISTRATOR', 'ROLE_ADMINISTRATOR')")
+                //.antMatchers("/account/authorizated/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ACCOUNTANT') or hasRole('ROLE_MANAGER')")
+                //.antMatchers("/account/authorizated/administratorAccountant/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ACCOUNTANT')")
+                //.antMatchers("/account/home").hasRole("ROLE_ADMINISTRATOR")
                 .anyRequest()
                 .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()
-                .logout().permitAll();
+                .logout().permitAll().and()
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Override

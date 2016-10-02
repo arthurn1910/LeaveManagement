@@ -4,7 +4,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 /**
  * Created by Medion on 2016-09-04.
@@ -13,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("name", "ja!!!!!!!!!!!");
+        System.out.println("wszedlem");
+
         try{
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = user.getUsername(); //get logged in username
+            System.out.println("!!!!! "+name);
             String role="";
             for(GrantedAuthority auth : user.getAuthorities()) {
                 role+=auth.getAuthority()+" ";
@@ -29,5 +35,10 @@ public class IndexController {
             model.addAttribute("role", "brak");
         }
         return "account/index";
+    }
+
+    @RequestMapping("/user")
+    public Principal user(Principal user) {
+        return user;
     }
 }

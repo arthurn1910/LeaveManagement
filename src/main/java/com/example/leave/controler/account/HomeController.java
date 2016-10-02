@@ -3,6 +3,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 /**
  * Created by Medion on 2016-09-04.
  */

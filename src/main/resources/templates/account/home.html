@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title th:text="${title}">Title</title>
-</head>
-<body>
-	<div class="container">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<h1> Leave Management System</h1>
-			</div>
-		</div>
-		<h1 th:text="${title}">Title</h1>
-		<div th:text="${message}">Fake content</div>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-	</div>
-</body>
-</html>
+<h1>Greeting</h1>
+<div ng-show="authenticated">
+	<p>The ID is {{controller.greeting.id}}</p>
+	<p>The content is {{controller.greeting.content}}</p>
+</div>
+<div  ng-show="!authenticated">
+	<p>Login to see your greeting</p>
+</div>
