@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 /**
  * Created by Medion on 2016-09-12.
@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
@@ -45,5 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "select login,password, active from account where active = true and confirm = true and login=?")
                 .authoritiesByUsernameQuery(
                         "select login, level from account as a INNER JOIN access_level as al on al.account_id = a.account_id where login=?");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/js/**/**");
     }
 }
