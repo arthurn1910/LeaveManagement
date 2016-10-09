@@ -1,73 +1,39 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8"/>
-    <title>Leave Management</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
-</head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Menu</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">LeaveManagement</a>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="sr-only">Menu</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">LeaveManagement</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/register">Register</a></li>
-                    <li ng-show="authenticated"><a href="" ng-click="nav.logout()">logout</a></li>
-                </ul>
-            </div>
+        </nav>
+        <div class="content">
+            <h1>' </h1>
+            <h1> Hello, this is leave management system!!! </h1>
         </div>
-    </nav>
-
-    <script src="js/login.js" type="text/javascript"></script>
-
-</body>
+        <script src="leaveManagement.js"></script>
+        <script src="../js/service/userService.js"></script>
+        <script src="../js/controller/userController.js"></script>
+    </body>
 </html>
-
-
-
-
-    <!--<body>-->
-        <!--<nav class="navbar navbar-default" role="navigation">-->
-            <!--<div class="navbar-header">-->
-                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-toggle">-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                <!--</button>-->
-                <!--<a class="navbar-brand" href="/">Leave Managment System</a>-->
-            <!--</div>-->
-            <!--<div class="collapse navbar-collapse" id="nav-toggle">-->
-                <!--<ul class="nav navbar-nav">-->
-                    <!--<li class="active"><a href="/">Home</a></li>-->
-                    <!--<li><a href="/login">Login</a></li>-->
-                <!--</ul>-->
-                <!--<form class="navbar-form navbar-right" role="search">-->
-                    <!--<input type="text" class="form-control" placeholder="Szukaj"/>-->
-                <!--</form>-->
-            <!--</div>-->
-
-        <!--</nav>-->
-
-        <!--<div class="container">-->
-            <!--<div class="navbar">-->
-                <!--<div class="navbar-inner">-->
-                    <!--<h1> Leave Management System</h1>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<h2>Hello. This is Leave Management System</h2>-->
-        <!--</div>-->
-    <!--</body>-->
-<!--</html>-->

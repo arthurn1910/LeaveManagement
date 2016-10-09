@@ -26,15 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/aaa").permitAll()
+                .antMatchers("/js/config").permitAll()
                 //.antMatchers("/account/authorizated/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ACCOUNTANT') or hasRole('ROLE_MANAGER')")
                 //.antMatchers("/account/authorizated/administratorAccountant/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ACCOUNTANT')")
                 //.antMatchers("/account/home").hasRole("ROLE_ADMINISTRATOR")
                 .anyRequest()
                 .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()
-                .logout().permitAll().and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .logout().permitAll();
     }
 
     @Override

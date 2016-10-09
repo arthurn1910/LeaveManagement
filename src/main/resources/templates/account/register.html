@@ -1,31 +1,101 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
     <head>
-        <title>Register</title>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
     </head>
-    <body onload="document.f.username.focus();">
-        <div class="container">
-            <div class="navbar">
-                <h1>Leave Management System</h1>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                        <span class="sr-only">Menu</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">LeaveManagement</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="content">
-                <h2>Create account</h2>
-                <form method="POST" modelattribute="registerDTO">
-                    <input type="text" name="login" path="login" placeholder="Login" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="login" /></if>
-                    <input type="password" name="password" path="password" placeholder="Password" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="password" /></if>
-                    <input type="password" name="confirmPassword" path="confirmPassword" placeholder="Confirm Password" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="confirmPassword" /></if>
-                    <input type="text" name="name" path="name" placeholder="Name" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
-                    <input type="text" name="lastname" path="lastname" placeholder="Lastname" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
-                    <input type="text" name="email" path="email" placeholder="Email" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
-                    <input type="submit" value="Register" />
-                </form>
-            </div>
+        </nav>
+        <div class="formcontainer">
+
+
+            <!--<form ng-submit="ctrl.create()" name="myForm" class="form-horizontal">-->
+                <!--<div class="row">-->
+                    <!--<div class="form-group col-md-12">-->
+                        <!--<label class="col-md-2 control-lable" for="file">Login</label>-->
+                        <!--<div class="col-md-7">-->
+                            <!--<input type="text" ng-model="ctrl.registerDTO.logn" name="login" class="username form-control input-sm" placeholder="Enter your login"/>-->
+                            <!--<div class="has-error" ng-show="myForm.$dirty">-->
+                                <!--<span ng-show="myForm.uname.$error.required">This is a required field</span>-->
+                                <!--<span ng-show="myForm.uname.$error.minlength">Minimum length required is 3</span>-->
+                                <!--<span ng-show="myForm.uname.$invalid">This field is invalid </span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="row">-->
+                    <!--<div class="form-actions floatRight">-->
+                        <!--<input type="submit"  value="{{'Add'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"/>-->
+                        <!--<button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
+
+            <form ng-submit="ctrl.create()" name="myForm" class="form-horizontal">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable" for="uname">Login</label>
+                        <div class="col-md-7">
+                            <input type="text" ng-model="ctrl.registerDTO.login" id="uname" class="login form-control input-sm" placeholder="Enter your name"/>
+                            <div class="has-error" ng-show="myForm.$dirty">
+                                <span ng-show="myForm.uname.$invalid">This field is invalid </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-actions floatRight">
+                        <input type="submit"  value="Add" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"/>
+                    </div>
+                </div>
+            </form>
         </div>
+
+        <script src="../js/service/userService.js"></script>
+        <script src="../js/controller/userController.js"></script>
     </body>
 </html>
+
+
+
+                <!--<h2>Create account</h2>-->
+                <!--<form method="POST" modelattribute="registerDTO">-->
+                    <!--<input type="text" name="login" path="login" placeholder="Login" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="login" /></if>-->
+                    <!--<input type="password" name="password" path="password" placeholder="Password" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="password" /></if>-->
+                    <!--<input type="password" name="confirmPassword" path="confirmPassword" placeholder="Confirm Password" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="confirmPassword" /></if>-->
+                    <!--<input type="text" name="name" path="name" placeholder="Name" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>-->
+                    <!--<input type="text" name="lastname" path="lastname" placeholder="Lastname" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>-->
+                    <!--<input type="text" name="email" path="email" placeholder="Email" />-->
+                    <!--<if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>-->
+                    <!--<input type="submit" value="Register" />-->
+                <!--</form>-->

@@ -25,6 +25,8 @@ public class RegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
+        System.out.println("Register + ");
+        System.out.println("Register + "+registerDTO.getLogin());
         if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
             accountEndpoint.registerAccount(registerDTO);
             return "account/index";

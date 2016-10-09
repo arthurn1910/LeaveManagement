@@ -14,4 +14,9 @@ public class HomeController {
     public String index(Model model) {
         return "account/home";
     }
+
+    @RequestMapping("/aaa")
+    public String aaa(Model model) {
+        return "account/aaa";
+    }
 }
