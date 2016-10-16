@@ -29,4 +29,6 @@ public interface AccountEndpointInterface {
     void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO);
 
     Account getAccount();
+
+    Boolean isAuthenticated();
 }

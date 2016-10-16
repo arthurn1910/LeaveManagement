@@ -139,4 +139,14 @@ public class AccountEndpoint implements AccountEndpointInterface {
         }
         return false;
     }
+
+    @Override
+    public Boolean isAuthenticated() {
+        try{
+            getYourAccount();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 }

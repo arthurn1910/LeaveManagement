@@ -18,20 +18,18 @@ public class RegisterController {
     @Autowired
     AccountEndpoint accountEndpoint;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
-        return "account/register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register")
     public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
-        System.out.println("Register + ");
-        System.out.println("Register + "+registerDTO.getLogin());
-        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
+        if (request.getMethod().equalsIgnoreCase("post")) {
             accountEndpoint.registerAccount(registerDTO);
             return "account/index";
         } else {
             return "account/register";
         }
+    }
+
+    @RequestMapping(value = "/r")
+    public  @ResponseBody RegisterDTO registeraUser() {
+        return new RegisterDTO();
     }
 }

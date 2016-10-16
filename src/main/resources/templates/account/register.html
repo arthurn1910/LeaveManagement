@@ -3,80 +3,57 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Leave Management</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
     </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                        <span class="sr-only">Menu</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">LeaveManagement</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/login">Login</a></li>
-                        <li><a href="/register">Register</a></li>
-                    </ul>
+    <body ng-controller="UserController">
+        <div id="container">
+            <div id="menu">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                            <span class="sr-only">Menu</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">LeaveManagement</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="login"><a href="/login">Login</a></li>
+                            <li class="register"><a href="/register">Register</a></li>
+                            <li class="logout"><a href="/logout">Sign Out</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div id="content">
+                <div class="main">
+                    <br/><br/>
+                    <form name="RegisterForm">
+                        Login:
+                        <input type="text" ng-model="registerDTO.login" /><br/>
+                        Password:
+                        <input type="text" ng-model="registerDTO.password" /><br/>
+                        Confirm password:
+                        <input type="text" ng-model="confirmPassword" /><br/>
+                        Email:
+                        <input type="text" ng-model="registerDTO.email" /><br/>
+                        Name:
+                        <input type="text" ng-model="registerDTO.name" /><br/>
+                        Lastname:
+                        <input type="text" ng-model="registerDTO.lastname" /><br/>
+                        <button ng-click="register()">Register</button><br/>
+                    </form>
+
+                    aaaa {{oi}}
                 </div>
             </div>
-        </nav>
-        <div class="formcontainer">
-
-
-            <!--<form ng-submit="ctrl.create()" name="myForm" class="form-horizontal">-->
-                <!--<div class="row">-->
-                    <!--<div class="form-group col-md-12">-->
-                        <!--<label class="col-md-2 control-lable" for="file">Login</label>-->
-                        <!--<div class="col-md-7">-->
-                            <!--<input type="text" ng-model="ctrl.registerDTO.logn" name="login" class="username form-control input-sm" placeholder="Enter your login"/>-->
-                            <!--<div class="has-error" ng-show="myForm.$dirty">-->
-                                <!--<span ng-show="myForm.uname.$error.required">This is a required field</span>-->
-                                <!--<span ng-show="myForm.uname.$error.minlength">Minimum length required is 3</span>-->
-                                <!--<span ng-show="myForm.uname.$invalid">This field is invalid </span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-
-                <!--<div class="row">-->
-                    <!--<div class="form-actions floatRight">-->
-                        <!--<input type="submit"  value="{{'Add'}}" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"/>-->
-                        <!--<button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">Reset Form</button>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</form>-->
-
-            <form ng-submit="ctrl.create()" name="myForm" class="form-horizontal">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-md-2 control-lable" for="uname">Login</label>
-                        <div class="col-md-7">
-                            <input type="text" ng-model="ctrl.registerDTO.login" id="uname" class="login form-control input-sm" placeholder="Enter your name"/>
-                            <div class="has-error" ng-show="myForm.$dirty">
-                                <span ng-show="myForm.uname.$invalid">This field is invalid </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-actions floatRight">
-                        <input type="submit"  value="Add" class="btn btn-primary btn-sm" ng-disabled="myForm.$invalid"/>
-                    </div>
-                </div>
-            </form>
         </div>
-
-        <script src="../js/service/userService.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/userController.js"></script>
     </body>
 </html>

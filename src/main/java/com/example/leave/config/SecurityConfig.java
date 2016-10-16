@@ -27,7 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/aaa").permitAll()
+                .antMatchers("/r").permitAll()
+                .antMatchers("/isAuthenticated").permitAll()
                 .antMatchers("/js/config").permitAll()
                 //.antMatchers("/account/authorizated/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ACCOUNTANT') or hasRole('ROLE_MANAGER')")
                 //.antMatchers("/account/authorizated/administratorAccountant/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ACCOUNTANT')")
@@ -35,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()
-                .logout().permitAll();
+                .logout().permitAll()
+        .and().csrf().disable();
     }
 
     @Override

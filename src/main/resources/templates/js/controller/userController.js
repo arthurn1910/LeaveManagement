@@ -3,25 +3,36 @@
  */
 'use strict';
 
-angular.module('leaveManagement').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
-    var self = this;
-    self.registerDTO={login:'12',password:'zaq12wsx',confirmPassword:'zaq12wsx',email:'saass@op.pl',name:'zxcxzcx',lastname:'zcxzcxxzc'};
-    self.reset = reset;
+angular.module('leaveManagement', []).controller('UserController', function($scope, $http) {
+    $scope.registerDTO = {
+        login:'',
+        password:'',
+        email:'',
+        name:'',
+        lastname:''
+    };
+    $scope.oi='12';
+    $scope.confirmPassword='';
 
+    $http.get('/isAuthenticated').
+        then(function(response) {
+            $scope.greeting = response.data;
 
-    function createUser(){
-        UserService.createUser(registerDTO)
-            .then(
-                function(errResponse){
-                    console.error('Error while creating User');
-                }
-            );
+            if($scope.greeting.authenticated == false){
+                $("li.login").show();
+                $("li.register").show();
+                $("li.logout").hide();
+            }
+            if($scope.greeting.authenticated == true){
+                $("li.login").hide();
+                $("li.register").hide();
+                $("li.logout").show();
+            }
+        });
+    $scope.register = function() {
+        $scope.oi='12asassa';
+        $("li.logout").hide();
     }
 
 
-    function reset(){
-        self.user={id:null,username:'',password:'',confirmPassword:'',name:'',email:'',lastname:''};
-        $scope.myForm.$setPristine(); //reset Form
-    }
-
-}]);
+});
