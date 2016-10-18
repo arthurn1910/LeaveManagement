@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "access_level")
 @NamedQuery(name = "AccessLevel.getNewAccessLevelID",
-        query = "select max(id) from AccessLevel")
+        query = "select max(id)+1 from AccessLevel")
 public class AccessLevel {
     @Id
     @Column(name = "access_level_id")

@@ -28,23 +28,63 @@
             <div id="content">
                 <div class="main">
                     <br/><br/>
-                    <form name="RegisterForm">
-                        Login:
-                        <input type="text" ng-model="registerDTO.login" /><br/>
-                        Password:
-                        <input type="text" ng-model="registerDTO.password" /><br/>
-                        Confirm password:
-                        <input type="text" ng-model="confirmPassword" /><br/>
-                        Email:
-                        <input type="text" ng-model="registerDTO.email" /><br/>
-                        Name:
-                        <input type="text" ng-model="registerDTO.name" /><br/>
-                        Lastname:
-                        <input type="text" ng-model="registerDTO.lastname" /><br/>
-                        <button ng-click="register()">Register</button><br/>
-                    </form>
+                    <form name="RegisterForm" class="css-form" novalidate="">
 
-                    aaaa {{oi}}
+                        Login:<br />
+                        <input type="text" ng-model="registerDTO.login" name="login" required="" ng-minlength="4" ng-maxlength="32"/>
+                        <br />
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.login.$touched">
+                            <div ng-show="RegisterForm.login.$error.required">Login is required</div>
+                            <div ng-show="RegisterForm.login.$error.minlength">Login must contain at least 4 characters</div>
+                            <div ng-show="RegisterForm.login.$error.maxlength">Login must contain maximum 32 characters</div>
+                        </div>
+
+                        Password:<br/>
+                        <input type="password" ng-model="registerDTO.password" name="password" required="" ng-minlength="6" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"/>
+                        <br />
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.password.$touched">
+                            <div ng-show="RegisterForm.password.$error.required">Password is required</div>
+                            <div ng-show="RegisterForm.password.$error.minlength">Password must contain at least 6 characters</div>
+                            <div ng-show="RegisterForm.password.$error.maxlength">Password must contain maximum 20 characters</div>
+                            <div ng-show="RegisterForm.password.$error.pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>
+                        </div>
+
+                        Confirm password:<br/>
+                        <input type="password" id="password_c" name="password_c" ng-model="formData.password_c" required="" valid-password-c=""/>
+                        <br/>
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.password.$touched">
+                            <div ng-show="RegisterForm.password_c.$error.required">Please confirm your password</div>
+                            <div ng-show="!RegisterForm.password_c.$error.required &amp;&amp; RegisterForm.password_c.$error.noMatch">Passwords do not match</div>
+                        </div>
+
+                        Email:<br/>
+                        <input type="email" name="email" ng-model="registerDTO.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required=""/>
+                        <br />
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.email.$touched">
+                            <div ng-show="RegisterForm.email.$error.required">Email is required</div>
+                            <div ng-show="RegisterForm.email.$error.email || RegisterForm.email.$error.pattern">Email is wrong</div>
+                        </div>
+
+                        Name:<br />
+                        <input type="text" ng-model="registerDTO.name" name="name" required="" ng-minlength="2" ng-maxlength="32"/>
+                        <br />
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.name.$touched">
+                            <div ng-show="RegisterForm.name.$error.required">Name is required</div>
+                            <div ng-show="RegisterForm.name.$error.minlength">Name must contain at least 2 characters</div>
+                            <div ng-show="RegisterForm.name.$error.maxlength">Name must contain maximum 32 characters</div>
+                        </div>
+                        Lastname:<br/>
+                        <input type="text" ng-model="registerDTO.lastname" name="lastname" required="" ng-minlength="2" ng-maxlength="32"/>
+                        <br />
+                        <div ng-show="RegisterForm.$submitted || RegisterForm.lastname.$touched">
+                            <div ng-show="RegisterForm.lastname.$error.required">Lastname is required</div>
+                            <div ng-show="RegisterForm.lastname.$error.minlength">Lastname must contain at least 2 characters</div>
+                            <div ng-show="RegisterForm.lastname.$error.maxlength">Lastname must contain maximum 32 characters</div>
+                        </div>
+
+                        <!--ng-disabled="RegisterForm.$invalid"-->
+                        <button type='button' ng-click="register()" >Register</button><br/>
+                    </form>
                 </div>
             </div>
         </div>

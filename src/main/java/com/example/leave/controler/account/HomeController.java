@@ -27,17 +27,8 @@ public class HomeController {
         return "account/home";
     }
 
-    @RequestMapping("/aaa")
-    public String aaa(Model model) {
-        return "account/aaa";
-    }
-
     @RequestMapping("/isAuthenticated")
     public  @ResponseBody AuthDTO isAuthenticated()   {
-        //
-        // Code processing the input parameters
-        //
-        System.out.println("111wszed");
         AuthDTO authDTO=new AuthDTO();
         if(accountEndpoint.isAuthenticated()) {
             authDTO.setLogin(accountEndpoint.getAccount().getLogin());
@@ -60,9 +51,6 @@ public class HomeController {
                 }
             }
         }
-
-        System.out.println("!!!!!!!! "+authDTO.getLogin());
-        System.out.println("!!!!!!!! "+authDTO.getAuthenticated());
         return authDTO;
     }
 }
