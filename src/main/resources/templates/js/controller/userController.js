@@ -5,6 +5,7 @@
 
 angular.module('leaveManagement', [])
     .controller('UserController', function($scope, $http, $location, $window) {
+        $scope.messageRegister = "";
         $scope.registerDTO = {
             login:'',
             password:'',
@@ -12,6 +13,7 @@ angular.module('leaveManagement', [])
             name:'',
             lastname:''
         };
+        $scope.confirmPassword="";
 
         $http.get('/isAuthenticated').
             then(function(response) {
@@ -21,33 +23,46 @@ angular.module('leaveManagement', [])
                     $("li.login").show();
                     $("li.register").show();
                     $("li.logout").hide();
+                    $("li.settings").hide();
+                    $("li.changePassword").hide();
                 }
                 if($scope.greeting.authenticated == true){
+                    console.log($scope.greeting.login)
+                    console.log("!!! " + $scope.greeting.login);
                     $("li.login").hide();
                     $("li.register").hide();
+                    $("li.settings").show();
                     $("li.logout").show();
+                    $("li.changePassword").show();
                 }
             });
         $scope.register = function() {
             $http.post('/register',$scope.registerDTO)
                 .then(function successCallback(response) {
-                    // $window.location.href = 'account/index';
-                    // $location.path( "/login" );
-                    $window.location.href = '/';
-                }, function errorCallback(response) {
-                    $scope.loginTaken='That login is taken. Try another.'
+                    $scope.messageRegister = "Account was created.";
+                    $("form.css-form").hide();
+                }, function errorCallback(error) {
+                    $scope.messageRegister = "Error.";
                 });
 
 
         }
-}).directive('validPasswordC', function () {
+
+}).directive('compareTo', function () {
     return {
-        require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function (viewValue, $scope) {
-                var noMatch = viewValue != scope.RegisterForm.password.$viewValue
-                ctrl.$setValidity('noMatch', !noMatch)
-            })
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
         }
     }
 });
