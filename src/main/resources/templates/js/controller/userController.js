@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('leaveManagement', [])
-    .controller('UserController', function($scope, $http, $location, $window) {
+    .controller('UserController', function($scope, $http) {
         $scope.messageRegister = "";
         $scope.registerDTO = {
             login:'',
@@ -14,7 +14,6 @@ angular.module('leaveManagement', [])
             lastname:''
         };
         $scope.confirmPassword="";
-
         $http.get('/isAuthenticated').
             then(function(response) {
                 $scope.greeting = response.data;
@@ -48,7 +47,34 @@ angular.module('leaveManagement', [])
 
         }
 
-}).directive('compareTo', function () {
+})
+.controller('basicsCtrl', function ($scope,$http,$window) {
+    $scope.accessLevel=function(data){
+        var accesslevel ='';
+        for (var level in data) {
+            accesslevel += data[level] + " ";
+        }
+        return accesslevel;
+    }
+
+    $http.get('/usersListData')
+        .then(function(response) {
+            $scope.rowCollection = response.data;
+        });
+
+    $scope.changeUserActiveStatus = function(data) {
+        var account =[data.login, data.version];
+        $http.post('/changeUserActiveStatus',account);
+        $window.location.reload();
+    }
+
+    $scope.changeUserConfirmStatus = function(data) {
+        var account =[data.login, data.version];
+        $http.post('/changeUserConfirmStatus',account);
+        $window.location.reload();
+    }
+})
+    .directive('compareTo', function () {
     return {
         require: "ngModel",
         scope: {

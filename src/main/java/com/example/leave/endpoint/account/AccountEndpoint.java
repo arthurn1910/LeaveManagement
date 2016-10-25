@@ -149,4 +149,29 @@ public class AccountEndpoint implements AccountEndpointInterface {
             return false;
         }
     }
+
+    @Override
+    public void changeUserActiveStatus(String login, Long version) {
+        Account account=getUserAccount(login);
+        if(Long.compare(account.getVersion(), version)==0) {
+            account.setActive(!account.getActive());
+            accountManager.editAccount(account);
+        }else{
+            //accountendpoint exception optimistic lock
+        }
+        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
+
+    }
+
+    @Override
+    public void changeUserConfirmStatus(String login, long version) {
+        Account account=getUserAccount(login);
+        if(Long.compare(account.getVersion(), version)==0) {
+            account.setConfirm(true);
+            accountManager.editAccount(account);
+        }else{
+            //accountendpoint exception optimistic lock
+        }
+        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
+    }
 }

@@ -26,9 +26,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("usersList").permitAll()
+                .antMatchers("/usersListData").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/r").permitAll()
                 .antMatchers("/isAuthenticated").permitAll()
+                .antMatchers("/changeUserActiveStatus").permitAll()
+                .antMatchers("/changeUserConfirmStatus").permitAll()
                 .anyRequest()
                 .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()

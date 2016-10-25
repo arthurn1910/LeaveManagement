@@ -31,4 +31,8 @@ public interface AccountEndpointInterface {
     Account getAccount();
 
     Boolean isAuthenticated();
+
+    void changeUserActiveStatus(String login, Long version);
+
+    void changeUserConfirmStatus(String login, long version);
 }
