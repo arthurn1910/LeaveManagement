@@ -51,13 +51,13 @@ public class UsersListController {
     @RequestMapping("/changeUserActiveStatus")
     public @ResponseBody String changeUserActiveStatus(@RequestBody List<String> account) {
         accountEndpoint.changeUserActiveStatus(account.get(0), Long.parseLong(account.get(1)));
-        return "account/authorizated/administratorAccountant/usersList";
+        return "true";
     }
 
     @RequestMapping("/changeUserConfirmStatus")
     public @ResponseBody String changeUserConfirmStatus(@RequestBody List<String> account) {
         accountEndpoint.changeUserConfirmStatus(account.get(0), Long.parseLong(account.get(1)));
-        return "account/authorizated/administratorAccountant/usersList";
+        return "true";
     }
 
 

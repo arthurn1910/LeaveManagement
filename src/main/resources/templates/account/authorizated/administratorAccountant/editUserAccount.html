@@ -10,36 +10,36 @@
     </div>
     <div class="content">
         <h2>Edit User Account</h2>
-        <form method="POST" modelattribute="accountDTO">
-            <p th:text="'Name: ' + ${accountDTO.getName()} + '!'" />
-            <input type="text" name="name" path="name" placeholder="New Name" />
-            <if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
-            <p th:text="'Lastname: ' + ${accountDTO.getLastname()} + '!'" />
-            <input type="text" name="lastname" path="lastname" placeholder="New Lastname" />
-            <if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
-            <p th:text="'Email: ' + ${accountDTO.getEmail()} + '!'" />
-            <input type="text" name="email" path="email" placeholder="New Email" />
-            <if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
-            <p th:text="'Active: ' + ${accountDTO.getActive()} + '!'" />
-            <!--<input type="text" name="active" path="active" />-->
-            <!--<if test="${pageContext.request.method=='POST'}"><errors path="active" /></if>-->
-            <p th:text="'Confirm: ' + ${accountDTO.getConfirm()} + '!'" />
-            <!--<input type="text" name="confirm" path="confirm" placeholder="Confirm" />-->
-            <!--<if test="${pageContext.request.method=='POST'}"><errors path="confirm" /></if>-->
-            <p th:text="'Starting Date: ' + ${accountDTO.getStartingDate()} + '!'" />
-            <!--<input type="datetime-local" name="startingDate" path="startingDate"/>-->
-            <!--<if test="${pageContext.request.method=='POST'}"><errors path="startingDate" /></if>-->
-            <p th:text="'Expirience Year: ' + ${accountDTO.getExpirienceYear()} + '!'" />
-            <input type="number" step="1" name="expirienceYear" path="expirienceYear"/>
-            <if test="${pageContext.request.method=='POST'}"><errors path="expirienceYear" /></if>
-            <p th:text="'Expirience Month: ' + ${accountDTO.getExpirienceMonth()} + '!'" />
-            <input type="number" step="1" name="expirienceMonth" path="expirienceMonth" />
-            <if test="${pageContext.request.method=='POST'}"><errors path="expirienceMonth" /></if>
-            <p th:text="'Expirience Day: ' + ${accountDTO.getExpirienceDay()} + '!'" />
-            <input type="number" step="1" name="expirienceDay" path="expirienceDay"/>
-            <if test="${pageContext.request.method=='POST'}"><errors path="expirienceDay" /></if>
-            <input type="submit" value="Edit" />
-        </form>
+        <!--<form method="POST" modelattribute="accountDTO">-->
+            <!--<p th:text="'Name: ' + ${accountDTO.getName()} + '!'" />-->
+            <!--<input type="text" name="name" path="name" placeholder="New Name" />-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>-->
+            <!--<p th:text="'Lastname: ' + ${accountDTO.getLastname()} + '!'" />-->
+            <!--<input type="text" name="lastname" path="lastname" placeholder="New Lastname" />-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>-->
+            <!--<p th:text="'Email: ' + ${accountDTO.getEmail()} + '!'" />-->
+            <!--<input type="text" name="email" path="email" placeholder="New Email" />-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>-->
+            <!--<p th:text="'Active: ' + ${accountDTO.getActive()} + '!'" />-->
+            <!--&lt;!&ndash;<input type="text" name="active" path="active" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<if test="${pageContext.request.method=='POST'}"><errors path="active" /></if>&ndash;&gt;-->
+            <!--<p th:text="'Confirm: ' + ${accountDTO.getConfirm()} + '!'" />-->
+            <!--&lt;!&ndash;<input type="text" name="confirm" path="confirm" placeholder="Confirm" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<if test="${pageContext.request.method=='POST'}"><errors path="confirm" /></if>&ndash;&gt;-->
+            <!--<p th:text="'Starting Date: ' + ${accountDTO.getStartingDate()} + '!'" />-->
+            <!--&lt;!&ndash;<input type="datetime-local" name="startingDate" path="startingDate"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<if test="${pageContext.request.method=='POST'}"><errors path="startingDate" /></if>&ndash;&gt;-->
+            <!--<p th:text="'Expirience Year: ' + ${accountDTO.getExpirienceYear()} + '!'" />-->
+            <!--<input type="number" step="1" name="expirienceYear" path="expirienceYear"/>-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="expirienceYear" /></if>-->
+            <!--<p th:text="'Expirience Month: ' + ${accountDTO.getExpirienceMonth()} + '!'" />-->
+            <!--<input type="number" step="1" name="expirienceMonth" path="expirienceMonth" />-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="expirienceMonth" /></if>-->
+            <!--<p th:text="'Expirience Day: ' + ${accountDTO.getExpirienceDay()} + '!'" />-->
+            <!--<input type="number" step="1" name="expirienceDay" path="expirienceDay"/>-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="expirienceDay" /></if>-->
+            <!--<input type="submit" value="Edit" />-->
+        <!--</form>-->
     </div>
 </div>
 </body>

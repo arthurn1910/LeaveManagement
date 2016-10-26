@@ -24,7 +24,7 @@ public interface AccountEndpointInterface {
 
     void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
 
-    void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO);
+    void changeUserPassword(String login, String newPassword);
 
     void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO);
 
@@ -35,4 +35,8 @@ public interface AccountEndpointInterface {
     void changeUserActiveStatus(String login, Long version);
 
     void changeUserConfirmStatus(String login, long version);
+
+    void setAccountToEdit(String login);
+
+    Account getAccountToEdit();
 }

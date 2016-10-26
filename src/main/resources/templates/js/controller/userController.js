@@ -48,7 +48,7 @@ angular.module('leaveManagement', [])
         }
 
 })
-.controller('basicsCtrl', function ($scope,$http,$window) {
+.controller('usersListController', function ($scope,$http,$window, $location) {
     $scope.accessLevel=function(data){
         var accesslevel ='';
         for (var level in data) {
@@ -57,38 +57,82 @@ angular.module('leaveManagement', [])
         return accesslevel;
     }
 
-    $http.get('/usersListData')
-        .then(function(response) {
-            $scope.rowCollection = response.data;
-        });
+    $scope.getUsersList = function(){
+        $http.get('/usersListData')
+            .then(function(response) {
+                $scope.rowCollection = response.data;
+            });
+    }
 
     $scope.changeUserActiveStatus = function(data) {
         var account =[data.login, data.version];
-        $http.post('/changeUserActiveStatus',account);
-        $window.location.reload();
+        $http.post('/changeUserActiveStatus',account).then(function(response) {
+            $scope.getUsersList();
+        });
+
     }
 
     $scope.changeUserConfirmStatus = function(data) {
         var account =[data.login, data.version];
         $http.post('/changeUserConfirmStatus',account);
-        $window.location.reload();
     }
+
+    $scope.changeUserPassword = function(data) {
+        $http.post('/changeUserPassword',data.login).success(function(response) {
+            console.log(response);
+            $window.location.href=response;
+        }).error(function(){
+            console.log("error");
+        });
+    }
+
+    $scope.changeUserData = function(data) {
+        $http.post('/editUserAccount',data.login).success(function(response) {
+            console.log(response);
+            $window.location.href=response;
+        }).error(function(){
+            console.log("error");
+        });
+    }
+
+    $scope.changeUserRole = function(data) {
+        $http.post('/changeUserRole',data.login).success(function(response) {
+            $window.location.href='/editUserAccount';
+        }).error(function(){
+            console.log("error");
+        });
+    }
+
+    $scope.getUsersList();
 })
-    .directive('compareTo', function () {
-    return {
-        require: "ngModel",
-        scope: {
-            otherModelValue: "=compareTo"
-        },
-        link: function(scope, element, attributes, ngModel) {
 
-            ngModel.$validators.compareTo = function(modelValue) {
-                return modelValue == scope.otherModelValue;
-            };
-
-            scope.$watch("otherModelValue", function() {
-                ngModel.$validate();
-            });
-        }
+.controller('changeUserPasswordController', function ($scope,$http) {
+    $scope.getUserAccount = function() {
+        $http.get('/getUserAccount').success(function(response) {
+            console.log("! "+response.login);
+            $scope.userAccount=response;
+        }).error(function(){
+            console.log("error");
+        });
     }
+    $scope.getUserAccount();
+
+})
+.directive('compareTo', function () {
+return {
+    require: "ngModel",
+    scope: {
+        otherModelValue: "=compareTo"
+    },
+    link: function(scope, element, attributes, ngModel) {
+
+        ngModel.$validators.compareTo = function(modelValue) {
+            return modelValue == scope.otherModelValue;
+        };
+
+        scope.$watch("otherModelValue", function() {
+            ngModel.$validate();
+        });
+    }
+}
 });

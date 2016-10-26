@@ -3,13 +3,12 @@ package com.example.leave.controler.account.authorizated.administratorAccountant
 import com.example.leave.dto.account.UserDTO;
 import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.entity.account.Account;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -22,21 +21,32 @@ public class EditUserAccountController {
     @Autowired
     AccountEndpoint accountEndpoint;
 
+    @RequestMapping(value = "/editUserAccount", method = RequestMethod.POST)
+    public @ResponseBody String editUserAccountPost(@RequestBody String login) {
+        accountEndpoint.setAccountToEdit(login);
+        return JSONParser.quote("/editUserAccount");
+    }
+
     @RequestMapping(value = "/editUserAccount", method = RequestMethod.GET)
-    public String editUserAccount(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
-        Account account=accountEndpoint.getUserAccount("manager");
-        accountDTO.setAccount(account);
+    public String editUserAccountGet() {
         return "account/authorizated/administratorAccountant/editUserAccount";
     }
 
-    @RequestMapping(value = "/editUserAccount", method = RequestMethod.POST)
-    public String editUserAccountData(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
-        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            accountEndpoint.editUserAccount(accountDTO);
-            return "account/index";
-        }
-        for(ObjectError a:result.getAllErrors())
-            System.out.println(a.toString());
-        return "account/authorizated/administratorAccountant/editUserAccount";
+    @RequestMapping("/getUserAccount")
+    public @ResponseBody UserDTO editUserAccount() {
+        UserDTO userDTO=new UserDTO();
+        userDTO.setAccount(accountEndpoint.getAccountToEdit());
+        return userDTO;
     }
+
+//    @RequestMapping(value = "/editUserAccount", method = RequestMethod.POST)
+//    public String editUserAccountData(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
+//        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
+//            accountEndpoint.editUserAccount(accountDTO);
+//            return "account/index";
+//        }
+//        for(ObjectError a:result.getAllErrors())
+//            System.out.println(a.toString());
+//        return "account/authorizated/administratorAccountant/editUserAccount";
+//    }
 }

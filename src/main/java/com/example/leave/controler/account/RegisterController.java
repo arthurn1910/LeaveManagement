@@ -19,10 +19,7 @@ public class RegisterController {
     AccountEndpoint accountEndpoint;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUserGet(@RequestBody RegisterDTO registerDTO) {
-        System.out.println("register");
-        System.out.println("register "+registerDTO.getLogin());
-
+    public String registerUserPost(@RequestBody RegisterDTO registerDTO) {
         try {
             accountEndpoint.registerAccount(registerDTO);
             return "account/index";
@@ -32,7 +29,7 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerUserPost() {
+    public String registerUserGet() {
         return "account/register";
     }
 

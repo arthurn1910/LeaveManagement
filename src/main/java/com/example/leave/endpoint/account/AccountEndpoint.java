@@ -21,6 +21,7 @@ import java.util.List;
 public class AccountEndpoint implements AccountEndpointInterface {
 
     private Account account;
+    private Account accountToEdit;
     private AccessLevel accessLevel;
 
     public AccountEndpoint() {
@@ -92,9 +93,14 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO) {
-        account.setPassword(changeUserPasswordDTO.getNewPassword());
-        accountManager.changePassword(account);
+    public void changeUserPassword(String login, String newPassword) {
+        if(login.equals(accountToEdit.getLogin())){
+            accountToEdit.setPassword(newPassword);
+            accountManager.changePassword(account);
+        } else{
+            System.out.println("Exception changeUserPassword");
+        }
+
     }
 
     @Override
@@ -173,5 +179,16 @@ public class AccountEndpoint implements AccountEndpointInterface {
             //accountendpoint exception optimistic lock
         }
         System.out.println("Attenthion!! accountendpoint exception optimistic lock");
+    }
+
+    @Override
+    public void setAccountToEdit(String login) {
+        accountToEdit=null;
+        accountToEdit=getUserAccount(login);
+    }
+
+    @Override
+    public Account getAccountToEdit() {
+        return accountToEdit;
     }
 }

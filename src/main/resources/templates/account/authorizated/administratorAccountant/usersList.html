@@ -41,7 +41,7 @@
     </div>
 
 
-    <div ng-controller="basicsCtrl" id="content">
+    <div ng-controller="usersListController" id="content">
         <br/>
         <h1> User List: </h1>
         <table  st-table="rowCollection" class="table table-striped">
@@ -83,13 +83,13 @@
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-info">
+                        <button type="button" ng-click="changeUserPassword(row)" class="btn btn-sm btn-info">
                             Password
                         </button>
-                        <button type="button" class="btn btn-sm btn-info">
+                        <button type="button" ng-click="changeUserData(row)" class="btn btn-sm btn-info">
                             Data User
                         </button>
-                        <button type="button" class="btn btn-sm btn-info">
+                        <button type="button" ng-click="changeUserRole(row)" class="btn btn-sm btn-info">
                             Role
                         </button>
                     </td>
