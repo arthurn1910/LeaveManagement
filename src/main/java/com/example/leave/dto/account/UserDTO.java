@@ -2,6 +2,8 @@ package com.example.leave.dto.account;
 
 import com.example.leave.entity.account.AccessLevel;
 import com.example.leave.entity.account.Account;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -10,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Medion on 2016-09-17.
@@ -20,27 +23,21 @@ public class UserDTO {
     private String login;
     private Boolean active;
     private Boolean confirm;
-    @NotNull
-    @NotEmpty
-    @Size(min=2)
     private String name;
-    @NotNull
-    @NotEmpty
-    @Size(min=2)
     private String lastname;
-    @NotNull
-    @NotEmpty
-    @Email
-    @Size(min=1)
     private String email;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date startingDate;
     private int expirienceYear;
     private int expirienceMonth;
     private int expirienceDay;
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createDate;
-    private Collection<AccessLevel> accessLevelCollection = new ArrayList<>();
+    private List<String> accessLevel;
+    private Long version;
 
     public UserDTO() {
+        accessLevel=new ArrayList<>();
     }
 
     public void setAccount(Account account) {
@@ -56,7 +53,8 @@ public class UserDTO {
         this.expirienceMonth = account.getExpirienceMonth();
         this.expirienceDay = account.getExpirienceDay();
         this.createDate = account.getCreateDate();
-        this.accessLevelCollection = account.getAccessLevelCollection();
+        setAccessLevel(account.getAccessLevelCollection());
+        this.version=account.getVersion();
     }
 
     public Long getId() {
@@ -155,18 +153,44 @@ public class UserDTO {
         this.createDate = createDate;
     }
 
-    public Collection<AccessLevel> getAccessLevelCollection() {
-        return accessLevelCollection;
+    public List<String> getAccessLevel() {
+        return accessLevel;
     }
 
-    public void setAccessLevelCollection(Collection<AccessLevel> accessLevelCollection) {
-        this.accessLevelCollection = accessLevelCollection;
-    }
-
-    public String getRoles(){
-        String roles="";
+    public void setAccessLevel(Collection<AccessLevel> accessLevelCollection) {
         for(AccessLevel accessLevel : accessLevelCollection)
-            roles+=accessLevel.getLevel()+" ";
-        return roles;
+            this.accessLevel.add(accessLevel.getLevel().substring(5));
+    }
+
+    public void setAccessLevel(List<String> accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", active=" + active +
+                ", confirm=" + confirm +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", startingDate=" + startingDate +
+                ", expirienceYear=" + expirienceYear +
+                ", expirienceMonth=" + expirienceMonth +
+                ", expirienceDay=" + expirienceDay +
+                ", createDate=" + createDate +
+                ", accessLevelCollection=" + accessLevel +
+                ", version=" + version +
+                '}';
     }
 }

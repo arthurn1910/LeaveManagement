@@ -5,13 +5,18 @@ import com.example.leave.entity.account.AccessLevel;
 import com.example.leave.entity.account.Account;
 //import com.example.leave.entity.UserData;
 import com.example.leave.manager.account.AccountManager;
+import org.hibernate.annotations.Proxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +26,7 @@ import java.util.List;
 public class AccountEndpoint implements AccountEndpointInterface {
 
     private Account account;
+    private Account accountToEdit;
     private AccessLevel accessLevel;
 
     public AccountEndpoint() {
@@ -61,17 +67,26 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void editUserAccount(UserDTO accountDTO) {
-        this.account.setEmail(accountDTO.getEmail());
-        this.account.setName(accountDTO.getName());
-        this.account.setLastName(accountDTO.getLastname());
-        this.account.setActive(account.getActive());//accountDTO.getActive());*******************
-        this.account.setConfirm(account.getConfirm());//accountDTO.getConfirm());*****************
-        this.account.setExpirienceDay(accountDTO.getExpirienceDay());
-        this.account.setExpirienceMonth(accountDTO.getExpirienceMonth());
-        this.account.setExpirienceYear(accountDTO.getExpirienceYear());
-        this.account.setStartingDate(account.getStartingDate());
-        accountManager.editAccount(account);
+    public void editUserAccount(List<String> data) {
+        if(data.get(0).equals(accountToEdit.getLogin())) {
+            this.accountToEdit.setEmail(data.get(3));
+            this.accountToEdit.setName(data.get(1));
+            this.accountToEdit.setLastName(data.get(2));
+            this.accountToEdit.setExpirienceDay(Integer.parseInt(data.get(7)));
+            this.accountToEdit.setExpirienceMonth(Integer.parseInt(data.get(6)));
+            this.accountToEdit.setExpirienceYear(Integer.parseInt(data.get(5)));
+            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            Date startingDate= null;
+            try {
+                startingDate = df.parse(data.get(4));
+            } catch (ParseException e) {
+                System.out.println("Exception parsing string to date");
+            }
+            this.accountToEdit.setStartingDate(startingDate);
+        } else{
+            System.out.println("Exception editUserAccount ");
+        }
+        accountManager.editAccount(accountToEdit);
     }
 
     @Override
@@ -92,9 +107,16 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO) {
-        account.setPassword(changeUserPasswordDTO.getNewPassword());
-        accountManager.changePassword(account);
+    public void changeUserPassword(String login, String newPassword) {
+        if(login.equals(accountToEdit.getLogin())){
+            System.out.println("1");
+            accountToEdit.setPassword(newPassword);
+            accountManager.changePassword(accountToEdit);
+        } else{
+            System.out.println("2");
+            System.out.println("Exception changeUserPassword");
+        }
+
     }
 
     @Override
@@ -138,5 +160,51 @@ public class AccountEndpoint implements AccountEndpointInterface {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean isAuthenticated() {
+        try{
+            getYourAccount();
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public void changeUserActiveStatus(String login, Long version) {
+        Account account=getUserAccount(login);
+        if(Long.compare(account.getVersion(), version)==0) {
+            account.setActive(!account.getActive());
+            accountManager.editAccount(account);
+        }else{
+            //accountendpoint exception optimistic lock
+        }
+        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
+
+    }
+
+    @Override
+    public void changeUserConfirmStatus(String login, long version) {
+        Account account=getUserAccount(login);
+        if(Long.compare(account.getVersion(), version)==0) {
+            account.setConfirm(true);
+            accountManager.editAccount(account);
+        }else{
+            //accountendpoint exception optimistic lock
+        }
+        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
+    }
+
+    @Override
+    public void setAccountToEdit(String login) {
+        accountToEdit=null;
+        accountToEdit=getUserAccount(login);
+    }
+
+    @Override
+    public Account getAccountToEdit() {
+        return accountToEdit;
     }
 }

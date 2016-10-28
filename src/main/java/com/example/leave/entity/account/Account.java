@@ -3,6 +3,7 @@ package com.example.leave.entity.account;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ import java.util.*;
 @SecondaryTable(name="user_data")
 @NamedQueries({
         @NamedQuery(name = "Account.getNewID",
-                query = "select max(id) from Account"),
+                query = "select max(id)+1 from Account"),
         @NamedQuery(name = "Account.findAccountByLogin",
                 query = "select '*' from Account a where a.login=:login"),
 
@@ -45,7 +46,7 @@ public class Account implements Serializable {
     @Column(name = "version", table = "user_data")
     private long versionUserData;
 
-    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.EAGER, mappedBy = "account")
     private Collection<AccessLevel> accessLevelCollection = new ArrayList<>();
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")

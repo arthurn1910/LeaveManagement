@@ -10,7 +10,13 @@ import org.springframework.web.servlet.config.annotation.*;
 public class MvcConfig  extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        if(!registry.hasMappingForPattern("/css/*")){
+            registry.addResourceHandler("/css/*").addResourceLocations("classpath:/templates/css/");
+        }
+        if(!registry.hasMappingForPattern("/js/**")){
+            registry.addResourceHandler("/js/**").addResourceLocations("classpath:/templates/js/");
+        }
+
     }
 
     @Override

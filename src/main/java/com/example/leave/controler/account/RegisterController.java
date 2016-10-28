@@ -1,13 +1,13 @@
 package com.example.leave.controler.account;
 import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.dto.account.RegisterDTO;
+import org.apache.catalina.connector.Response;
+import org.apache.tomcat.jni.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 /**
  * Created by Medion on 2016-09-04.
@@ -18,18 +18,19 @@ public class RegisterController {
     @Autowired
     AccountEndpoint accountEndpoint;
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
-        return "account/register";
-    }
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerUser(HttpServletRequest request, @ModelAttribute(value = "registerDTO") @Valid RegisterDTO registerDTO, BindingResult result) {
-        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
+    public String registerUserPost(@RequestBody RegisterDTO registerDTO) {
+        try {
             accountEndpoint.registerAccount(registerDTO);
             return "account/index";
-        } else {
+        } catch(Exception e){
             return "account/register";
         }
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerUserGet() {
+        return "account/register";
+    }
+
 }

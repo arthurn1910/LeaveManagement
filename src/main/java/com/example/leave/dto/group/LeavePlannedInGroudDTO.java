@@ -2,8 +2,6 @@ package com.example.leave.dto.group;
 
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.leave.Leave;
-import com.sun.xml.internal.bind.v2.model.core.LeafInfo;
-
 import java.util.List;
 
 /**

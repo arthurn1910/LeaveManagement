@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -22,17 +23,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("usersList").permitAll()
+                .antMatchers("/usersListData").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers("/account/authorizated/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_EMPLOYEE') or hasRole('ROLE_ACCOUNTANT') or hasRole('ROLE_MANAGER')")
-                .antMatchers("/account/authorizated/administratorAccountant/*").access("hasRole('ROLE_ADMINISTRATOR') or hasRole('ROLE_ACCOUNTANT')")
-                .antMatchers("/account/home").access("hasRole('ROLE_ADMINISTRATOR', 'ROLE_ADMINISTRATOR')")
+                .antMatchers("/getUserAccount").permitAll()
+//                .antMatchers("/isAuthenticated").permitAll()
+//                .antMatchers("/saveUserAccount").permitAll()
+                .antMatchers("/changeUserActiveStatus").permitAll()
+                .antMatchers("/changeUserConfirmStatus").permitAll()
                 .anyRequest()
                 .authenticated().and().formLogin()
                 .loginPage("/login").failureUrl("/login?error").permitAll().and()
-                .logout().permitAll();
+                .logout().permitAll()
+        .and().csrf().disable();
     }
 
     @Override
@@ -43,5 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "select login,password, active from account where active = true and confirm = true and login=?")
                 .authoritiesByUsernameQuery(
                         "select login, level from account as a INNER JOIN access_level as al on al.account_id = a.account_id where login=?");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/js/**/**");
     }
 }

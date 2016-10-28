@@ -18,15 +18,25 @@ public interface AccountEndpointInterface {
 
     void editYourAccountData(UserDTO userDto);
 
-    void editUserAccount(UserDTO userDto);
+    void editUserAccount(List<String> data);
 
     List<Account> getUsers();
 
     void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
 
-    void changeUserPassword(ChangeUserPasswordDTO changeUserPasswordDTO);
+    void changeUserPassword(String login, String newPassword);
 
     void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO);
 
     Account getAccount();
+
+    Boolean isAuthenticated();
+
+    void changeUserActiveStatus(String login, Long version);
+
+    void changeUserConfirmStatus(String login, long version);
+
+    void setAccountToEdit(String login);
+
+    Account getAccountToEdit();
 }

@@ -11,31 +11,12 @@ import javax.validation.constraints.Size;
  */
 
 public class RegisterDTO {
-    @NotEmpty
-    @Size(min=3, max=20)
-    private String login;
 
-    @NotNull
-    @NotEmpty
-    @Size(min=6, max=20)
-    private String password;
-    private String confirmPassword;
-
-    @NotNull
-    @NotEmpty
-    @Email
-    @Size(min=1)
-    private String email;
-
-    @NotNull
-    @NotEmpty
-    @Size(min=2)
-    private String name;
-
-    @NotNull
-    @NotEmpty
-    @Size(min=2)
-    private String lastname;
+    private String login="";
+    private String password="";
+    private String email="";
+    private String name="";
+    private String lastname="";
 
     public String getLogin() {
         return login;
@@ -50,17 +31,7 @@ public class RegisterDTO {
     }
 
     public void setPassword(String password) {
-        if(password.equals(this.confirmPassword))
-            this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirm_password) {
-            this.confirmPassword = confirm_password;
-
+        this.password = password;
     }
 
     public String getEmail() {

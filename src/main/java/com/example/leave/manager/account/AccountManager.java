@@ -25,8 +25,8 @@ public class AccountManager implements AccountManagerInterface {
     @Override
     @Transactional
     public void registerAccount(Account account, AccessLevel accessLevel){
-        account.setId(accountRepository.getNewID()+1);
-        accessLevel.setId(accessLevelRepository.getNewAccessLevelID()+1);
+        account.setId(accountRepository.getNewID());
+        accessLevel.setId(accessLevelRepository.getNewAccessLevelID());
         accountRepository.save(account);
         accessLevel.setAccount(account);
         accessLevelRepository.save(accessLevel);
