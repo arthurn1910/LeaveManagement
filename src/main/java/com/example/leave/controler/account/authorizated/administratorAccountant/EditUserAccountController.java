@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Medion on 2016-09-17.
@@ -39,14 +40,11 @@ public class EditUserAccountController {
         return userDTO;
     }
 
-//    @RequestMapping(value = "/editUserAccount", method = RequestMethod.POST)
-//    public String editUserAccountData(HttpServletRequest request, @ModelAttribute(value = "accountDTO") @Valid UserDTO accountDTO, BindingResult result) {
-//        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-//            accountEndpoint.editUserAccount(accountDTO);
-//            return "account/index";
-//        }
-//        for(ObjectError a:result.getAllErrors())
-//            System.out.println(a.toString());
-//        return "account/authorizated/administratorAccountant/editUserAccount";
-//    }
+    @RequestMapping(value = "/saveUserAccount", method = RequestMethod.POST)
+    public @ResponseBody String editUserAccountData( @RequestBody List<String> data) {
+        System.out.println("@@ "+ data.toString());
+        System.out.println("@@ "+ data.get(5)+" "+ data.get(6)+" "+ data.get(7));
+        accountEndpoint.editUserAccount(data);
+        return JSONParser.quote("User account changed!");
+    }
 }

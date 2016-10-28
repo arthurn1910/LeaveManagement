@@ -18,7 +18,7 @@ public interface AccountEndpointInterface {
 
     void editYourAccountData(UserDTO userDto);
 
-    void editUserAccount(UserDTO userDto);
+    void editUserAccount(List<String> data);
 
     List<Account> getUsers();
 

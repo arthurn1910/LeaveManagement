@@ -3,6 +3,7 @@ package com.example.leave.entity.account;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import javax.persistence.*;
@@ -45,7 +46,7 @@ public class Account implements Serializable {
     @Column(name = "version", table = "user_data")
     private long versionUserData;
 
-    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.EAGER, mappedBy = "account")
     private Collection<AccessLevel> accessLevelCollection = new ArrayList<>();
 
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "account")

@@ -82,7 +82,7 @@ angular.module('leaveManagement', [])
             console.log(response);
             $window.location.href=response;
         }).error(function(){
-            console.log("error");
+            console.log("error changeUserPassword");
         });
     }
 
@@ -91,33 +91,111 @@ angular.module('leaveManagement', [])
             console.log(response);
             $window.location.href=response;
         }).error(function(){
-            console.log("error");
+            console.log("error changeUserData");
         });
     }
 
     $scope.changeUserRole = function(data) {
         $http.post('/changeUserRole',data.login).success(function(response) {
-            $window.location.href='/editUserAccount';
+            $window.location.href=response;
         }).error(function(){
-            console.log("error");
+            console.log("error changeUserRole");
         });
     }
 
     $scope.getUsersList();
 })
 
-.controller('changeUserPasswordController', function ($scope,$http) {
+.controller('changeUserPasswordController', function ($scope,$http,$window) {
+    $scope.password="";
     $scope.getUserAccount = function() {
-        $http.get('/getUserAccount').success(function(response) {
-            console.log("! "+response.login);
-            $scope.userAccount=response;
+        $http.get('/getUserAccount').success(function (response) {
+            console.log("! " + response.login);
+            $scope.userAccount = response;
+        }).error(function () {
+            console.log("error");
+        });
+    }
+    $scope.saveUserPassword = function() {
+        var data=[$scope.userAccount.login, $scope.password]
+        $http.post('/saveUserPassword', data).success(function(response) {
+            $scope.message=response;
         }).error(function(){
             console.log("error");
         });
     }
+
+    $scope.return = function() {
+        $window.location.href="/usersList";
+    }
+
     $scope.getUserAccount();
 
 })
+    .controller('changeUserDataController', function ($scope,$http,$window) {
+        $scope.yearCount=60;
+        $scope.monthCount=12;
+        $scope.dayCount=30;
+
+        var year = [];
+        var month = [];
+        var day = [];
+        for(var i=0 ;i<60;i++) {
+            year[i] = {
+                id: i,
+                name: i,
+                selected: false
+            };
+            if (i <= 30) {
+                day[i] = {
+                    id: i,
+                    name: i,
+                    selected: false
+                };
+                if (i <= 12) {
+                    month[i] = {
+                        id: i,
+                        name: i,
+                        selected: false
+                    };
+                }
+            }
+        }
+        $scope.setSelectBox= function(){
+            console.log($scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected);
+            $scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected=true;
+            console.log($scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected);
+        }
+        $scope.modelExpirience={year,month,day}
+        $scope.getUserAccount = function() {
+            $http.get('/getUserAccount').success(function (response) {
+                console.log("! " + response.login);
+                $scope.userAccount = response;
+                $scope.userAccount.startingDate=new Date($scope.userAccount.startingDate);
+                $scope.setSelectBox();
+
+            }).error(function () {
+                console.log("error");
+            });
+        }
+        $scope.saveUserAccount = function() {
+            var data=[$scope.userAccount.login, $scope.userAccount.name,$scope.userAccount.lastname
+                ,$scope.userAccount.email,$scope.userAccount.startingDate, $scope.userAccount.expirienceYear
+                , $scope.userAccount.expirienceMonth, $scope.userAccount.expirienceDay]
+            $http.post('/saveUserAccount', data).success(function(response) {
+                $scope.message=response;
+            }).error(function(){
+                console.log("error");
+            });
+        }
+
+        $scope.return = function() {
+            $window.location.href="/usersList";
+        }
+
+        $scope.getUserAccount();
+
+    })
 .directive('compareTo', function () {
 return {
     require: "ngModel",

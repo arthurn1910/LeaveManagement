@@ -2,6 +2,7 @@ package com.example.leave.controler.account.authorizated.administratorAccountant
 
 import com.example.leave.endpoint.account.AccountEndpoint;
 import jdk.nashorn.internal.parser.JSONParser;
+import org.hibernate.annotations.Proxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,14 +23,14 @@ public class changeUserPasswordController {
     @RequestMapping(value = "/changeUserPassword", method = RequestMethod.POST)
     public @ResponseBody String changeUserPasswordGet(@RequestBody String login) {
         accountEndpoint.setAccountToEdit(login);
-//        System.out.println("*** "+accountEndpoint.getAccountToEdit());
         return JSONParser.quote("/changeUserPassword");
     }
 
     @RequestMapping(value = "/saveUserPassword", method = RequestMethod.POST)
     public @ResponseBody String saveUserPassword(@RequestBody List<String> data) {
+        System.out.println(data.get(0)+" "+ data.get(1));
         accountEndpoint.changeUserPassword(data.get(0), data.get(1));
-        return JSONParser.quote("/usersList");
+        return JSONParser.quote("Password was changed!");
     }
 
     @RequestMapping(value = "/changeUserPassword", method = RequestMethod.GET)

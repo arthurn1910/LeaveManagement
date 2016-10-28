@@ -1,5 +1,7 @@
 package com.example.leave.entity.account;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 
 /**

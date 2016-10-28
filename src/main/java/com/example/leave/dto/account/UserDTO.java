@@ -3,6 +3,7 @@ package com.example.leave.dto.account;
 import com.example.leave.entity.account.AccessLevel;
 import com.example.leave.entity.account.Account;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
