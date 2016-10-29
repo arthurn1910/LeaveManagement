@@ -15,9 +15,11 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by Medion on 2016-09-13.
@@ -125,32 +127,16 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO) {
-        changeUserRoleDTO.setRoleManager(true);
-        if(changeUserRoleDTO.getRoleAccountant()!=checkRole("ROLE_ACCOUNTANT")){
-            if(changeUserRoleDTO.getRoleAccountant()==true)
-                accountManager.addRoleToUser("ROLE_ACCOUNTANT",account);
-            else
-                accountManager.removeRoleFromUser("ROLE_ACCOUNTANT",account);
+    public void changeUserRole(List<String> changeUserRole) {
+        if(changeUserRole.get(0).equals(accountToEdit.getLogin())) {
+            System.out.println("changeUserRole.get(2) "+changeUserRole.get(2));
+            if(changeUserRole.get(2).equals("activate")){
+                accountManager.addRoleToUser("ROLE_"+changeUserRole.get(1), accountToEdit);
+            }else if(changeUserRole.get(2).equals("deactivate")) {
+                accountManager.removeRoleFromUser("ROLE_"+changeUserRole.get(1), accountToEdit);
+            }
         }
-        if(changeUserRoleDTO.getRoleAdministrator()!=checkRole("ROLE_ADMINISTRATOR")){
-            if(changeUserRoleDTO.getRoleAdministrator()==true)
-                accountManager.addRoleToUser("ROLE_ADMINISTRATOR",account);
-            else
-                accountManager.removeRoleFromUser("ROLE_ADMINISTRATOR",account);
-        }
-        if(changeUserRoleDTO.getRoleEmployee()!=checkRole("ROLE_EMPLOYEE")){
-            if(changeUserRoleDTO.getRoleEmployee()==true)
-                accountManager.addRoleToUser("ROLE_EMPLOYEE",account);
-            else
-                accountManager.removeRoleFromUser("ROLE_EMPLOYEE",account);
-        }
-        if(changeUserRoleDTO.getRoleManager()!=checkRole("ROLE_MANAGER")){
-            if(changeUserRoleDTO.getRoleManager()==true)
-                accountManager.addRoleToUser("ROLE_MANAGER",account);
-            else
-                accountManager.removeRoleFromUser("ROLE_MANAGER",account);
-        }
+
     }
 
     private Boolean checkRole(String role){
@@ -206,5 +192,18 @@ public class AccountEndpoint implements AccountEndpointInterface {
     @Override
     public Account getAccountToEdit() {
         return accountToEdit;
+    }
+
+    @Override
+    public List<String> getUserRoleToEdit() {
+        accountToEdit=getUserAccount(accountToEdit.getLogin());
+        List<String> userRole = new ArrayList<>();
+        userRole.add(accountToEdit.getLogin());
+        for( AccessLevel accessLevel :accountToEdit.getAccessLevelCollection()){
+            if(accessLevel.getActive()){
+                userRole.add(accessLevel.getLevel());
+            }
+        }
+        return userRole;
     }
 }
