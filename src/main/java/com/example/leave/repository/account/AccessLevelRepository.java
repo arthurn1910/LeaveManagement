@@ -1,6 +1,8 @@
 package com.example.leave.repository.account;
 
 import com.example.leave.entity.account.AccessLevel;
+import com.example.leave.entity.account.Account;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,7 +12,9 @@ import java.util.List;
  */
 public interface AccessLevelRepository extends CrudRepository<AccessLevel, Long> {
     List<AccessLevel> findByLevel(String level);
-
+    List<AccessLevel> findByLevelAndAccount(String level, Account account);
     Long getNewAccessLevelID();
 
+    @Modifying
+    void removeLevel(Long id);
 }

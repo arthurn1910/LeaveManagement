@@ -26,7 +26,7 @@ public interface AccountEndpointInterface {
 
     void changeUserPassword(String login, String newPassword);
 
-    void changeUserRole(ChangeUserRoleDTO changeUserRoleDTO);
+    void changeUserRole(List<String> changeUserRole);
 
     Account getAccount();
 
@@ -39,4 +39,6 @@ public interface AccountEndpointInterface {
     void setAccountToEdit(String login);
 
     Account getAccountToEdit();
+
+    List<String> getUserRoleToEdit();
 }

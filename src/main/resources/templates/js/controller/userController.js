@@ -133,10 +133,6 @@ angular.module('leaveManagement', [])
 
 })
     .controller('changeUserDataController', function ($scope,$http,$window) {
-        $scope.yearCount=60;
-        $scope.monthCount=12;
-        $scope.dayCount=30;
-
         var year = [];
         var month = [];
         var day = [];
@@ -169,10 +165,10 @@ angular.module('leaveManagement', [])
         $scope.modelExpirience={year,month,day}
         $scope.getUserAccount = function() {
             $http.get('/getUserAccount').success(function (response) {
-                console.log("! " + response.login);
                 $scope.userAccount = response;
                 $scope.userAccount.startingDate=new Date($scope.userAccount.startingDate);
                 $scope.setSelectBox();
+                $scope.startingDate=$scope.userAccount.startingDate;
 
             }).error(function () {
                 console.log("error");
@@ -192,6 +188,49 @@ angular.module('leaveManagement', [])
         $scope.return = function() {
             $window.location.href="/usersList";
         }
+
+        $scope.getUserAccount();
+
+    })
+    .controller('changeUserRoleController', function ($scope,$http,$window) {
+        $scope.roleCollection=[{name:"ADMINISTRATOR", active:false},{name:"EMPLOYEE", active:false},
+            {name:"MANAGER", active:false},{name:"ACCOUNTANT", active:false}];
+        $scope.return = function() {
+            $window.location.href="/usersList";
+        };
+        $scope.setUserRole = function() {
+            for(var i=0;i<$scope.roleCollection.length;i++){
+                $scope.roleCollection[i].active=false;
+            }
+            for(var i=1; i<$scope.userRole.length;i++){
+                var role=$scope.userRole[i];
+                if(role=="ROLE_ADMINISTRATOR")
+                    $scope.roleCollection[0].active=true;
+                else if(role=="ROLE_MANAGER")
+                    $scope.roleCollection[2].active=true;
+                else if(role=="ROLE_EMPLOYEE")
+                    $scope.roleCollection[1].active=true;
+                else if(role=="ROLE_ACCOUNTANT")
+                    $scope.roleCollection[3].active=true;
+            }
+        };
+        $scope.getUserAccount = function() {
+            $http.get('/getUserRole').success(function (response) {
+                $scope.userRole = response;
+                console.log("response "+response.toString())
+                $scope.setUserRole();
+            }).error(function () {
+                console.log("error");
+            });
+        };
+        $scope.changeRole = function(roleName, status) {
+            var data=[$scope.userRole[0], roleName, status];
+            $http.post('/setUserRole',data).success(function (response) {
+                $scope.getUserAccount();
+            }).error(function () {
+                console.log("error");
+            });
+        };
 
         $scope.getUserAccount();
 

@@ -9,8 +9,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "access_level")
-@NamedQuery(name = "AccessLevel.getNewAccessLevelID",
-        query = "select max(id)+1 from AccessLevel")
+@NamedQueries({
+        @NamedQuery(name = "AccessLevel.getNewAccessLevelID",
+                query = "select max(id)+1 from AccessLevel"),
+        @NamedQuery(name = "AccessLevel.removeLevel",
+                query = "delete from AccessLevel al where al.id=?1")
+})
 public class AccessLevel {
     @Id
     @Column(name = "access_level_id")

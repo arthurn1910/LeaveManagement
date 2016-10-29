@@ -59,17 +59,33 @@ public class AccountManager implements AccountManagerInterface {
     @Override
     @Transactional
     public void addRoleToUser(String role, Account account) {
-        AccessLevel accessLevel=new AccessLevel(role, true, account);
-        accessLevel.setId(2L);
-        accessLevelRepository.save(accessLevel);
+        Account accountTmp = accountRepository.findByLogin(account.getLogin());
+        if(accessLevelRepository.findByLevelAndAccount(role, accountTmp).size()==0) {
+            AccessLevel accessLevel = new AccessLevel(role, true, accountTmp);
+            accessLevel.setId(accessLevelRepository.getNewAccessLevelID());
+            accessLevelRepository.save(accessLevel);
+        } else{
+            System.out.println("Exception addRoleToUser");
+        }
+
     }
 
     @Override
     @Transactional
     public void removeRoleFromUser(String role, Account account) {
-        Collection<AccessLevel> accessLevelCollection=account.getAccessLevelCollection();
-        for(AccessLevel accessLevel : accessLevelCollection)
-            if(accessLevel.getLevel().equals(role))
-                accessLevelRepository.delete(accessLevel);
+        Account accountTmp = accountRepository.findByLogin(account.getLogin());
+        System.out.println("REmove ");
+        List<AccessLevel> accessLevelList=accessLevelRepository.findByLevelAndAccount(role, accountTmp);
+        System.out.println("REmove "+accessLevelList.toString());
+        System.out.println("REmove "+ accountTmp.getLogin());
+        if(accessLevelList.size()!=0) {
+            System.out.println("REmove wszedl");
+            for (AccessLevel accessLevel : accessLevelList) {
+                System.out.println("REmove accessLevel" + accessLevel.getLevel()+ " id "+accessLevel.getId());
+                accessLevelRepository.removeLevel(accessLevel.getId());
+            }
+        } else{
+            System.out.println("Exception addRoleToUser");
+        }
     }
 }
