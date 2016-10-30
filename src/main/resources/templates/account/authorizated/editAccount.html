@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-	<title>Edit Account</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-	<div class="navbar">
-		<h1>Leave Management System</h1>
-	</div>
-	<div class="content">
-		<h2>Edit Account</h2>
-		<form method="POST" modelattribute="accountDTO">
-			<p th:text="'Name: ' + ${accountDTO.getName()} + '!'" />
-			<input type="text" name="name" path="name" placeholder="New Name" />
-			<if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
-			<p th:text="'Lastname: ' + ${accountDTO.getLastname()} + '!'" />
-			<input type="text" name="lastname" path="lastname" placeholder="New Lastname" />
-			<if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
-			<p th:text="'Email: ' + ${accountDTO.getEmail()} + '!'" />
-			<input type="text" name="email" path="email" placeholder="New Email" />
-			<if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
-			<input type="submit" value="Edit" />
-		</form>
-	</div>
-</div>
-</body>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Leave Management</title>
+	</head>
+	<body >
+		<div id="container">
+			<div ng-controller="UserController" id="menu">
+				<ng-include src="'/menu'"></ng-include>
+			</div>
+
+			<div ng-controller="changeDataController" id="content">
+				<br/><h2>Edit Account</h2>
+				<br/>
+				<p>{{message}}</p>
+				<br/>
+				<form name="changeAccountForm" class="css-form" novalidate="true">
+					<div class="form-group">
+						<label>Name</label>
+						<input type="text" name="name" class="form-control" ng-model="account.name" required="true" minlength="2" maxlength="32"/>
+						<div ng-messages="changeAccountForm.name.$error">
+							<div ng-messages-include="messages.html"></div>
+						</div>
+						<label>Lastname</label>
+						<input type="text" name="lastname" class="form-control" ng-model="account.lastname" required="true" minlength="2" maxlength="32"/>
+						<div ng-messages="changeAccountForm.lastname.$error">
+							<div ng-messages-include="messages.html"></div>
+						</div>
+						<label>Email</label>
+						<input type="email" name="email" class="form-control" ng-model="account.email" required="true" minlength="2" maxlength="32"/>
+						<div ng-messages="changeAccountForm.email.$error">
+							<div ng-messages-include="messages.html"></div>
+						</div>
+					</div>
+					<button type='button' ng-disabled="changeAccountForm.$invalid" ng-click="saveAccount()" >Save</button>
+				</form>
+			</div>
+		</div>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+		<script src="../js/config/jquery-3.1.1.js"></script>
+		<script src="../js/config/bootstrap.min.js"></script>
+		<script src="../js/config/angular.min.js"></script>
+		<script src="../js/app/leaveManagement.js"></script>
+		<script src="../js/controller/userController.js"></script>
+		<link rel="stylesheet" href="../../../css/style.css"/>
+		<link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+	</body>
 </html>
