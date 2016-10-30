@@ -61,10 +61,10 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void editYourAccountData(UserDTO AccountDTO) {
-        this.account.setEmail(AccountDTO.getEmail());
-        this.account.setName(AccountDTO.getName());
-        this.account.setLastName(AccountDTO.getLastname());
+    public void editYourAccountData(List<String> accountData) {
+        this.account.setEmail(accountData.get(2));
+        this.account.setName(accountData.get(0));
+        this.account.setLastName(accountData.get(1));
         accountManager.editAccount(account);
     }
 
@@ -98,10 +98,10 @@ public class AccountEndpoint implements AccountEndpointInterface {
     }
 
     @Override
-    public void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception {
-        String password = new Md5PasswordEncoder().encodePassword(changePasswordDTO.getActualPassword(),null);
-        if(this.account.getPassword().equals(password)) {
-            account.setPassword(changePasswordDTO.getNewPassword());
+    public void changePassword(List<String> password) throws Exception {
+        String actualPassword = new Md5PasswordEncoder().encodePassword(password.get(0),null);
+        if(actualPassword.equals(account.getPassword())) {
+            account.setPassword(password.get(1));
             accountManager.changePassword(account);
         } else {
             throw new Exception();
@@ -119,11 +119,6 @@ public class AccountEndpoint implements AccountEndpointInterface {
             System.out.println("Exception changeUserPassword");
         }
 
-    }
-
-    @Override
-    public Account getAccount() {
-        return account;
     }
 
     @Override

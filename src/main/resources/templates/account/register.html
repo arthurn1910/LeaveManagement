@@ -4,28 +4,10 @@
         <meta charset="UTF-8"/>
         <title>Leave Management</title>
     </head>
-    <body ng-controller="UserController">
+    <body>
         <div id="container">
-            <div id="menu">
-                <nav class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                            <span class="sr-only">Menu</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/">LeaveManagement</a>
-                    </div>
-                    <div id="navbar" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="login"><a href="/login">Login</a></li>
-                            <li class="register"><a href="/register">Register</a></li>
-                            <li class="logout"><a href="/logout">Sign Out</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <div id="content">
+            <ng-include src="'/menu'"></ng-include>
+            <div id="content" ng-controller="RegisterController">
                 <div class="main">
                     <br/><br/>
                     <H3>{{messageRegister}}</H3>
@@ -77,8 +59,7 @@
                             </div>
                         </div>
 
-                        <!--&lt;!&ndash;ng-disabled="RegisterForm.$invalid"&ndash;&gt;-->
-                        <!--<button type='button' ng-click="register()" >Register</button><br/>-->
+                        <button type='button' ng-disabled="RegisterForm.$invalid" ng-click="register()" >Register</button><br/>
                     </form>
                 </div>
             </div>

@@ -1,26 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
 <head>
-    <title>Edit Account</title>
+    <meta charset="UTF-8"/>
+    <title>Leave Management</title>
 </head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Leave Management System</h1>
-    </div>
-    <div class="content">
-        <h2>Account Details</h2>
-        <form method="POST" modelattribute="accountDTO">
-            <p th:text="'Name: ' + ${accountDTO.getName()}"/>
-            <p th:text="'Lastname: ' + ${accountDTO.getLastname()}"/>
-            <p th:text="'Login: ' + ${accountDTO.getLogin()}"/>
-            <p th:text="'Email: ' + ${accountDTO.getEmail()}"/>
-            <p th:text="'Starting date : ' + ${accountDTO.getStartingDate()}"/>
-            <p th:text="'Create date : ' + ${accountDTO.getCreateDate()}"/>
-            <p th:text="'Expirience: ' + ${accountDTO.getExpirienceYear()}+' Year '+ ${accountDTO.getExpirienceMonth()}+' Month '+ ${accountDTO.getExpirienceDay()}+' Day '"/>
-            <p th:text="'Roles: ' + ${accountDTO.getRoles()}"/>
+<body >
+<div id="container">
+    <ng-include src="'/menu'"></ng-include>
+
+    <div ng-controller="userAccountController" id="content">
+        <br/>
+        <h1> Account Details: </h1>
+
+        <form name="detailsAccountForm" class="css-form" novalidate="true">
+            <div class="form-group">
+                <label>Name:</label> {{account.name}}<br/>
+                <label>Lastname:</label> {{account.lastname}}<br/>
+                <label>Email:</label> {{account.email}}<br/>
+                <label>Access Level:</label> {{accessLevel(account.accessLevel)}}<br/>
+                <label>Starting date:</label> {{account.startingDate}}<br/>
+                <label>Expirience:</label> {{account.expirienceYear}} yers {{account.expirienceMonth}} months {{account.expirienceDay}} days<br/>
+            </div>
         </form>
+        <button type="button" ng-click="change()" class="btn btn-sm btn-info">Edit</button>
     </div>
+
 </div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+<script src="../js/config/jquery-3.1.1.js"></script>
+<script src="../js/config/bootstrap.min.js"></script>
+<script src="../js/config/angular.min.js"></script>
+<script src="../js/app/leaveManagement.js"></script>
+<script src="../js/controller/userController.js"></script>
+<link rel="stylesheet" href="../../../css/style.css"/>
+<link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
 </body>
 </html>

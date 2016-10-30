@@ -16,19 +16,17 @@ public interface AccountEndpointInterface {
 
     Account getUserAccount(String login);
 
-    void editYourAccountData(UserDTO userDto);
+    void editYourAccountData(List<String> accountData);
 
     void editUserAccount(List<String> data);
 
     List<Account> getUsers();
 
-    void changePassword(ChangePasswordDTO changePasswordDTO) throws Exception;
+    void changePassword(List<String> password) throws Exception;
 
     void changeUserPassword(String login, String newPassword);
 
     void changeUserRole(List<String> changeUserRole);
-
-    Account getAccount();
 
     Boolean isAuthenticated();
 

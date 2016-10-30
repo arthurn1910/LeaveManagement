@@ -5,6 +5,29 @@
 
 angular.module('leaveManagement', [])
     .controller('UserController', function($scope, $http) {
+        $scope.isAuthenticated = function() {
+            $http.get('/isAuthenticated').then(function(response) {
+                $scope.greeting = response.data;
+                if($scope.greeting.authenticated == false){
+                    $("li.login").show();
+                    $("li.register").show();
+                    $("li.logout").hide();
+                    $("li.settings").hide();
+                    $("li.administration").hide();
+                }
+                if($scope.greeting.authenticated == true){
+                    $("li.login").hide();
+                    $("li.register").hide();
+                    $("li.settings").show();
+                    $("li.logout").show();
+                    $("li.administration").show();
+                }
+            });
+        }
+        $scope.isAuthenticated();
+
+})
+    .controller('RegisterController', function($scope, $http) {
         $scope.messageRegister = "";
         $scope.registerDTO = {
             login:'',
@@ -14,27 +37,6 @@ angular.module('leaveManagement', [])
             lastname:''
         };
         $scope.confirmPassword="";
-        $http.get('/isAuthenticated').
-            then(function(response) {
-                $scope.greeting = response.data;
-
-                if($scope.greeting.authenticated == false){
-                    $("li.login").show();
-                    $("li.register").show();
-                    $("li.logout").hide();
-                    $("li.settings").hide();
-                    $("li.changePassword").hide();
-                }
-                if($scope.greeting.authenticated == true){
-                    console.log($scope.greeting.login)
-                    console.log("!!! " + $scope.greeting.login);
-                    $("li.login").hide();
-                    $("li.register").hide();
-                    $("li.settings").show();
-                    $("li.logout").show();
-                    $("li.changePassword").show();
-                }
-            });
         $scope.register = function() {
             $http.post('/register',$scope.registerDTO)
                 .then(function successCallback(response) {
@@ -43,95 +45,147 @@ angular.module('leaveManagement', [])
                 }, function errorCallback(error) {
                     $scope.messageRegister = "Error.";
                 });
-
-
         }
-
 })
-.controller('usersListController', function ($scope,$http,$window, $location) {
-    $scope.accessLevel=function(data){
-        var accesslevel ='';
-        for (var level in data) {
-            accesslevel += data[level] + " ";
+    .controller('usersListController', function ($scope,$http,$window, $location) {
+        $scope.accessLevel=function(data){
+            var accesslevel ='';
+            for (var level in data) {
+                accesslevel += data[level] + " ";
+            }
+            return accesslevel;
         }
-        return accesslevel;
-    }
-
-    $scope.getUsersList = function(){
-        $http.get('/usersListData')
-            .then(function(response) {
-                $scope.rowCollection = response.data;
+    $scope.messageRegister = "";
+    $scope.registerDTO = {
+        login:'',
+        password:'',
+        email:'',
+        name:'',
+        lastname:''
+    };
+    $scope.confirmPassword="";
+    $scope.register = function() {
+        $http.post('/register',$scope.registerDTO)
+            .then(function successCallback(response) {
+                $scope.messageRegister = "Account was created.";
+                $("form.css-form").hide();
+            }, function errorCallback(error) {
+                $scope.messageRegister = "Error.";
             });
     }
+        $scope.getUsersList = function(){
+            $http.get('/usersListData')
+                .then(function(response) {
+                    $scope.rowCollection = response.data;
+                });
+        }
 
-    $scope.changeUserActiveStatus = function(data) {
-        var account =[data.login, data.version];
-        $http.post('/changeUserActiveStatus',account).then(function(response) {
-            $scope.getUsersList();
-        });
+        $scope.changeUserActiveStatus = function(data) {
+            var account =[data.login, data.version];
+            $http.post('/changeUserActiveStatus',account).then(function(response) {
+                $scope.getUsersList();
+            });
 
-    }
+        }
 
-    $scope.changeUserConfirmStatus = function(data) {
-        var account =[data.login, data.version];
-        $http.post('/changeUserConfirmStatus',account);
-    }
+        $scope.changeUserConfirmStatus = function(data) {
+            var account =[data.login, data.version];
+            $http.post('/changeUserConfirmStatus',account);
+        }
 
-    $scope.changeUserPassword = function(data) {
-        $http.post('/changeUserPassword',data.login).success(function(response) {
-            console.log(response);
-            $window.location.href=response;
-        }).error(function(){
-            console.log("error changeUserPassword");
-        });
-    }
+        $scope.changeUserPassword = function(data) {
+            $http.post('/changeUserPassword',data.login).success(function(response) {
+                $window.location.href=response;
+            }).error(function(){
+                console.log("error changeUserPassword");
+            });
+        }
 
-    $scope.changeUserData = function(data) {
-        $http.post('/editUserAccount',data.login).success(function(response) {
-            console.log(response);
-            $window.location.href=response;
-        }).error(function(){
-            console.log("error changeUserData");
-        });
-    }
+        $scope.changeUserData = function(data) {
+            $http.post('/editUserAccount',data.login).success(function(response) {
+                $window.location.href=response;
+            }).error(function(){
+                console.log("error changeUserData");
+            });
+        }
 
-    $scope.changeUserRole = function(data) {
-        $http.post('/changeUserRole',data.login).success(function(response) {
-            $window.location.href=response;
-        }).error(function(){
-            console.log("error changeUserRole");
-        });
-    }
-
-    $scope.getUsersList();
-})
-
-.controller('changeUserPasswordController', function ($scope,$http,$window) {
-    $scope.password="";
-    $scope.getUserAccount = function() {
-        $http.get('/getUserAccount').success(function (response) {
-            console.log("! " + response.login);
-            $scope.userAccount = response;
-        }).error(function () {
-            console.log("error");
-        });
-    }
-    $scope.saveUserPassword = function() {
-        var data=[$scope.userAccount.login, $scope.password]
-        $http.post('/saveUserPassword', data).success(function(response) {
-            $scope.message=response;
-        }).error(function(){
-            console.log("error");
-        });
-    }
-
-    $scope.return = function() {
-        $window.location.href="/usersList";
-    }
-
-    $scope.getUserAccount();
+        $scope.changeUserRole = function(data) {
+            $http.post('/changeUserRole',data.login).success(function(response) {
+                $window.location.href=response;
+            }).error(function(){
+                console.log("error changeUserRole");
+            });
+        }
+        $scope.getUsersList();
 
 })
+    .controller('userAccountController', function ($scope,$http,$window, $location) {
+        $scope.accessLevel=function(data){
+            var accesslevel ='';
+            for (var level in data) {
+                accesslevel += data[level] + " ";
+            }
+            return accesslevel;
+        }
+
+        $scope.accountDetails = function(){
+            $http.get('/getAccountDetails')
+                .then(function(response) {
+                    $scope.account = response.data;
+                });
+        }
+
+        $scope.change = function() {
+            $http.get('/editAccountGet').success(function(response) {
+                $window.location.href=response;
+            }).error(function(){
+                console.log("error changeUserData");
+            });
+        }
+
+        $scope.accountDetails();
+})
+    .controller('changeUserPasswordController', function ($scope,$http,$window) {
+        $scope.password="";
+        $scope.getUserAccount = function() {
+            $http.get('/getUserAccount').success(function (response) {
+                $scope.userAccount = response;
+            }).error(function () {
+                console.log("error");
+            });
+        }
+        $scope.saveUserPassword = function() {
+            var data=[$scope.userAccount.login, $scope.password]
+            $http.post('/saveUserPassword', data).success(function(response) {
+                $scope.message=response;
+            }).error(function(){
+                console.log("error");
+            });
+        }
+
+        $scope.return = function() {
+            $window.location.href="/usersList";
+        }
+
+        $scope.getUserAccount();
+})
+    .controller('changePasswordController', function ($scope,$http,$window) {
+        $scope.actualPassword="";
+        $scope.newPassword="";
+        $scope.confirmPassword="";
+        $scope.savePassword = function() {
+            var data=[$scope.actualPassword, $scope.newPassword]
+            $http.post('/savePassword', data).success(function(response) {
+                $scope.message=response;
+                $scope.actualPassword="";
+                $scope.newPassword="";
+                $scope.confirmPassword="";
+            }).error(function(){
+                console.log("error");
+            });
+        }
+
+    })
     .controller('changeUserDataController', function ($scope,$http,$window) {
         var year = [];
         var month = [];
@@ -158,9 +212,7 @@ angular.module('leaveManagement', [])
             }
         }
         $scope.setSelectBox= function(){
-            console.log($scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected);
             $scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected=true;
-            console.log($scope.modelExpirience.day[$scope.userAccount.expirienceYear].selected);
         }
         $scope.modelExpirience={year,month,day}
         $scope.getUserAccount = function() {
@@ -191,7 +243,26 @@ angular.module('leaveManagement', [])
 
         $scope.getUserAccount();
 
-    })
+})
+    .controller('changeDataController', function ($scope,$http,$window) {
+        $scope.accountDetails = function(){
+            $http.get('/getAccountDetails')
+                .then(function(response) {
+                    $scope.account = response.data;
+                });
+        }
+        $scope.saveAccount = function() {
+            var data=[$scope.account.name,$scope.account.lastname
+                ,$scope.account.email]
+            $http.post('/saveAccount', data).success(function(response) {
+                $scope.message=response;
+            }).error(function(){
+                console.log("error");
+            });
+        }
+        $scope.accountDetails();
+
+})
     .controller('changeUserRoleController', function ($scope,$http,$window) {
         $scope.roleCollection=[{name:"ADMINISTRATOR", active:false},{name:"EMPLOYEE", active:false},
             {name:"MANAGER", active:false},{name:"ACCOUNTANT", active:false}];
@@ -217,7 +288,6 @@ angular.module('leaveManagement', [])
         $scope.getUserAccount = function() {
             $http.get('/getUserRole').success(function (response) {
                 $scope.userRole = response;
-                console.log("response "+response.toString())
                 $scope.setUserRole();
             }).error(function () {
                 console.log("error");
@@ -234,22 +304,22 @@ angular.module('leaveManagement', [])
 
         $scope.getUserAccount();
 
-    })
-.directive('compareTo', function () {
-return {
-    require: "ngModel",
-    scope: {
-        otherModelValue: "=compareTo"
-    },
-    link: function(scope, element, attributes, ngModel) {
+})
+    .directive('compareTo', function () {
+        return {
+            require: "ngModel",
+            scope: {
+                otherModelValue: "=compareTo"
+            },
+            link: function(scope, element, attributes, ngModel) {
 
-        ngModel.$validators.compareTo = function(modelValue) {
-            return modelValue == scope.otherModelValue;
-        };
+                ngModel.$validators.compareTo = function(modelValue) {
+                    return modelValue == scope.otherModelValue;
+                };
 
-        scope.$watch("otherModelValue", function() {
-            ngModel.$validate();
-        });
-    }
-}
+                scope.$watch("otherModelValue", function() {
+                    ngModel.$validate();
+                });
+            }
+        }
 });

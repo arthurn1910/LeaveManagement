@@ -1,0 +1,53 @@
+<div ng-controller="UserController" id="menu">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Menu</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">LeaveManagement</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="login">
+                    <a href="/login">Login</a>
+                </li>
+            <li class="register">
+                    <a href="/register">Register</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="administration">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Administration
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="userList">
+                            <a href="/usersList">User List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="settings">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="accountDetails">
+                            <a href="/accountDetails">Account Details</a>
+                        </li>
+                        <li class="changePassword">
+                            <a href="/changePassword">Change Password</a>
+                        </li>
+                        <li class="logout">
+                            <a href="/logout">Sign Out</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+</div>

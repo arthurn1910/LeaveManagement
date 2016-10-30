@@ -46,6 +46,11 @@ public class IndexController {
         return "account/index";
     }
 
+    @RequestMapping("/menu")
+    public String menu() {
+        return "account/menu";
+    }
+
     @RequestMapping("/user")
     public Principal user(Principal user) {
         return user;
@@ -56,8 +61,8 @@ public class IndexController {
     AuthDTO isAuthenticated()   {
         AuthDTO authDTO=new AuthDTO();
         if(accountEndpoint.isAuthenticated()) {
-            authDTO.setLogin(accountEndpoint.getAccount().getLogin());
-            for(AccessLevel accessLevel :accountEndpoint.getAccount().getAccessLevelCollection()){
+            authDTO.setLogin(accountEndpoint.getYourAccount().getLogin());
+            for(AccessLevel accessLevel :accountEndpoint.getYourAccount().getAccessLevelCollection()){
                 if(accessLevel.getActive()==true) {
                     switch(accessLevel.getLevel()){
                         case "ROLE_ADMINISTRATOR":

@@ -42,8 +42,6 @@ public class EditUserAccountController {
 
     @RequestMapping(value = "/saveUserAccount", method = RequestMethod.POST)
     public @ResponseBody String editUserAccountData( @RequestBody List<String> data) {
-        System.out.println("@@ "+ data.toString());
-        System.out.println("@@ "+ data.get(5)+" "+ data.get(6)+" "+ data.get(7));
         accountEndpoint.editUserAccount(data);
         return JSONParser.quote("User account changed!");
     }
