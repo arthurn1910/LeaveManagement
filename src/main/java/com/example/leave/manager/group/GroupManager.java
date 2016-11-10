@@ -61,9 +61,8 @@ public class GroupManager implements GroupManagerInterface {
     }
 
     @Override
-    public List<TeamGroupMember> getApplicationToGroup(Account account) {
-        TeamGroup teamGroup=teamGroupRepository.findOneByAccount(account);
-        List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, false);
+    public List<TeamGroupMember> getTeamGroup(Account account, Boolean active) {
+        List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByAccountAndActive(account, active);
         return teamGroupMemberList;
     }
 
@@ -84,7 +83,7 @@ public class GroupManager implements GroupManagerInterface {
 
     @Override
     public List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup) {
-        return teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
+        return null;//teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface GroupManagerInterface {
 
     void joinToGroup(TeamGroupMember teamGroupMember);
 
-    List<TeamGroupMember> getApplicationToGroup(Account account);
+    List<TeamGroupMember> getTeamGroup(Account account, Boolean active);
 
     void acceptApplication(TeamGroupMember teamGroupMember);
 
@@ -39,4 +39,6 @@ public interface GroupManagerInterface {
     List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup);
 
     void rejectPlannedLeave(Leave leave);
+
+    //public List<TeamGroupMember> getApplicationToGroup(Account account);
 }

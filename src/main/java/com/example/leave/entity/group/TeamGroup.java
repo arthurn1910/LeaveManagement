@@ -15,8 +15,8 @@ import java.util.Date;
 @Entity
 @Table(name = "team_group")
 @NamedQueries({
-        @NamedQuery(name = "TeamGroup.findOneByAccount",
-                query = "select t from TeamGroup t where manager=?1")
+        @NamedQuery(name = "TeamGroup.findAllByAccount",
+                query = "select t from TeamGroup t where account=?1")
 })
 public class TeamGroup implements Serializable{
     @Id

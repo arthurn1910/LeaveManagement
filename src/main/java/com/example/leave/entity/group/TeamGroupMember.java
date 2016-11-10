@@ -13,7 +13,9 @@ import java.io.Serializable;
 @Table(name = "team_group_member")
 @NamedQueries({
         @NamedQuery(name = "TeamGroupMember.findAllByTeamGroupIDAndActive",
-                query = "select t from TeamGroupMember t where active=?2 and teamGroup=?1")
+                query = "select t from TeamGroupMember t where active=?2 and teamGroup=?1"),
+        @NamedQuery(name = "TeamGroupMember.findAllByAccountAndActive",
+                query = "select t from TeamGroupMember t where active=?2 and employee=?1")
 })
 public class TeamGroupMember implements Serializable{
     @Id

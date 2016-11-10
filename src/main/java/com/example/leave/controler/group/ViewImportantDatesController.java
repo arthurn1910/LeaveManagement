@@ -42,8 +42,6 @@ public class ViewImportantDatesController {
             groupEndpoint.removeImportantDate(listImportantDatesDTO.getImportantDatesList().get(0));
             return "account/index";
         } else {
-            for(ObjectError o: result.getAllErrors())
-                System.out.println(o.toString());
             return "group/viewImportantDates";
         }
     }

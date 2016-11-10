@@ -74,14 +74,9 @@ public class AccountManager implements AccountManagerInterface {
     @Transactional
     public void removeRoleFromUser(String role, Account account) {
         Account accountTmp = accountRepository.findByLogin(account.getLogin());
-        System.out.println("REmove ");
         List<AccessLevel> accessLevelList=accessLevelRepository.findByLevelAndAccount(role, accountTmp);
-        System.out.println("REmove "+accessLevelList.toString());
-        System.out.println("REmove "+ accountTmp.getLogin());
         if(accessLevelList.size()!=0) {
-            System.out.println("REmove wszedl");
             for (AccessLevel accessLevel : accessLevelList) {
-                System.out.println("REmove accessLevel" + accessLevel.getLevel()+ " id "+accessLevel.getId());
                 accessLevelRepository.removeLevel(accessLevel.getId());
             }
         } else{

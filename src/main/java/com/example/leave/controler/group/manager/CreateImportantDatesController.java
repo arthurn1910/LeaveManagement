@@ -1,4 +1,4 @@
-package com.example.leave.controler.group;
+package com.example.leave.controler.group.manager;
 
 import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
@@ -38,12 +38,10 @@ public class CreateImportantDatesController {
             groupEndpoint.createImportantDate(importantDateDTO);
             return "account/index";
         } else {
-            TeamGroup teamGroup=new TeamGroup();
-            teamGroup.setId(1L);
-            groupEndpoint.setTeamGroup(teamGroup);
-            importantDateDTO.setTeamGroup(groupEndpoint.getTeamGroup());
-            for(ObjectError o: result.getAllErrors())
-                System.out.println(o.toString());
+//            TeamGroup teamGroup=new TeamGroup();
+//            teamGroup.setId(1L);
+//            groupEndpoint.setTeamGroup(teamGroup);
+//            importantDateDTO.setTeamGroup(groupEndpoint.getTeamGroup());
             return "group/manager/createImportantDates";
         }
     }

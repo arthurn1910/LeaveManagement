@@ -111,11 +111,9 @@ public class AccountEndpoint implements AccountEndpointInterface {
     @Override
     public void changeUserPassword(String login, String newPassword) {
         if(login.equals(accountToEdit.getLogin())){
-            System.out.println("1");
             accountToEdit.setPassword(newPassword);
             accountManager.changePassword(accountToEdit);
         } else{
-            System.out.println("2");
             System.out.println("Exception changeUserPassword");
         }
 
@@ -124,7 +122,6 @@ public class AccountEndpoint implements AccountEndpointInterface {
     @Override
     public void changeUserRole(List<String> changeUserRole) {
         if(changeUserRole.get(0).equals(accountToEdit.getLogin())) {
-            System.out.println("changeUserRole.get(2) "+changeUserRole.get(2));
             if(changeUserRole.get(2).equals("activate")){
                 accountManager.addRoleToUser("ROLE_"+changeUserRole.get(1), accountToEdit);
             }else if(changeUserRole.get(2).equals("deactivate")) {

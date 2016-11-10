@@ -2,6 +2,7 @@ package com.example.leave.controler.group;
 
 import com.example.leave.dto.group.ListGroupDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
+import com.example.leave.dto.group.UserGroupDTO;
 import com.example.leave.endpoint.group.GroupEndpoint;
 import com.example.leave.entity.group.TeamGroup;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -26,21 +28,19 @@ public class GroupListController {
     GroupEndpoint groupEndpoint;
 
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
-    public String getUsersList(HttpServletRequest request, @ModelAttribute(value = "listGroupDTO") @Valid ListGroupDTO listGroupDTO, BindingResult result) {
-        List<TeamGroup> groupList=groupEndpoint.getAllGroups();
-        List<TeamGroupDTO> teamGroupList = new ArrayList<>();
-        TeamGroupDTO teamGroupDTO;
-        for(TeamGroup teamGroup : groupList) {
-            teamGroupDTO=new TeamGroupDTO();;
-            teamGroupDTO.setTeamGroup(teamGroup);
-            teamGroupList.add(teamGroupDTO);
-        }
-        listGroupDTO.setTeamGroupList(teamGroupList);
-        joinToGroup(teamGroupList.get(1));
+    public String getUsersListView() {
         return "group/groupList";
     }
 
-    private void joinToGroup(TeamGroupDTO teamGroupDTO){
-        groupEndpoint.joinToGroup(teamGroupDTO);
+    @RequestMapping("/groupListData")
+    public @ResponseBody List<TeamGroupDTO> groupListData() {
+        List<TeamGroupDTO> groupList=groupEndpoint.getAllGroupsDTO();
+        return groupList;
+    }
+
+    @RequestMapping("/getUserGroupDTO")
+    public @ResponseBody UserGroupDTO getUserGroupDTO() {
+        UserGroupDTO userGroupDTO=groupEndpoint.getUserGroup();
+        return userGroupDTO;
     }
 }

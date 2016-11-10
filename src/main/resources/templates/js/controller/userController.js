@@ -14,6 +14,7 @@ angular.module('leaveManagement', [])
                     $("li.logout").hide();
                     $("li.settings").hide();
                     $("li.administration").hide();
+                    $("li.groups").hide();
                 }
                 if($scope.greeting.authenticated == true){
                     $("li.login").hide();
@@ -21,6 +22,7 @@ angular.module('leaveManagement', [])
                     $("li.settings").show();
                     $("li.logout").show();
                     $("li.administration").show();
+                    $("li.groups").show();
                 }
             });
         }
@@ -47,32 +49,8 @@ angular.module('leaveManagement', [])
                 });
         }
 })
+
     .controller('usersListController', function ($scope,$http,$window, $location) {
-        $scope.accessLevel=function(data){
-            var accesslevel ='';
-            for (var level in data) {
-                accesslevel += data[level] + " ";
-            }
-            return accesslevel;
-        }
-    $scope.messageRegister = "";
-    $scope.registerDTO = {
-        login:'',
-        password:'',
-        email:'',
-        name:'',
-        lastname:''
-    };
-    $scope.confirmPassword="";
-    $scope.register = function() {
-        $http.post('/register',$scope.registerDTO)
-            .then(function successCallback(response) {
-                $scope.messageRegister = "Account was created.";
-                $("form.css-form").hide();
-            }, function errorCallback(error) {
-                $scope.messageRegister = "Error.";
-            });
-    }
         $scope.getUsersList = function(){
             $http.get('/usersListData')
                 .then(function(response) {
@@ -305,6 +283,36 @@ angular.module('leaveManagement', [])
         $scope.getUserAccount();
 
 })
+
+    .controller('groupsListController', function ($scope,$http,$window, $location) {
+        $scope.getGroupList = function(){
+            $http.get('/groupListData')
+                .then(function(response) {
+                    $scope.rowCollection = response.data;
+                    console.log($scope.rowCollection);
+                });
+        };
+        $scope.getUserGroupDTO = function(){
+            $http.get('/getUserGroupDTO')
+                .then(function(response) {
+                    $scope.userGroupDto = response.data;
+                    console.log($scope.userGroupDto);
+                });
+        };
+
+        $scope.createGroup = function() {
+            $http.get('/getCreateGroup').success(function(response) {
+                $window.location.href=response;
+            }).error(function(){
+                console.log("error createGroup");
+            });
+        }
+        $scope.getGroupList();
+        $scope.getUserGroupDTO();
+
+    })
+
+
     .directive('compareTo', function () {
         return {
             require: "ngModel",

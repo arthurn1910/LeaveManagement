@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
     @RequestMapping("/login")
     public String index(Model model) {
-        System.out.println("wszedłem");
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = user.getUsername();

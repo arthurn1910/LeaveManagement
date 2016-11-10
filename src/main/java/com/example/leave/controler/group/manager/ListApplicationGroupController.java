@@ -1,4 +1,4 @@
-package com.example.leave.controler.group;
+package com.example.leave.controler.group.manager;
 
 import com.example.leave.dto.group.ListApplicationGroupDTO;
 import com.example.leave.endpoint.group.GroupEndpoint;
@@ -24,7 +24,7 @@ public class ListApplicationGroupController {
 
     @RequestMapping(value = "/listofapplication", method = RequestMethod.GET)
     public String getListApplication(HttpServletRequest request, @ModelAttribute(value = "listApplicationGroupDTO") @Valid ListApplicationGroupDTO listApplicationGroupDTO, BindingResult result) {
-        List<TeamGroupMember> teamGroupMemberList=groupEndpoint.getApplicationToGroup();
+        List<TeamGroupMember> teamGroupMemberList=groupEndpoint.getTeamGroupUser(false);
         listApplicationGroupDTO.setTeamGroupMemberList(teamGroupMemberList);
 
         return "group/manager/listOfApplication";
@@ -40,7 +40,7 @@ public class ListApplicationGroupController {
 
     @RequestMapping(value = "/listofapplication", method = RequestMethod.POST)
     public String getListApplicationPOST(HttpServletRequest request, @ModelAttribute(value = "listApplicationGroupDTO") @Valid ListApplicationGroupDTO listApplicationGroupDTO, BindingResult result) {
-        List<TeamGroupMember> teamGroupMemberList=groupEndpoint.getApplicationToGroup();
+        List<TeamGroupMember> teamGroupMemberList=groupEndpoint.getTeamGroupUser(false);
         listApplicationGroupDTO.setTeamGroupMemberList(teamGroupMemberList);
         acceptApplication(teamGroupMemberList.get(0));
         rejectApplication(teamGroupMemberList.get(1));

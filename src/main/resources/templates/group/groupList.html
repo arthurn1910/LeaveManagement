@@ -1,32 +1,77 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Users List</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Leave Management System</h1>
-    </div>
-    <div class="content">
-        <h2>Users List</h2>
-        <form method="POST" modelattribute="listGroupDTO">
-            <table style="width:100%">
-                    <tr>
-                <th>Title</th>
-                <th>Manager</th>
-                <th>Create Date</th>
-                <th>Number of employee</th>
-            </tr>
-                <tr th:each="teamGroup : ${listGroupDTO.getTeamGroupList()}">
-                    <td th:text="${teamGroup.getTitle()}"/>
-                    <td th:text="${teamGroup.getManager().getLastname()}"/>
-                    <td th:text="${teamGroup.getCreateDate()}"/>
-                    <td th:text="${teamGroup.getNumberOfEmployee()}"/>
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
-</body>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body >
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
+
+            <div ng-controller="groupsListController" id="content">
+                <br/><br/><h1> Group List: </h1>
+                <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right">
+                    Create Group
+                </button>
+                <table  st-table="rowCollection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Manager</th>
+                        <th>Number of employee</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in rowCollection">
+                        <td>{{row.id}}</td>
+                        <td>{{row.title}}</td>
+                        <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
+                        <td>{{row.numberOfEmployee}}</td>
+                        <td>
+                            <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
+                                <i class="glyphicon glyphicon-ok-circle">
+                                </i>
+                                Apply
+                            </button>
+                            <button type="button" ng-hide="!checkIfUserApply(row)" ng-click="rescidApplyToGroup(row)" class="btn btn-sm btn-danger">
+                                <i class="glyphicon glyphicon-remove-circle">
+                                </i>
+                                Rescid
+                            </button>
+                            <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
+                                Show
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/userController.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
 </html>
+
+
+
+
+
+
+                    <!--<td th:text="${teamGroup.getTitle()}"/>-->
+                    <!--<td th:text="${teamGroup.getManager().getLastname()}"/>-->
+                    <!--<td th:text="${teamGroup.getCreateDate()}"/>-->
+                    <!--<td th:text="${teamGroup.getNumberOfEmployee()}"/>-->

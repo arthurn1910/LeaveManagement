@@ -10,15 +10,26 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="login">
+                <li class="login" hidden="true">
                     <a href="/login">Login</a>
                 </li>
-            <li class="register">
+                <li class="register" hidden="true">
                     <a href="/register">Register</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="administration">
+                <li class="groups" hidden="true">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Group
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="userList">
+                            <a href="/groupList">Groups List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="administration" hidden="true">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         Administration
                         <span class="caret"></span>
@@ -29,7 +40,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="settings">
+                <li class="settings" hidden="true">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="glyphicon glyphicon-cog"></i>
                         <span class="caret"></span>

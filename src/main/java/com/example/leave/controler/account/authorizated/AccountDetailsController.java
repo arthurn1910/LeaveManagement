@@ -35,7 +35,6 @@ public class AccountDetailsController {
     public @ResponseBody UserDTO GetAccountDetails() {
         UserDTO userDTO=new UserDTO();
         userDTO.setAccount(accountEndpoint.getYourAccount());
-        System.out.println("!@#$ "+userDTO.toString());
         return userDTO;
     }
 }

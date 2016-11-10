@@ -2,6 +2,7 @@ package com.example.leave.endpoint.group;
 
 import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
+import com.example.leave.dto.group.UserGroupDTO;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +49,17 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
+    public List<TeamGroupDTO> getAllGroupsDTO() {
+        List<TeamGroup> teamGroupList=getAllGroups();
+        List<TeamGroupDTO> teamGroupDTOList=new ArrayList<>();
+        for(TeamGroup teamGroup : teamGroupList){
+            teamGroupDTOList.add(new TeamGroupDTO(teamGroup));
+        }
+        return teamGroupDTOList;
+
+    }
+
+    @Override
     public void joinToGroup(TeamGroupDTO teamGroupDTO) {
         getYourAccount();
         getTeamGroup(teamGroupDTO.getID());
@@ -66,11 +79,9 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public List<TeamGroupMember> getApplicationToGroup() {
+    public List<TeamGroupMember> getTeamGroupUser(Boolean active) {
         getYourAccount();
-        List<TeamGroupMember> teamGroupMemberList=groupManager.getApplicationToGroup(this.account);
-        //TeamGroupMember a=new TeamGroupMember();
-        //a.getEmployee().getName();
+        List<TeamGroupMember> teamGroupMemberList=groupManager.getTeamGroup(this.account,active);
         return teamGroupMemberList;
     }
 
@@ -137,5 +148,29 @@ public class GroupEndpoint implements GroupEndpointInterface {
     @Override
     public void rejectPlannedLeave(Leave leave) {
         groupManager.rejectPlannedLeave(leave);
+    }
+
+    @Override
+    public UserGroupDTO getUserGroup(){
+        UserGroupDTO userGroupDTO=new UserGroupDTO();
+        getYourAccount();
+        userGroupDTO.setAccount(this.account);
+        userGroupDTO.setApplyTeamGroupDTOList(getTeamGroupDTOList(false));
+        userGroupDTO.setTeamGroupDTOList(getTeamGroupDTOList(true));
+        return userGroupDTO;
+
+    }
+
+    @Override
+    public List<TeamGroupDTO> getTeamGroupDTOList(Boolean active){
+        List<TeamGroupDTO> teamGroupDTOList=new ArrayList<>();
+        List<TeamGroupMember> teamGroupMemberList=getTeamGroupUser(active);
+        for(TeamGroupMember teamGroupMember: teamGroupMemberList){
+            TeamGroup teamGroup=teamGroupMember.getTeamGroup();
+            TeamGroupDTO teamGroupDTO=new TeamGroupDTO();
+            teamGroupDTO.setTeamGroup(teamGroup);
+            teamGroupDTOList.add(teamGroupDTO);
+        }
+        return teamGroupDTOList;
     }
 }
