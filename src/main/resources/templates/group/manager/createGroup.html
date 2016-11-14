@@ -1,21 +1,83 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Create Group</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Leave Management System</h1>
-    </div>
-    <div class="content">
-        <h2>Create Group</h2>
-        <form method="POST" modelattribute="teamGroupDTO">
-            <input type="text" name="title" path="title" placeholder="Title" />
-            <if test="${pageContext.request.method=='POST'}"><errors path="title" /></if>
-            <input type="submit" value="Create Group" />
-        </form>
-    </div>
-</div>
-</body>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body >
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
+
+            <div ng-controller="createGroupController" id="content">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-1">
+                        <br/><br/><h1> Group List: </h1>
+                        <br/><H3>{{message}}</H3>
+                    </div>
+                </div>
+
+                <form name="createGroupForm" class="css-form" novalidate="true">
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div class="row">
+                                <label>Title:</label>
+                                <input type="text" name="title" class="form-control" ng-model="title" required="true" minlength="4" maxlength="80"/>
+                                <div ng-show="createGroupForm.$submitted || createGroupForm.title.$touched">
+                                    <span ng-show="createGroupForm.title.$error.required" class="help-block">Title is required</span>
+                                    <span ng-show="createGroupForm.title.$error.minlength" class="help-block">Title must contain at least 4 characters</span>
+                                    <span ng-show="createGroupForm.title.$error.maxlength" class="help-block">Title must contain at least 80 characters</span>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <button type='button' ng-disabled="createGroupForm.$invalid" ng-click="createGroup()">Register</button><br/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-md-4 col-md-offset-5">
+                    <button type="button" ng-click="return()">Return</button>
+                </div>
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../../js/controller/group/createGroupController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
 </html>
+
+
+
+
+
+
+<!--<td th:text="${teamGroup.getTitle()}"/>-->
+<!--<td th:text="${teamGroup.getManager().getLastname()}"/>-->
+<!--<td th:text="${teamGroup.getCreateDate()}"/>-->
+<!--<td th:text="${teamGroup.getNumberOfEmployee()}"/>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<h2>Create Group</h2>-->
+        <!--<form method="POST" modelattribute="teamGroupDTO">-->
+            <!--<input type="text" name="title" path="title" placeholder="Title" />-->
+            <!--<if test="${pageContext.request.method=='POST'}"><errors path="title" /></if>-->
+            <!--<input type="submit" value="Create Group" />-->
+        <!--</form>-->

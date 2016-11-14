@@ -29,7 +29,6 @@
                             <td>{{accessLevel(row.accessLevel)}}</td>
                             <td>{{row.startingDate}}</td>
                             <td>
-                                <!--ng-click="changeActive(row)"-->
                                 <button type="button" ng-hide="{{row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle">
                                     </i>
@@ -71,6 +70,7 @@
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/menuController.js"></script>
+        <script src="../../../js/controller/account/userListController.js"></script>
         <script src="../js/controller/userController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>

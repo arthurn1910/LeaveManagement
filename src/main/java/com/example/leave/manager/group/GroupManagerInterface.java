@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Medion on 2016-09-20.
  */
 public interface GroupManagerInterface {
-    void createGroup(TeamGroup createGroupDTO);
+    void createGroup(TeamGroup createGroupDTO, TeamGroupMember teamGroupMember);
 
     List<TeamGroup> getAllGroups();
 
@@ -23,8 +23,6 @@ public interface GroupManagerInterface {
     List<TeamGroupMember> getTeamGroup(Account account, Boolean active);
 
     void acceptApplication(TeamGroupMember teamGroupMember);
-
-    void rejectApplication(TeamGroupMember teamGroupMember);
 
     void removeMember(TeamGroupMember teamGroupMember);
 

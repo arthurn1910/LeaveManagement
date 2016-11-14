@@ -9,11 +9,15 @@
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
 
-            <div ng-controller="groupsListController" id="content">
+            <div ng-controller="groupListController" id="content">
                 <br/><br/><h1> Group List: </h1>
-                <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right">
-                    Create Group
-                </button>
+                <div class="row">
+                    <div class="col-md-1 col-md-offset-8">
+                        <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right">
+                            Create Group
+                        </button>
+                    </div>
+                </div>
                 <table  st-table="rowCollection" class="table table-striped">
                     <thead>
                     <tr>
@@ -25,27 +29,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="row in rowCollection">
-                        <td>{{row.id}}</td>
-                        <td>{{row.title}}</td>
-                        <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
-                        <td>{{row.numberOfEmployee}}</td>
-                        <td>
-                            <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
-                                <i class="glyphicon glyphicon-ok-circle">
-                                </i>
-                                Apply
-                            </button>
-                            <button type="button" ng-hide="!checkIfUserApply(row)" ng-click="rescidApplyToGroup(row)" class="btn btn-sm btn-danger">
-                                <i class="glyphicon glyphicon-remove-circle">
-                                </i>
-                                Rescid
-                            </button>
-                            <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
-                                Show
-                            </button>
-                        </td>
-                    </tr>
+                        <tr ng-repeat="row in rowCollection">
+                            <td>{{row.id}}</td>
+                            <td>{{row.title}}</td>
+                            <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
+                            <td>{{row.numberOfEmployee}}</td>
+                            <td>
+                                <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-ok-circle">
+                                    </i>
+                                    Apply
+                                </button>
+                                <button type="button" ng-hide="!checkIfUserApply(row)" ng-click="rescidApplyToGroup(row)" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-remove-circle">
+                                    </i>
+                                    Rescid
+                                </button>
+                                <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
+                                    Show
+                                </button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -59,19 +63,10 @@
         <script src="../js/config/bootstrap.min.js"></script>
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
-        <script src="../js/controller/userController.js"></script>
+        <script src="../js/controller/account/userController.js"></script>
         <script src="../js/controller/menuController.js"></script>
+        <script src="../js/controller/group/groupListController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>
 </html>
-
-
-
-
-
-
-                    <!--<td th:text="${teamGroup.getTitle()}"/>-->
-                    <!--<td th:text="${teamGroup.getManager().getLastname()}"/>-->
-                    <!--<td th:text="${teamGroup.getCreateDate()}"/>-->
-                    <!--<td th:text="${teamGroup.getNumberOfEmployee()}"/>-->

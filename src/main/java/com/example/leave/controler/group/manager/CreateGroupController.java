@@ -28,17 +28,17 @@ public class CreateGroupController {
     }
 
     @RequestMapping(value = "/createGroup", method = RequestMethod.GET)
-    public String register(HttpServletRequest request, @ModelAttribute(value = "teamGroupDTO") @Valid TeamGroupDTO teamGroupDTO, BindingResult result) {
+    public String createGroup() {
         return "group/manager/createGroup";
     }
 
     @RequestMapping(value = "/createGroup", method = RequestMethod.POST)
-    public String registerUser(HttpServletRequest request, @ModelAttribute(value = "teamGroupDTO") @Valid TeamGroupDTO teamGroupDTO, BindingResult result) {
-        if (request.getMethod().equalsIgnoreCase("post") && !result.hasErrors()) {
-            groupEndpoint.createGroup(teamGroupDTO);
-            return "account/index";
-        } else {
-            return "group/manager/createGroup";
+    public @ResponseBody String createGroupPost(@RequestBody String title) {
+        try{
+            groupEndpoint.createGroup(title);
+            return JSONParser.quote("Group created");
+        } catch(Exception e){
+            return JSONParser.quote("Group  wasn't created");
         }
     }
 }

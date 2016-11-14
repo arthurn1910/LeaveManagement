@@ -2,6 +2,7 @@ package com.example.leave.dto.group;
 
 import com.example.leave.entity.group.TeamGroupMember;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,16 +10,22 @@ import java.util.List;
  */
 public class ListApplicationGroupDTO {
 
-    List<TeamGroupMember> teamGroupMemberList;
+    List<TeamGroupMemberDTO> teamGroupMemberList;
 
     public ListApplicationGroupDTO() {
     }
 
-    public List<TeamGroupMember> getTeamGroupMemberList() {
+    public List<TeamGroupMemberDTO> getTeamGroupMemberList() {
         return teamGroupMemberList;
     }
 
     public void setTeamGroupMemberList(List<TeamGroupMember> teamGroupMemberList) {
-        this.teamGroupMemberList = teamGroupMemberList;
+        List<TeamGroupMemberDTO> teamGroupMemberDTOList=new ArrayList<>();
+        for(TeamGroupMember teamGroupMember: teamGroupMemberList){
+            TeamGroupMemberDTO teamGroupMemberDTO=new TeamGroupMemberDTO();
+            teamGroupMemberDTO.setTeamGroupMember(teamGroupMember);
+            teamGroupMemberDTOList.add(teamGroupMemberDTO);
+        }
+        this.teamGroupMemberList = teamGroupMemberDTOList;
     }
 }

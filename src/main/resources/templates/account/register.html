@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
         <title>Leave Management</title>
@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" class="form-control" ng-model="registerDTO.password" required="true" minlength="6" maxlength="32" pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"/>/>
+                            <input type="password" name="password" class="form-control" ng-model="registerDTO.password" required="true" minlength="6" maxlength="32" pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"/>
                             <div ng-messages="registrationForm.password.$error">
                                 <div ng-messages-include="messages.html"></div>
                                 <!--<div ng-message="pattern">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</div>-->
@@ -71,7 +71,8 @@
         <script src="../js/config/angular-messages.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/menuController.js"></script>
-        <script src="../js/controller/userController.js"></script>
+        <script src="../js/controller/account/registerController.js"></script>
+        <script src="../js/controller/account/userController.js"></script>
         <link rel="stylesheet" href="../css/style.css"/>
     </body>
 </html>

@@ -3,10 +3,12 @@ package com.example.leave.dto.group;
 import com.example.leave.dto.account.UserDTO;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.TeamGroup;
+import com.example.leave.entity.group.TeamGroupMember;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -92,6 +94,15 @@ public class TeamGroupDTO {
         this.manager = new UserDTO();
         this.manager.setAccount(teamGroup.getManager());
         this.createDate = teamGroup.getCreateDate();
-        this.numberOfEmployee = teamGroup.getTeamGroupMembers().size();
+        setNumberOfEmployee(teamGroup.getTeamGroupMembers());
+    }
+
+    public void setNumberOfEmployee(Collection<TeamGroupMember> teamGroupMemberCollection){
+        int tmp=0;
+        for(TeamGroupMember teamGroupMember : teamGroupMemberCollection){
+            if(teamGroupMember.getActive()==true)
+                tmp++;
+        }
+        this.numberOfEmployee=tmp;
     }
 }

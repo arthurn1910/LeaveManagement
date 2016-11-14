@@ -33,14 +33,15 @@ public class GroupEndpoint implements GroupEndpointInterface {
     GroupManager groupManager;
 
     @Override
-    public void createGroup(TeamGroupDTO createGroupDTO) {
+    public void createGroup(String title) {
         TeamGroup teamGroupTmp=new TeamGroup();
         teamGroupTmp.setVersion(0L);
         teamGroupTmp.setCreateDate(new java.util.Date());
-        teamGroupTmp.setGroupTitle(createGroupDTO.getTitle());
+        teamGroupTmp.setGroupTitle(title);
         getYourAccount();
         teamGroupTmp.setManager(this.account);
-        groupManager.createGroup(teamGroupTmp);
+        TeamGroupMember teamGroupMember=new TeamGroupMember(this.account,teamGroupTmp);
+        groupManager.createGroup(teamGroupTmp, teamGroupMember);
     }
 
     @Override
@@ -86,24 +87,29 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void acceptApplication(TeamGroupMember teamGroupMember) {
-       teamGroupMember.setActive(true);
-        groupManager.acceptApplication(teamGroupMember);
+    public void acceptApplication(String login) {
+        for(TeamGroupMember teamGroupMember : this.teamGroup.getTeamGroupMembers()){
+            if(teamGroupMember.getEmployee().getLogin().equals(login)){
+                teamGroupMember.setActive(true);
+                groupManager.acceptApplication(teamGroupMember);
+            }
+        }
+        getTeamGroup();
     }
 
     @Override
-    public void rejectApplication(TeamGroupMember teamGroupMember) {
-        groupManager.rejectApplication(teamGroupMember);
+    public void removeMember(String login) {
+        for(TeamGroupMember teamGroupMember : this.teamGroup.getTeamGroupMembers()){
+            if(teamGroupMember.getEmployee().getLogin().equals(login)){
+                groupManager.removeMember(teamGroupMember);
+            }
+        }
+        getTeamGroup();
     }
 
     @Override
-    public List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup) {
-        return groupManager.getMemberInGroup(teamGroup);
-    }
-
-    @Override
-    public void removeMember(TeamGroupMember teamGroupMember) {
-        groupManager.removeMember(teamGroupMember);
+    public List<TeamGroupMember> getMemberInGroup() {
+        return groupManager.getMemberInGroup(this.teamGroup);
     }
 
     @Override
@@ -112,14 +118,17 @@ public class GroupEndpoint implements GroupEndpointInterface {
         return this.teamGroup;
     }
 
+    @Override
     public void setTeamGroup(TeamGroup teamGroup) {
         this.teamGroup = teamGroup;
     }
 
+    @Override
     public Account getAccount() {
         return account;
     }
 
+    @Override
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -172,5 +181,11 @@ public class GroupEndpoint implements GroupEndpointInterface {
             teamGroupDTOList.add(teamGroupDTO);
         }
         return teamGroupDTOList;
+    }
+
+    @Override
+    public TeamGroupDTO getTeamGroupDTO(){
+        TeamGroupDTO teamGroupDTO=new TeamGroupDTO(this.teamGroup);
+        return teamGroupDTO;
     }
 }

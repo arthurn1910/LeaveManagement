@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface TeamGroupRepository extends CrudRepository<TeamGroup, Long> {
     TeamGroup findOneByTitle(String titleGroup);
-
+    Long getNewID();
     List<TeamGroup> findAllByAccount(Account account);
 }

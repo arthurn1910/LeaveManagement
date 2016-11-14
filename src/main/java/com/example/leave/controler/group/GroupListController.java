@@ -5,6 +5,7 @@ import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.dto.group.UserGroupDTO;
 import com.example.leave.endpoint.group.GroupEndpoint;
 import com.example.leave.entity.group.TeamGroup;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,11 @@ import java.util.List;
 public class GroupListController {
     @Autowired
     GroupEndpoint groupEndpoint;
+
+    @RequestMapping(value = "/getGroupList", method = RequestMethod.GET)
+    public @ResponseBody String getgroupList() {
+        return JSONParser.quote("/groupList");
+    }
 
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
     public String getUsersListView() {
