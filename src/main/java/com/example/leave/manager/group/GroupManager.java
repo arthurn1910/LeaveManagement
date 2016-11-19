@@ -142,4 +142,11 @@ public class GroupManager implements GroupManagerInterface {
         }
         teamGroupRepository.remove(teamGroup.getId());
     }
+
+    @Override
+    @Transactional
+    public void applyToGroup(TeamGroupMember teamGroupMember) {
+        teamGroupMember.setId(teamGroupMemberRepository.getNewID());
+        teamGroupMemberRepository.save(teamGroupMember);
+    }
 }

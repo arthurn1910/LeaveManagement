@@ -7,8 +7,8 @@
     <body >
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
-            <div ng-controller="userAccountController" id="content">
-                <br/><h1> Account Details: </h1>
+            <div ng-controller="userAccountController" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h1> Account Details: </h1>
                 <form name="detailsAccountForm" class="css-form" novalidate="true">
                     <div class="form-group">
                         <label>Name:</label> {{account.name}}<br/>
@@ -16,6 +16,7 @@
                         <label>Email:</label> {{account.email}}<br/>
                         <label>Access Level:</label> {{accessLevel(account.accessLevel)}}<br/>
                         <label>Starting date:</label> {{account.startingDate}}<br/>
+                        <label>Work Time:</label> {{account.workTime}} <label>%</label><br/>
                         <label>Expirience:</label> {{account.expirienceYear}} yers {{account.expirienceMonth}} months {{account.expirienceDay}} days<br/>
                     </div>
                 </form>
@@ -29,7 +30,7 @@
         <script src="../js/config/angular-route.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/menuController.js"></script>
-        <script src="../../js/controller/account/userAccountController.js"></script>
+        <script src="../../js/controller/account/authorizated/userAccountController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

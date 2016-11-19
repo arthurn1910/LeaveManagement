@@ -7,8 +7,8 @@
     <body >
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
-            <div ng-controller="changeUserDataController" id="content">
-                <br/><h2>Edit User Account</h2><br/><br/>
+            <div ng-controller="changeUserDataController" id="content" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h2>Edit User Account</h2><br/><br/>
                 <p>User login: {{userAccount.login}}</p>
                 <p>{{message}}</p><br/>
                 <form name="changeUserAccountForm" class="css-form" novalidate="true">
@@ -28,6 +28,10 @@
                         <div ng-messages="changeUserAccountForm.email.$error">
                             <div ng-messages-include="messages.html"></div>
                         </div>
+                        <label>Work Time:{{userAccount.workTime}}%</label><br/>
+                        <select name="repeatSelect" id="repeatSelectWorkTime" ng-model="userAccount.workTime">
+                            <option ng-repeat="option in modelExpirience.workTime" value="{{option.id}}" >{{option.id}}</option>
+                        </select><br/>
                         <label>Starting date:{{userAccount.startingDate}}</label>
                         <input type="date" name="date"  class="form-control" ng-model="userAccount.startingDate"/>
                         <div ng-messages="changeUserAccountForm.email.$error">
@@ -59,8 +63,8 @@
         <script src="../js/config/bootstrap.min.js"></script>
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
-        <script src="../../../js/controller/account/changeUserDataController.js"></script>
         <script src="../js/controller/menuController.js"></script>
+        <script src="../../../js/controller/account/authorizated/administratorAccountant/changeUserDataController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

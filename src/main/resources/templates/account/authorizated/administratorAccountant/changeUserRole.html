@@ -6,12 +6,10 @@
     </head>
     <body>
         <div id="container">
-            <div ng-controller="changeUserRoleController" id="menu">
-                <ng-include src="'/menu'"></ng-include>
-            </div>
+            <ng-include src="'/menu'"></ng-include>
 
-            <div ng-controller="changeUserRoleController" id="content">
-                <br/><br/><h1>Change User Role</h1>
+            <div ng-controller="changeUserRoleController" id="content" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h1>Change User Role</h1>
                 <br/><br/>
                 <h2>User login: {{userRole[0]}}</h2>
                 <br/>
@@ -49,7 +47,7 @@
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/menuController.js"></script>
-        <script src="../../../js/controller/account/changeUserRoleController.js"></script>
+        <script src="../../../js/controller/account/authorizated/administratorAccountant/changeUserRoleController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

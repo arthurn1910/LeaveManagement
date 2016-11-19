@@ -14,7 +14,8 @@
                     <ul class="nav nav-tabs">
                         <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)">List of application</a></li>
                         <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Create Important Dates</a></li>
-                        <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)">Remove Group</a></li>
+                        <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)">Planned Leave</a></li>
+                        <li ng-class="{'active' : activeTab == 4}"><a href="" ng-click="setActiveTab(3)">Remove Group</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -24,7 +25,10 @@
                         <div ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">
                             <ng-include src="'/createImportantDateView'"></ng-include>
                         </div>
-                        <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 2}">
+                        <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 3}">
+                            <!--<ng-include src="'/removeGroupView'"></ng-include>-->
+                        </div>
+                        <div ng-class="{'tab-pane active': activeTab === 4, 'tab-pane' : activeTab !== 4}">
                             <ng-include src="'/removeGroupView'"></ng-include>
                         </div>
                     </div>
@@ -41,12 +45,11 @@
         <script src="../js/config/bootstrap.min.js"></script>
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
-        <script src="../js/controller/account/userController.js"></script>
         <script src="../js/controller/menuController.js"></script>
         <script src="../js/controller/group/showGroupController.js"></script>
-        <script src="../../js/controller/group/createImportantDateController.js"></script>
-        <script src="../../js/controller/group/administrationGroupController.js"></script>
-        <script src="../../js/controller/group/removeGroupController.js"></script>
+        <script src="../../js/controller/group/manager/createImportantDateController.js"></script>
+        <script src="../../js/controller/group/manager/administrationGroupController.js"></script>
+        <script src="../../js/controller/group/manager/removeGroupController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

@@ -30,7 +30,9 @@
                             <div ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">
                                 <ng-include src="'/viewImportantDates'"></ng-include>
                             </div>
-                            <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 3}">Panel 3 Content</div>
+                            <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 3}">
+                                <!--<ng-include src="'/groupApprovedLeave'"></ng-include>-->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -45,11 +47,11 @@
         <script src="../js/config/bootstrap.min.js"></script>
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
-        <script src="../js/controller/account/userController.js"></script>
         <script src="../js/controller/menuController.js"></script>
         <script src="../js/controller/group/showGroupController.js"></script>
-        <script src="../js/controller/group/administrationGroupController.js"></script>
+        <script src="../js/controller/group/manager/administrationGroupController.js"></script>
         <script src="../js/controller/group/importantDatesController.js"></script>
+        <script src="../js/controller/group/groupApprovedLeaveController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

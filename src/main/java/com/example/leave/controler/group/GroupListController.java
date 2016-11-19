@@ -10,10 +10,7 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -48,5 +45,12 @@ public class GroupListController {
     public @ResponseBody UserGroupDTO getUserGroupDTO() {
         UserGroupDTO userGroupDTO=groupEndpoint.getUserGroup();
         return userGroupDTO;
+    }
+
+    @RequestMapping(value = "/applyToGroup", method = RequestMethod.POST)
+    public @ResponseBody String applyToGroup(@RequestBody String id) {
+        System.out.println("1 "+id);
+        groupEndpoint.applyToGroup(id);
+        return JSONParser.quote("Apply was created");
     }
 }

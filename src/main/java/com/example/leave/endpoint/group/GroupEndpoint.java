@@ -66,7 +66,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
     @Override
     public void joinToGroup(TeamGroupDTO teamGroupDTO) {
         getYourAccount();
-        getTeamGroup(teamGroupDTO.getID());
+        this.teamGroup=getTeamGroup(teamGroupDTO.getID());
         TeamGroupMember teamGroupMember=new TeamGroupMember(this.account, this.teamGroup);
         groupManager.joinToGroup(teamGroupMember);
     }
@@ -78,8 +78,9 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void getTeamGroup(Long id) {
+    public TeamGroup getTeamGroup(Long id) {
         this.teamGroup=groupManager.getTeamGroup(id);
+        return this.teamGroup;
     }
 
     @Override
@@ -91,13 +92,14 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Override
     public void acceptApplication(String login) {
+        this.teamGroup=getTeamGroup(this.teamGroup.getId());
         for(TeamGroupMember teamGroupMember : this.teamGroup.getTeamGroupMembers()){
             if(teamGroupMember.getEmployee().getLogin().equals(login)){
                 teamGroupMember.setActive(true);
                 groupManager.acceptApplication(teamGroupMember);
             }
         }
-        getTeamGroup();
+        this.teamGroup=getTeamGroup();
     }
 
     @Override
@@ -107,7 +109,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
                 groupManager.removeMember(teamGroupMember);
             }
         }
-        getTeamGroup();
+        this.teamGroup=getTeamGroup();
     }
 
     @Override
@@ -151,7 +153,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Override
     public void removeImportantDate(String id) {
-        getTeamGroup(this.teamGroup.getId());
+        this.teamGroup=getTeamGroup(this.teamGroup.getId());
         for(ImportantDates importantDates : this.teamGroup.getImportantDates()){
             if(importantDates.getId()==Long.valueOf(id)) {
                 groupManager.removeImportantDate(importantDates);
@@ -161,7 +163,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Override
     public List<ImportantDateDTO> getImportantDates() {
-        getTeamGroup(this.teamGroup.getId());
+        this.teamGroup=getTeamGroup(this.teamGroup.getId());
         List<ImportantDates> importantDatesList= groupManager.getImportantDates(this.teamGroup);
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date today = new Date();
@@ -224,7 +226,15 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Override
     public void removeGroup() {
-        getTeamGroup(this.teamGroup.getId());
+        this.teamGroup=getTeamGroup(this.teamGroup.getId());
         groupManager.removeGroup(this.teamGroup);
+    }
+
+    @Override
+    public void applyToGroup(String id) {
+        getYourAccount();
+        TeamGroup teamGroup=getTeamGroup(Long.valueOf(id));
+        TeamGroupMember teamGroupMember=new TeamGroupMember(this.account,teamGroup);
+        groupManager.applyToGroup(teamGroupMember);
     }
 }

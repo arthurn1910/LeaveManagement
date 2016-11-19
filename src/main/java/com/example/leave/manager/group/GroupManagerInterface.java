@@ -40,4 +40,5 @@ public interface GroupManagerInterface {
 
     void removeGroup(TeamGroup teamGroup);
 
+    void applyToGroup(TeamGroupMember teamGroupMember);
 }

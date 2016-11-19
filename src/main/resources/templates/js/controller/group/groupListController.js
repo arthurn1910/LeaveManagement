@@ -3,17 +3,19 @@
  */
 angular.module('leaveManagement')
     .controller('groupListController', function ($scope,$http,$window, $location) {
+        $scope.flag=false;
+
         $scope.getGroupList = function(){
             $http.get('/groupListData')
                 .then(function(response) {
                     $scope.rowCollection = response.data;
-                    console.log($scope.rowCollection);
                 });
         };
         $scope.getUserGroupDTO = function(){
             $http.get('/getUserGroupDTO')
                 .then(function(response) {
                     $scope.userGroupDto = response.data;
+                    $scope.flag=true;
                     console.log($scope.userGroupDto);
                 });
         };
@@ -26,14 +28,45 @@ angular.module('leaveManagement')
             });
         }
         $scope.showGroup = function(data) {
-            console.log('***');
-            console.log(data.id);
             $http.post('/showGroup',data.id).success(function(response) {
                 $window.location.href=response;
             }).error(function(){
                 console.log("error showGroup");
             });
         }
+
+        $scope.checkYourGroup = function(data) {
+            if($scope.flag==true) {
+                for (var i = 0; i < $scope.userGroupDto.teamGroupDTOList.length; i++) {
+                    if ($scope.userGroupDto.teamGroupDTOList[i].id == data.id)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        $scope.checkIfUserApply = function(data) {
+            if($scope.flag==true) {
+                if($scope.userGroupDto.teamGroupDTOList.length==0) {
+                    for(var i=0;i<$scope.userGroupDto.applyTeamGroupDTOList.length;i++){
+                        if(data.id==$scope.userGroupDto.applyTeamGroupDTOList[i].id)
+                            return true;
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        $scope.applyToGroup = function(data) {
+            console.log('juz');
+            $http.post('/applyToGroup',data.id).success(function(response) {
+                $scope.getUserGroupDTO();
+            }).error(function(){
+                console.log("error showGroup");
+            });
+        }
+
 
         $scope.getGroupList();
         $scope.getUserGroupDTO();

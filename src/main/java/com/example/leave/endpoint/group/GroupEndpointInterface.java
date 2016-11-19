@@ -25,7 +25,7 @@ public interface GroupEndpointInterface {
 
     void getYourAccount();
 
-    void getTeamGroup(Long id);
+    TeamGroup getTeamGroup(Long id);
 
     List<TeamGroupMember> getTeamGroupUser(Boolean active);
 
@@ -57,7 +57,9 @@ public interface GroupEndpointInterface {
 
     public void setAccount(Account account);
 
-    TeamGroupDTO getTeamGroupDTO();
+    public TeamGroupDTO getTeamGroupDTO();
 
     public void removeGroup();
+
+    public void applyToGroup(String id);
 }

@@ -74,13 +74,14 @@ public class AccountEndpoint implements AccountEndpointInterface {
             this.accountToEdit.setEmail(data.get(3));
             this.accountToEdit.setName(data.get(1));
             this.accountToEdit.setLastName(data.get(2));
-            this.accountToEdit.setExpirienceDay(Integer.parseInt(data.get(7)));
-            this.accountToEdit.setExpirienceMonth(Integer.parseInt(data.get(6)));
-            this.accountToEdit.setExpirienceYear(Integer.parseInt(data.get(5)));
+            this.accountToEdit.setExpirienceDay(Integer.parseInt(data.get(8)));
+            this.accountToEdit.setExpirienceMonth(Integer.parseInt(data.get(7)));
+            this.accountToEdit.setExpirienceYear(Integer.parseInt(data.get(6)));
+            this.accountToEdit.setWorkTime(Integer.valueOf(data.get(4)));
             DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
             Date startingDate= null;
             try {
-                startingDate = df.parse(data.get(4));
+                startingDate = df.parse(data.get(5));
             } catch (ParseException e) {
                 System.out.println("Exception parsing string to date");
             }

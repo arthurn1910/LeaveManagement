@@ -8,8 +8,8 @@
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
 
-            <div ng-controller="usersListController" id="content">
-                <br/><br/><h1> User List: </h1>
+            <div ng-controller="usersListController" id="content" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h1> User List: </h1>
                 <table  st-table="rowCollection" class="table table-striped">
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@
         <script src="../js/config/angular.min.js"></script>
         <script src="../js/app/leaveManagement.js"></script>
         <script src="../js/controller/menuController.js"></script>
-        <script src="../../../js/controller/account/userListController.js"></script>
+        <script src="../../../js/controller/account/authorizated/userListController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

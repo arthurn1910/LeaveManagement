@@ -1,17 +1,11 @@
 package com.example.leave.controler.group.manager;
 
-import com.example.leave.dto.account.RegisterDTO;
-import com.example.leave.dto.group.TeamGroupDTO;
-import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.endpoint.group.GroupEndpoint;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 /**
  * Created by Medion on 2016-09-20.
