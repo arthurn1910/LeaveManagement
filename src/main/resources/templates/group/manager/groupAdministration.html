@@ -21,8 +21,12 @@
                         <div ng-class="{'tab-pane active': activeTab === 1, 'tab-pane' : activeTab !== 1}">
                             <ng-include src="'/listOfApplication'"></ng-include>
                         </div>
-                        <div ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">aaa</div>
-                        v ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">Remove</div>
+                        <div ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">
+                            <ng-include src="'/createImportantDateView'"></ng-include>
+                        </div>
+                        <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 2}">
+                            <ng-include src="'/removeGroupView'"></ng-include>
+                        </div>
                     </div>
 
                 </div>
@@ -40,7 +44,9 @@
         <script src="../js/controller/account/userController.js"></script>
         <script src="../js/controller/menuController.js"></script>
         <script src="../js/controller/group/showGroupController.js"></script>
+        <script src="../../js/controller/group/createImportantDateController.js"></script>
         <script src="../../js/controller/group/administrationGroupController.js"></script>
+        <script src="../../js/controller/group/removeGroupController.js"></script>
         <link rel="stylesheet" href="../../../css/style.css"/>
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>

@@ -15,8 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -134,19 +137,49 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void createImportantDate(ImportantDateDTO importantDateDTO) {
-        ImportantDates importantDates=new ImportantDates(this.teamGroup,Date.valueOf(importantDateDTO.getDateStart()),Date.valueOf(importantDateDTO.getDateEnd().toString()));
+    public void createImportantDate(String date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1=null;
+        try {
+            date1=df.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        ImportantDates importantDates=new ImportantDates(this.teamGroup, date1);
         groupManager.createImportantDate(importantDates);
     }
 
     @Override
-    public void removeImportantDate(ImportantDates importantDates) {
-        groupManager.removeImportantDate(importantDates);
+    public void removeImportantDate(String id) {
+        getTeamGroup(this.teamGroup.getId());
+        for(ImportantDates importantDates : this.teamGroup.getImportantDates()){
+            if(importantDates.getId()==Long.valueOf(id)) {
+                groupManager.removeImportantDate(importantDates);
+            }
+        }
     }
 
     @Override
-    public List<ImportantDates> getImportantDates(TeamGroup teamGroup) {
-        return groupManager.getImportantDates(teamGroup);
+    public List<ImportantDateDTO> getImportantDates() {
+        getTeamGroup(this.teamGroup.getId());
+        List<ImportantDates> importantDatesList= groupManager.getImportantDates(this.teamGroup);
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = new Date();
+        Date dateNow=null;
+        try {
+            dateNow = formatter.parse(formatter.format(today));
+        } catch (ParseException e) {
+            System.out.println("Exception getImportantDates");
+        }
+        List<ImportantDateDTO> importantDateDTOList =new ArrayList<>();
+        for(ImportantDates importantDates : importantDatesList){
+            ImportantDateDTO importantDateDTO=new ImportantDateDTO(importantDates);
+            if(dateNow.before(importantDateDTO.getDate()) | dateNow.equals(importantDateDTO.getDate())){
+                importantDateDTOList.add(importantDateDTO);
+            }
+        }
+        return importantDateDTOList;
+
     }
 
     @Override
@@ -187,5 +220,11 @@ public class GroupEndpoint implements GroupEndpointInterface {
     public TeamGroupDTO getTeamGroupDTO(){
         TeamGroupDTO teamGroupDTO=new TeamGroupDTO(this.teamGroup);
         return teamGroupDTO;
+    }
+
+    @Override
+    public void removeGroup() {
+        getTeamGroup(this.teamGroup.getId());
+        groupManager.removeGroup(this.teamGroup);
     }
 }

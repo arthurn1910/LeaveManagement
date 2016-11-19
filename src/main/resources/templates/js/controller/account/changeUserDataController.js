@@ -1,7 +1,7 @@
 /**
  * Created by arthurn on 10.11.16.
  */
-angular.module('leaveManagement', [])
+angular.module('leaveManagement')
     .controller('changeUserDataController', function ($scope,$http,$window) {
         var year = [];
         var month = [];

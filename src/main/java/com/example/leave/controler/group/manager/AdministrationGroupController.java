@@ -43,4 +43,15 @@ public class AdministrationGroupController {
         groupEndpoint.removeMember(login);
         return JSONParser.quote("Application user: "+login+" was reject");
     }
+
+    @RequestMapping(value = "/removeGroup", method = RequestMethod.GET)
+    public @ResponseBody String removeGroup(){
+        groupEndpoint.removeGroup();
+        return JSONParser.quote("groupList");
+    }
+
+    @RequestMapping(value = "/removeGroupView", method = RequestMethod.GET)
+    public String importantDatesView() {
+        return "group/manager/removeGroup";
+    }
 }

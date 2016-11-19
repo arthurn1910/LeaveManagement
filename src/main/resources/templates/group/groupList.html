@@ -8,52 +8,52 @@
     <body >
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
-
-            <div ng-controller="groupListController" id="content">
-                <br/><br/><h1> Group List: </h1>
-                <div class="row">
-                    <div class="col-md-1 col-md-offset-8">
-                        <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right">
-                            Create Group
-                        </button>
+            <div class="col-md-10 col-md-offset-1">
+                <div ng-controller="groupListController" id="content">
+                    <br/><br/><h1> Group List: </h1>
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-8">
+                            <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right">
+                                Create Group
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <table  st-table="rowCollection" class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Manager</th>
-                        <th>Number of employee</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="row in rowCollection">
-                            <td>{{row.id}}</td>
-                            <td>{{row.title}}</td>
-                            <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
-                            <td>{{row.numberOfEmployee}}</td>
-                            <td>
-                                <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
-                                    <i class="glyphicon glyphicon-ok-circle">
-                                    </i>
-                                    Apply
-                                </button>
-                                <button type="button" ng-hide="!checkIfUserApply(row)" ng-click="rescidApplyToGroup(row)" class="btn btn-sm btn-danger">
-                                    <i class="glyphicon glyphicon-remove-circle">
-                                    </i>
-                                    Rescid
-                                </button>
-                                <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
-                                    Show
-                                </button>
-                            </td>
+                    <table  st-table="rowCollection" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Manager</th>
+                            <th>Number of employee</th>
+                            <th></th>
                         </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in rowCollection">
+                                <td>{{row.id}}</td>
+                                <td>{{row.title}}</td>
+                                <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
+                                <td>{{row.numberOfEmployee}}</td>
+                                <td>
+                                    <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
+                                        <i class="glyphicon glyphicon-ok-circle">
+                                        </i>
+                                        Apply
+                                    </button>
+                                    <button type="button" ng-hide="!checkIfUserApply(row)" ng-click="rescidApplyToGroup(row)" class="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-remove-circle">
+                                        </i>
+                                        Rescid
+                                    </button>
+                                    <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
+                                        Show
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
 
 
         </div>

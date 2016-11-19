@@ -38,5 +38,6 @@ public interface GroupManagerInterface {
 
     void rejectPlannedLeave(Leave leave);
 
-    //public List<TeamGroupMember> getApplicationToGroup(Account account);
+    void removeGroup(TeamGroup teamGroup);
+
 }

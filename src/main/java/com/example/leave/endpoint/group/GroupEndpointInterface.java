@@ -37,11 +37,11 @@ public interface GroupEndpointInterface {
 
     TeamGroup getTeamGroup();
 
-    void createImportantDate(ImportantDateDTO importantDateDTO);
+    void createImportantDate(String date);
 
-    void removeImportantDate(ImportantDates importantDates);
+    void removeImportantDate(String id);
 
-    List<ImportantDates> getImportantDates(TeamGroup teamGroup);
+    List<ImportantDateDTO> getImportantDates();
 
     List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup);
 
@@ -58,4 +58,6 @@ public interface GroupEndpointInterface {
     public void setAccount(Account account);
 
     TeamGroupDTO getTeamGroupDTO();
+
+    public void removeGroup();
 }

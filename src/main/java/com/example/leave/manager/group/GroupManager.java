@@ -96,14 +96,15 @@ public class GroupManager implements GroupManagerInterface {
     @Override
     @Transactional
     public void createImportantDate(ImportantDates importantDates) {
-        importantDates.setId(5L);
+        importantDates.setId(importantDatesRepository.getNewID());
         importantDatesRepository.save(importantDates);
     }
 
     @Override
     @Transactional
     public void removeImportantDate(ImportantDates importantDates) {
-        importantDatesRepository.delete(importantDates);
+
+        importantDatesRepository.remove(importantDates.getId());
     }
 
     @Override
@@ -128,5 +129,17 @@ public class GroupManager implements GroupManagerInterface {
     @Transactional
     public void rejectPlannedLeave(Leave leave) {
         leaveRepository.delete(leave);
+    }
+
+    @Override
+    @Transactional
+    public void removeGroup(TeamGroup teamGroup) {
+        for(ImportantDates importantDates:teamGroup.getImportantDates()){
+            removeImportantDate(importantDates);
+        }
+        for(TeamGroupMember teamGroupMember : teamGroup.getTeamGroupMembers()){
+            removeMember(teamGroupMember);
+        }
+        teamGroupRepository.remove(teamGroup.getId());
     }
 }

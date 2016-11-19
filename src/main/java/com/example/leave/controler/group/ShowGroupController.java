@@ -42,7 +42,6 @@ public class ShowGroupController {
 
     @RequestMapping(value = "/getTeamGroup", method = RequestMethod.GET)
     public @ResponseBody TeamGroupDTO showGroupPost() {
-        System.out.println("aaa");
         return groupEndpoint.getTeamGroupDTO();
     }
 
@@ -62,11 +61,8 @@ public class ShowGroupController {
     }
 
 
-
     @RequestMapping(value = "/removeMember", method = RequestMethod.POST)
     public @ResponseBody String removeMember(@RequestBody String login) {
-        System.out.println("removeMember");
-        System.out.println(login);
         groupEndpoint.removeMember(login);
         return JSONParser.quote("Member "+login+" removed");
     }

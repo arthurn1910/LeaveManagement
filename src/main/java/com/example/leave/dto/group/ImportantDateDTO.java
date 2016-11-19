@@ -3,54 +3,71 @@ package com.example.leave.dto.group;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 
-import java.sql.Date;
-
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Created by Medion on 2016-09-25.
+ * Created by arthurn on 17.11.16.
  */
 public class ImportantDateDTO {
-    private TeamGroup teamGroup;
 
-    private String dateStart;
-    private String dateEnd;
+    private Long id;
+    private TeamGroupDTO teamGroupDTO;
+    private Date date;
+
+    public ImportantDateDTO(Long id, TeamGroupDTO teamGroupDTO, Date date) {
+        this.id = id;
+        this.teamGroupDTO = teamGroupDTO;
+        this.date = date;
+    }
+
+    public ImportantDateDTO(ImportantDates importantDates) {
+        this.id = importantDates.getId();
+        setTeamGroup(importantDates.getTeamGroup());
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.date = formatter.parse(formatter.format(importantDates.getDate()));
+        } catch (ParseException e) {
+            System.out.println("Exception importantDateDTO");
+        }
+    }
 
     public ImportantDateDTO() {
     }
 
-    public ImportantDateDTO(TeamGroup teamGroup, String dateStart, String dateEnd) {
-        this.teamGroup = teamGroup;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+    public Long getId() {
+        return id;
     }
 
-    public TeamGroup getTeamGroup() {
-        return teamGroup;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setTeamGroup(TeamGroup teamGroup) {
-        this.teamGroup = teamGroup;
+    public TeamGroupDTO getTeamGroupDTO() {
+        return teamGroupDTO;
     }
 
-    public String getDateStart() {
-        return dateStart;
+    public void setTeamGroupDTO(TeamGroupDTO teamGroupDTO) {
+        this.teamGroupDTO = teamGroupDTO;
     }
 
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+    public Date getDate() {
+        return date;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setTeamGroup(TeamGroup teamGroup){
+        this.teamGroupDTO=new TeamGroupDTO(teamGroup);
     }
 
-    public void setImportantDates(ImportantDates importantDates){
-        this.dateStart=importantDates.getDateStart().toString();
-        this.dateEnd=importantDates.getDateEnd().toString();
-        this.teamGroup=importantDates.getTeamGroup();
-    }
+
 }

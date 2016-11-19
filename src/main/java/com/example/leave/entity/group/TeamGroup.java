@@ -15,6 +15,8 @@ import java.util.Date;
 @Entity
 @Table(name = "team_group")
 @NamedQueries({
+        @NamedQuery(name = "TeamGroup.remove",
+                query = "delete from TeamGroup where id=?1"),
         @NamedQuery(name = "TeamGroup.getNewID",
                 query = "select max(id)+1 from TeamGroup"),
         @NamedQuery(name = "TeamGroup.findAllByAccount",
@@ -122,5 +124,17 @@ public class TeamGroup implements Serializable{
 
     public void setTeamGroupMembers(Collection<TeamGroupMember> teamGroupMembers) {
         this.teamGroupMembers = teamGroupMembers;
+    }
+
+    @Override
+    public String toString() {
+        return "TeamGroup{" +
+                "id=" + id +
+                ", manager login=" + account.getId() +
+                ", title='" + title  +
+                ", createDate=" + createDate +
+                ", teamGroupMembers size=" + teamGroupMembers.size() +
+                ", version=" + version +
+                '}';
     }
 }

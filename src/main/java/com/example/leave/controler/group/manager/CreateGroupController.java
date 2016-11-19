@@ -1,7 +1,6 @@
 package com.example.leave.controler.group.manager;
 
 import com.example.leave.dto.account.RegisterDTO;
-import com.example.leave.dto.group.CreateGroupDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.endpoint.group.GroupEndpoint;
