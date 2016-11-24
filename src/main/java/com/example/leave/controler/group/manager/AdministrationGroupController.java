@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by arthurn on 14.11.16.
  */
@@ -34,14 +36,14 @@ public class AdministrationGroupController {
     }
 
     @RequestMapping(value = "/acceptApplication", method = RequestMethod.POST)
-    public @ResponseBody String acceptApplication(@RequestBody String login){
-        groupEndpoint.acceptApplication(login);
-        return JSONParser.quote("Application user:"+login+" was accepted");
+    public @ResponseBody String acceptApplication(@RequestBody List<String> data){
+        groupEndpoint.acceptApplication(data);
+        return JSONParser.quote("Application user:"+data.get(1)+" was accepted");
     }
     @RequestMapping(value = "/rejectApplication", method = RequestMethod.POST)
-    public @ResponseBody String rejectApplication(@RequestBody String login){
-        groupEndpoint.removeMember(login);
-        return JSONParser.quote("Application user: "+login+" was reject");
+    public @ResponseBody String rejectApplication(@RequestBody List<String> data){
+        groupEndpoint.removeMember(data);
+        return JSONParser.quote("Application user: "+data.get(1)+" was reject");
     }
 
     @RequestMapping(value = "/removeGroup", method = RequestMethod.GET)

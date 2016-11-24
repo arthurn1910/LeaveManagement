@@ -1,6 +1,10 @@
 package com.example.leave.dto.leave;
 
+import com.example.leave.dto.account.UserDTO;
+import com.example.leave.entity.account.Account;
+import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -11,35 +15,47 @@ import java.util.List;
  * Created by Medion on 2016-09-27.
  */
 public class LeaveDTO {
-    private List<LeaveType> leaveTypeList;
-    @NotNull
-    @NotEmpty
+    private Long id;
     private LeaveType leaveType;
-
-    @NotEmpty
-    @NotNull
     private Date dateStart;
-
-    @NotEmpty
-    @NotNull
     private Date dateEnd;
+    private Boolean active;
+    private Boolean confirm;
+    private UserDTO account;
 
     public LeaveDTO() {
     }
 
-    public LeaveDTO(List<LeaveType> leaveTypeList, LeaveType leaveType, Date dateStart, Date dateEnd) {
-        this.leaveTypeList = leaveTypeList;
+    public LeaveDTO(Leave leave) {
+        this.id = leave.getId();
+        this.leaveType = leave.getLeaveType();
+        this.dateStart = leave.getDateStart();
+        this.dateEnd = leave.getDateEnd();
+        this.active = leave.getActive();
+        this.confirm = leave.getConfirm();
+        UserDTO userDTO=new UserDTO();
+        userDTO.setAccount(leave.getAccount());
+        this.account=userDTO;
+    }
+
+    public LeaveDTO(Long id, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, Boolean confirm, Account account) {
+        this.id = id;
         this.leaveType = leaveType;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.active = active;
+        this.confirm = confirm;
+        UserDTO userDTO=new UserDTO();
+        userDTO.setAccount(account);
+        this.account=userDTO;
     }
 
-    public List<LeaveType> getLeaveTypeList() {
-        return leaveTypeList;
+    public Long getId() {
+        return id;
     }
 
-    public void setLeaveTypeList(List<LeaveType> leaveTypeList) {
-        this.leaveTypeList = leaveTypeList;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LeaveType getLeaveType() {
@@ -64,5 +80,35 @@ public class LeaveDTO {
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Boolean getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(Boolean confirm) {
+        this.confirm = confirm;
+    }
+
+    public UserDTO getAccount() {
+        return account;
+    }
+
+    public void setAccount(UserDTO account) {
+        this.account = account;
+    }
+
+    public void setAccount(Account account) {
+        UserDTO userDTO=new UserDTO();
+        userDTO.setAccount(account);
+        this.account = userDTO;
     }
 }

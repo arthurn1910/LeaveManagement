@@ -55,8 +55,7 @@ public class IndexController {
     }
 
     @RequestMapping("/isAuthenticated")
-    public  @ResponseBody
-    AuthDTO isAuthenticated()   {
+    public  @ResponseBody AuthDTO isAuthenticated()   {
         AuthDTO authDTO=new AuthDTO();
         if(accountEndpoint.isAuthenticated()) {
             authDTO.setLogin(accountEndpoint.getYourAccount().getLogin());

@@ -14,5 +14,7 @@ public interface LeaveEndpointInterface {
 
     List<LeaveType> getListLeaveType();
 
-    void removeLeave(Leave leave);
+    void removeLeave(Long id);
+
+    List<LeaveDTO> getYourLeave();
 }

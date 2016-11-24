@@ -49,7 +49,6 @@ public class GroupListController {
 
     @RequestMapping(value = "/applyToGroup", method = RequestMethod.POST)
     public @ResponseBody String applyToGroup(@RequestBody String id) {
-        System.out.println("1 "+id);
         groupEndpoint.applyToGroup(id);
         return JSONParser.quote("Apply was created");
     }

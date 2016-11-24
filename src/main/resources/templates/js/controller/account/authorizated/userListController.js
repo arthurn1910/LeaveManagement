@@ -47,6 +47,14 @@ angular.module('leaveManagement')
                 console.log("error changeUserRole");
             });
         }
+
+        $scope.accessLevel=function(data){
+            var accesslevel ='';
+            for (var level in data) {
+                accesslevel += data[level] + " ";
+            }
+            return accesslevel;
+        }
         $scope.getUsersList();
 
     })

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,12 +32,25 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     public void createLeave(LeaveDTO leaveDTO) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account=accountRepository.findByLogin(user.getUsername());
-        Leave leave=new Leave(account,leaveDTO.getLeaveType(), leaveDTO.getDateStart(), leaveDTO.getDateEnd(), true);
-        leaveManager.createLeave(leave);
+//        Leave leave=new Leave(account,leaveDTO.getLeaveType(), leaveDTO.getDateStart(), leaveDTO.getDateEnd(), true);
+//        leaveManager.createLeave(leave);
     }
 
     @Override
-    public void removeLeave(Leave leave) {
-        leaveManager.removeLeave(leave);
+    public void removeLeave(Long id) {
+        leaveManager.removeLeave(id);
+    }
+
+    @Override
+    public List<LeaveDTO> getYourLeave() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Account account=accountRepository.findByLogin(user.getUsername());
+        List<Leave> leaveList= leaveManager.getLeave(account);
+        List<LeaveDTO> leaveListDTO=new ArrayList<>();
+        for(Leave leave : leaveList){
+            leaveListDTO.add(new LeaveDTO(leave));
+        }
+        System.out.println(leaveListDTO.size());
+        return leaveListDTO;
     }
 }

@@ -58,8 +58,9 @@ angular.module('leaveManagement')
             });
         }
 
-        $scope.remove = function(login) {
-            $http.post('/removeMember', login).then(function successCallback(response) {
+        $scope.remove = function(data) {
+            var list=[data.id, data.employee.login]
+            $http.post('/removeMember', list).then(function successCallback(response) {
                 $scope.getMemberList();
             });
         }

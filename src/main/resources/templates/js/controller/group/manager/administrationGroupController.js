@@ -9,13 +9,16 @@ angular.module('leaveManagement')
                 $window.location.href = response.data;
             });
         }
-        $scope.active = function(login) {
-            $http.post('/acceptApplication',login).then(function successCallback(response) {
+        $scope.active = function(data) {
+            var list=[data.id, data.employee.login]
+            $http.post('/acceptApplication',list).then(function successCallback(response) {
                 $window.location.reload();
             });
         }
-        $scope.remove = function(login) {
-            $http.post('/rejectApplication',login).then(function successCallback(response) {
+        $scope.remove = function(data) {
+            var list=[data.id, data.employee.login]
+            console.log(list);
+            $http.post('/rejectApplication',list).then(function successCallback(response) {
                 $window.location.reload();
             });
         }

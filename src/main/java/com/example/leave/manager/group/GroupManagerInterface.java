@@ -34,11 +34,15 @@ public interface GroupManagerInterface {
 
     void removeImportantDate(ImportantDates importantDates);
 
-    List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup);
+    List<Leave> getAllLeaveInGroup(TeamGroup teamGroup);
 
     void rejectPlannedLeave(Leave leave);
 
     void removeGroup(TeamGroup teamGroup);
 
     void applyToGroup(TeamGroupMember teamGroupMember);
+
+    public void rejectLeave(String id);
+
+    public void confirmLeave(String id);
 }

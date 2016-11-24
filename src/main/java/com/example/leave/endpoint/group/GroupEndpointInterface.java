@@ -3,6 +3,7 @@ package com.example.leave.endpoint.group;
 import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.dto.group.UserGroupDTO;
+import com.example.leave.dto.leave.LeaveDTO;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -29,9 +30,9 @@ public interface GroupEndpointInterface {
 
     List<TeamGroupMember> getTeamGroupUser(Boolean active);
 
-    void acceptApplication(String login);
+    void acceptApplication(List<String> data);
 
-    void removeMember(String login);
+    void removeMember(List<String> data);
 
     List<TeamGroupMember> getMemberInGroup();
 
@@ -42,8 +43,6 @@ public interface GroupEndpointInterface {
     void removeImportantDate(String id);
 
     List<ImportantDateDTO> getImportantDates();
-
-    List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup);
 
     void rejectPlannedLeave(Leave leave);
 
@@ -62,4 +61,10 @@ public interface GroupEndpointInterface {
     public void removeGroup();
 
     public void applyToGroup(String id);
+
+    public List<LeaveDTO> getAllLeaveInGroup();
+
+    public void confirmLeave(String id);
+
+    public void rejectLeave(String id);
 }

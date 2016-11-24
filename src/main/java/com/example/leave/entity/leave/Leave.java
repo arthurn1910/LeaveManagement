@@ -12,8 +12,14 @@ import java.util.Date;
 @Entity
 @Table(name = "leave")
 @NamedQueries({
+        @NamedQuery(name = "Leave.remove",
+                query = "delete from Leave where id=?1"),
         @NamedQuery(name = "Leave.findAllByAccountAndActiveAndAfterDate",
-                query = "select l from Leave l where account = ?1 and active = ?2 and dateEnd >= ?3")
+                query = "select l from Leave l where account = ?1 and active = ?2 and dateStart >= ?3"),
+        @NamedQuery(name = "Leave.findLeaveById",
+                query = "select l from Leave l where id = ?1"),
+        @NamedQuery(name = "Leave.findAllByAccount",
+                query = "select l from Leave l where account = ?1")
 })
 public class Leave implements Serializable{
 
@@ -29,13 +35,15 @@ public class Leave implements Serializable{
     @OneToOne(optional = false)
     private LeaveType leaveType;
 
-    @Column(name = "date_start")
+    @Column(name = "datestart")
     private Date dateStart;
-    @Column(name = "date_end")
+    @Column(name = "dateend")
     private Date dateEnd;
 
     @Column(name = "active")
     private Boolean active;
+    @Column(name = "confirm")
+    private Boolean confirm;
     @Column(name = "version")
     @Version
     private long version;
@@ -43,23 +51,26 @@ public class Leave implements Serializable{
     public Leave() {
     }
 
-    public Leave(Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active) {
-        this.version=0;
-        this.account = account;
-        this.leaveType = leaveType;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.active = active;
-    }
-
-    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, long version) {
+    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, Boolean confirm, long version) {
         this.id = id;
         this.account = account;
         this.leaveType = leaveType;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.active = active;
+        this.confirm = confirm;
         this.version = version;
+    }
+
+    public Leave(Account account, LeaveType leaveType, Date dateStart, Date dateEnd) {
+        this.id = 0L;
+        this.account = account;
+        this.leaveType = leaveType;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.active = true;
+        this.confirm = false;
+        this.version = 0L;
     }
 
     public Long getId() {
@@ -108,6 +119,14 @@ public class Leave implements Serializable{
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Boolean getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(Boolean confirm) {
+        this.confirm = confirm;
     }
 
     public long getVersion() {

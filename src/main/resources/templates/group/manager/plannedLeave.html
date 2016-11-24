@@ -1,21 +1,35 @@
 <div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController">
+    <h4>{{message}}</h4>
     <table  st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>
             <th>Name</th>
             <th>Lastname</th>
             <th>Login</th>
+            <th>Type</th>
             <th>Date Start</th>
             <th>Date End</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in approvedLeave">
+        <tr ng-repeat="row in plannedLeave">
             <td>{{row.account.name}}</td>
             <td>{{row.account.lastname}}</td>
             <td>{{(row.account.login)}}</td>
+            <td>{{(row.leaveType.name)}}</td>
             <td>{{getDate(row.dateStart)}}</td>
             <td>{{getDate(row.dateEnd)}}</td>
+            <td>
+                <button type="button" ng-click="confirm(row.id)" class="btn btn-sm btn-success">
+                    <i class="glyphicon glyphicons-ok"></i>
+                    Confirm
+                </button>
+                <button type="button" ng-click="reject(row.id)" class="btn btn-sm btn-danger">
+                    <i class="glyphicon glyphicon-remove-circle"></i>
+                    Reject
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>

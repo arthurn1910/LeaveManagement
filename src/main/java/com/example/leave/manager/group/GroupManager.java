@@ -116,12 +116,13 @@ public class GroupManager implements GroupManagerInterface {
 
     @Override
     @Transactional
-    public List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup) {
+    public List<Leave> getAllLeaveInGroup(TeamGroup teamGroup) {
         List<TeamGroupMember> teamGroupMemberList=getMemberInGroup(teamGroup);
         List<Leave> leaveList=new ArrayList<>();
         Date date=functions.removeTimeInDate(new Date());
-        for(TeamGroupMember teamGroupMember : teamGroupMemberList)
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList) {
             leaveList.addAll(leaveRepository.findAllByAccountAndActiveAndAfterDate(teamGroupMember.getEmployee(), true, date));
+        }
         return leaveList;
     }
 
@@ -148,5 +149,25 @@ public class GroupManager implements GroupManagerInterface {
     public void applyToGroup(TeamGroupMember teamGroupMember) {
         teamGroupMember.setId(teamGroupMemberRepository.getNewID());
         teamGroupMemberRepository.save(teamGroupMember);
+    }
+
+    @Override
+    @Transactional
+    public void rejectLeave(String id) {
+        System.out.println("z1 "+id);
+        Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
+        leave.setActive(false);
+        System.out.println(leave.getId()+" "+leave.getId());
+        leaveRepository.save(leave);
+    }
+
+    @Override
+    @Transactional
+    public void confirmLeave(String id) {
+        System.out.println("z2 " + id);
+        Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
+        leave.setConfirm(true);
+        System.out.println(leave.getId()+" "+leave.getId());
+        leaveRepository.save(leave);
     }
 }

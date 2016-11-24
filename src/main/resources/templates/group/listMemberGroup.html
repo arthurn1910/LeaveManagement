@@ -17,7 +17,7 @@
                 <td>{{row.employee.email}}</td>
                 <td>
                     <a ng-hide="checkManager(row.employee.login)">
-                        <button type="button" ng-controller="administrationGroupController" ng-click="remove(row.employee.login)" class="btn btn-sm btn-danger">
+                        <button type="button" ng-controller="administrationGroupController" ng-click="remove(row)" class="btn btn-sm btn-danger">
                             <i class="glyphicon glyphicon-remove-circle"></i>
                             Remove
                         </button>

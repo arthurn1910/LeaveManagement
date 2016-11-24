@@ -1,5 +1,7 @@
 package com.example.leave.manager.leave;
 
+import com.example.leave.dto.leave.LeaveDTO;
+import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
@@ -32,7 +34,13 @@ public class LeaveManager implements LeaveManagerInterface {
     }
 
     @Override
-    public void removeLeave(Leave leave) {
-        leaveRepository.delete(leave);
+    public void removeLeave(Long id) {
+        leaveRepository.remove(id);
     }
+
+    @Override
+    public List<Leave> getLeave(Account account) {
+        return leaveRepository.findAllByAccount(account);
+    }
+
 }

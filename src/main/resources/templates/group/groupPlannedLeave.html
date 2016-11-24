@@ -5,7 +5,8 @@
             <th>Name</th>
             <th>Lastname</th>
             <th>Login</th>
-            <th>Date</th>
+            <th>Date Start</th>
+            <th>Date End</th>
         </tr>
         </thead>
         <tbody>
@@ -13,6 +14,7 @@
             <td>{{row.employee.name}}</td>
             <td>{{row.employee.lastname}}</td>
             <td>{{(row.employee.login)}}</td>
+            <td>{{getDate(row)}}</td>
             <td>{{getDate(row)}}</td>
         </tr>
         </tbody>

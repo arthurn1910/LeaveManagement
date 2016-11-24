@@ -21,7 +21,6 @@ public class CreateImportantDatesController {
 
     @RequestMapping(value = "/createImportantDate", method = RequestMethod.POST)
     public @ResponseBody String createImportantDate(@RequestBody String date) {
-        System.out.println("1");
         groupEndpoint.createImportantDate(date);
         return JSONParser.quote("Important date created");
     }

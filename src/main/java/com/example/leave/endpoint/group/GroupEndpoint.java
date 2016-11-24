@@ -3,6 +3,7 @@ package com.example.leave.endpoint.group;
 import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.dto.group.UserGroupDTO;
+import com.example.leave.dto.leave.LeaveDTO;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -19,6 +20,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -91,21 +93,27 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void acceptApplication(String login) {
+    public void acceptApplication(List<String> data) {
         this.teamGroup=getTeamGroup(this.teamGroup.getId());
-        for(TeamGroupMember teamGroupMember : this.teamGroup.getTeamGroupMembers()){
-            if(teamGroupMember.getEmployee().getLogin().equals(login)){
-                teamGroupMember.setActive(true);
-                groupManager.acceptApplication(teamGroupMember);
+        Collection<TeamGroupMember> teamGroupMemberList=getMemberInGroup();
+        System.out.println(teamGroupMemberList.toString());
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList){
+            if(teamGroupMember.getId().equals(Long.valueOf(data.get(0)))){
+                if(groupManager.getTeamGroup(teamGroupMember.getEmployee(),true).size()==0) {
+                    teamGroupMember.setActive(true);
+                    groupManager.acceptApplication(teamGroupMember);
+                }else{
+                    groupManager.removeMember(teamGroupMember);
+                }
             }
         }
         this.teamGroup=getTeamGroup();
     }
 
     @Override
-    public void removeMember(String login) {
+    public void removeMember(List<String> data) {
         for(TeamGroupMember teamGroupMember : this.teamGroup.getTeamGroupMembers()){
-            if(teamGroupMember.getEmployee().getLogin().equals(login)){
+            if(teamGroupMember.getId().equals(Long.valueOf(data.get(0)))){
                 groupManager.removeMember(teamGroupMember);
             }
         }
@@ -185,8 +193,24 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup) {
-        return groupManager.getAllLeavePlannedInGroup(teamGroup);
+    public List<LeaveDTO> getAllLeaveInGroup() {
+        List<LeaveDTO> leaveDTOList=new ArrayList<>();
+        List<Leave> leaveList=groupManager.getAllLeaveInGroup(teamGroup);
+        for(Leave leave : leaveList){
+            LeaveDTO leaveDTO=new LeaveDTO(leave.getId(),leave.getLeaveType(),leave.getDateStart(),leave.getDateEnd(),leave.getActive(), leave.getConfirm(),leave.getAccount());
+            leaveDTOList.add(leaveDTO);
+        }
+        return leaveDTOList;
+    }
+
+    @Override
+    public void confirmLeave(String id) {
+        groupManager.confirmLeave(id);
+    }
+
+    @Override
+    public void rejectLeave(String id) {
+        groupManager.rejectLeave(id);
     }
 
     @Override

@@ -22,11 +22,11 @@ public class CreateLeaveController {
         @Autowired
         LeaveEndpoint leaveEndpoint;
 
-        @RequestMapping(value = "/createLeave", method = RequestMethod.GET)
-        public String register(HttpServletRequest request, @ModelAttribute(value = "leaveDTO") @Valid LeaveDTO leaveDTO, BindingResult result) {
-            leaveDTO.setLeaveTypeList(leaveEndpoint.getListLeaveType());
-            return "leave/createLeave";
-        }
+//        @RequestMapping(value = "/createLeave", method = RequestMethod.GET)
+//        public String register(HttpServletRequest request, @ModelAttribute(value = "leaveDTO") @Valid LeaveDTO leaveDTO, BindingResult result) {
+//            leaveDTO.setLeaveTypeList(leaveEndpoint.getListLeaveType());
+//            return "leave/createLeave";
+//        }
 
         @RequestMapping(value = "/createLeave", method = RequestMethod.POST)
         public String registerUser(HttpServletRequest request, @ModelAttribute(value = "leaveDTO") @Valid LeaveDTO leaveDTO, BindingResult result) {
