@@ -1,9 +1,6 @@
 /**
  * Created by arthurn on 05.11.16.
  */
-
-'use strict';
-
 angular.module('leaveManagement')
     .controller('menuController', function($scope, $http) {
         $scope.isAuthenticated = function() {

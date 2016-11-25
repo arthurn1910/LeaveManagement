@@ -10,6 +10,7 @@ import com.example.leave.repository.leave.LeaveTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,21 +25,25 @@ public class LeaveManager implements LeaveManagerInterface {
     LeaveTypeRepository leaveTypeRepository;
 
     @Override
+    @Transactional
     public List<LeaveType> getListLeaveType() {
         return (List) leaveTypeRepository.findAll();
     }
 
     @Override
+    @Transactional
     public void createLeave(Leave leave) {
         leaveRepository.save(leave);
     }
 
     @Override
+    @Transactional
     public void removeLeave(Long id) {
         leaveRepository.remove(id);
     }
 
     @Override
+    @Transactional
     public List<Leave> getLeave(Account account) {
         return leaveRepository.findAllByAccount(account);
     }
