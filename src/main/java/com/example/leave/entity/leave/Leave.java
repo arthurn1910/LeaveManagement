@@ -19,7 +19,9 @@ import java.util.Date;
         @NamedQuery(name = "Leave.findLeaveById",
                 query = "select l from Leave l where id = ?1"),
         @NamedQuery(name = "Leave.findAllByAccount",
-                query = "select l from Leave l where account = ?1")
+                query = "select l from Leave l where account = ?1"),
+        @NamedQuery(name = "Leave.findAllByAccountAndLeaveType",
+                query = "select l from Leave l where account = ?1 and leaveType = ?2")
 })
 public class Leave implements Serializable{
 

@@ -19,4 +19,6 @@ public interface LeaveManagerInterface {
     void removeLeave(Long id);
 
     List<Leave> getLeave(Account account);
+
+    List<Leave> getLeaveUserWithType(Account account, LeaveType one);
 }

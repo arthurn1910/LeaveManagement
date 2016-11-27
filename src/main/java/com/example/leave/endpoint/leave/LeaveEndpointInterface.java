@@ -1,6 +1,7 @@
 package com.example.leave.endpoint.leave;
 
 import com.example.leave.dto.leave.LeaveDTO;
+import com.example.leave.dto.leave.LeaveDetailsDTO;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
 
@@ -12,9 +13,11 @@ import java.util.List;
 public interface LeaveEndpointInterface {
     void createLeave(LeaveDTO leaveDTO);
 
-    List<LeaveType> getListLeaveType();
-
     void removeLeave(Long id);
 
     List<LeaveDTO> getYourLeave();
+
+    LeaveDetailsDTO getLeaveDetails();
+
+    List<LeaveType> getListLeaveType();
 }

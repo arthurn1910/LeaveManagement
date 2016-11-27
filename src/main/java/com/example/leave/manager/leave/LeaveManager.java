@@ -48,4 +48,10 @@ public class LeaveManager implements LeaveManagerInterface {
         return leaveRepository.findAllByAccount(account);
     }
 
+    @Override
+    public List<Leave> getLeaveUserWithType(Account account, LeaveType leaveType) {
+        return leaveRepository.findAllByAccountAndLeaveType(account, leaveType);
+    }
+
+
 }
