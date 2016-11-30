@@ -33,6 +33,7 @@ public class LeaveManager implements LeaveManagerInterface {
     @Override
     @Transactional
     public void createLeave(Leave leave) {
+        leave.setId(leaveRepository.getNewID());
         leaveRepository.save(leave);
     }
 

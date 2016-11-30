@@ -12,6 +12,8 @@ import java.util.Date;
 @Entity
 @Table(name = "leave")
 @NamedQueries({
+        @NamedQuery(name = "Leave.getNewID",
+                query = "select max(id)+1 from Leave"),
         @NamedQuery(name = "Leave.remove",
                 query = "delete from Leave where id=?1"),
         @NamedQuery(name = "Leave.findAllByAccountAndActiveAndAfterDate",
@@ -46,6 +48,10 @@ public class Leave implements Serializable{
     private Boolean active;
     @Column(name = "confirm")
     private Boolean confirm;
+    @Column(name="lastyeardays")
+    private int lastYearDays;
+    @Column(name="currentyeardays")
+    private int currentYearDays;
     @Column(name = "version")
     @Version
     private long version;
@@ -53,7 +59,7 @@ public class Leave implements Serializable{
     public Leave() {
     }
 
-    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, Boolean confirm, long version) {
+    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, int lastYearDays, int  currentYearDays,Boolean active, Boolean confirm, long version) {
         this.id = id;
         this.account = account;
         this.leaveType = leaveType;
@@ -62,9 +68,11 @@ public class Leave implements Serializable{
         this.active = active;
         this.confirm = confirm;
         this.version = version;
+        this.lastYearDays = lastYearDays;
+        this.currentYearDays = currentYearDays;
     }
 
-    public Leave(Account account, LeaveType leaveType, Date dateStart, Date dateEnd) {
+    public Leave(Account account, LeaveType leaveType, Date dateStart,int lastYearDays, int  currentYearDays, Date dateEnd) {
         this.id = 0L;
         this.account = account;
         this.leaveType = leaveType;
@@ -72,6 +80,8 @@ public class Leave implements Serializable{
         this.dateEnd = dateEnd;
         this.active = true;
         this.confirm = false;
+        this.lastYearDays = lastYearDays;
+        this.currentYearDays = currentYearDays;
         this.version = 0L;
     }
 
@@ -137,5 +147,21 @@ public class Leave implements Serializable{
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public int getLastYearDays() {
+        return lastYearDays;
+    }
+
+    public void setLastYearDays(int lastYearDays) {
+        this.lastYearDays = lastYearDays;
+    }
+
+    public int getCurrentYearDays() {
+        return currentYearDays;
+    }
+
+    public void setCurrentYearDays(int currentYearDays) {
+        this.currentYearDays = currentYearDays;
     }
 }

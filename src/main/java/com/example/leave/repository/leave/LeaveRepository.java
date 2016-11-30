@@ -22,4 +22,5 @@ public interface LeaveRepository extends CrudRepository<Leave, Long>{
     List<Leave> findAllByAccount(Account account);
     @Modifying
     List<Leave> findAllByAccountAndLeaveType(Account account, LeaveType leaveType);
+    Long getNewID();
 }

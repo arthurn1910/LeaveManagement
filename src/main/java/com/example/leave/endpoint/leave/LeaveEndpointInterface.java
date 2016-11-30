@@ -20,4 +20,6 @@ public interface LeaveEndpointInterface {
     LeaveDetailsDTO getLeaveDetails();
 
     List<LeaveType> getListLeaveType();
+
+    String createParentalLeave(List<String> data);
 }
