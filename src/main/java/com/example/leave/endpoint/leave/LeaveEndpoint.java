@@ -131,18 +131,20 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
             }
 
         }
-        LeaveDetailsDTO leaveDetailsDTO=getLeaveDetails();
-        int days=countDays(dateStart.getTime(),dateEnd.getTime());
-        if(days>(leaveDetailsDTO.getReamainingVacationLeaveLastYear()+leaveDetailsDTO.getReamainingVacationLeaveLastYear())){
-            if(days<=leaveDetailsDTO.getReamainingVacationLeaveLastYear()){
-                leave.setLastYearDays(days);
-            }else{
-                leave.setLastYearDays(leave.getLastYearDays());
-                leave.setCurrentYearDays(days-leave.getLastYearDays());
+        if(leave.getLeaveType().getId().equals(1L)) {
+            LeaveDetailsDTO leaveDetailsDTO = getLeaveDetails();
+            int days = countDays(dateStart.getTime(), dateEnd.getTime());
+            if (days > (leaveDetailsDTO.getReamainingVacationLeaveLastYear() + leaveDetailsDTO.getReamainingVacationLeaveLastYear())) {
+                if (days <= leaveDetailsDTO.getReamainingVacationLeaveLastYear()) {
+                    leave.setLastYearDays(days);
+                } else {
+                    leave.setLastYearDays(leave.getLastYearDays());
+                    leave.setCurrentYearDays(days - leave.getLastYearDays());
+                }
+            } else {
+                System.out.println("Exception not days to create paid leave");
+                return;
             }
-        }else{
-            System.out.println("Exception not free days to create leave");
-            return;
         }
 
         leaveManager.createLeave(leave);
