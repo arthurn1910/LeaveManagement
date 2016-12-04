@@ -18,6 +18,8 @@ import java.util.Date;
                 query = "delete from Leave where id=?1"),
         @NamedQuery(name = "Leave.findAllByAccountAndActiveAndAfterDate",
                 query = "select l from Leave l where account = ?1 and active = ?2 and dateStart >= ?3"),
+        @NamedQuery(name = "Leave.findAllByTypeAndAccountAndActiveAndConfirm",
+                query = "select l from Leave l where leaveType = ?1 and account = ?2 and active=true and confirm=true"),
         @NamedQuery(name = "Leave.findLeaveById",
                 query = "select l from Leave l where id = ?1"),
         @NamedQuery(name = "Leave.findAllByAccount",

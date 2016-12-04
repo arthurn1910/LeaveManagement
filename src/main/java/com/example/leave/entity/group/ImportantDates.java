@@ -11,8 +11,11 @@ import java.util.Date;
 @Entity
 @Table(name = "important_dates")
 @NamedQueries({
+
         @NamedQuery(name = "ImportantDates.getNewID",
                 query = "select max(id)+1 from ImportantDates"),
+        @NamedQuery(name = "ImportantDates.findAllByTeamGroupAfterNow",
+                query = "select i from ImportantDates i where teamGroup=?1 and date>=?2"),
         @NamedQuery(name = "ImportantDates.remove",
                 query = "delete from ImportantDates where id=?1")
 })

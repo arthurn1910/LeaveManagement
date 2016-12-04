@@ -5,6 +5,7 @@ import com.example.leave.entity.group.TeamGroup;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,4 +16,7 @@ public interface ImportantDatesRepository extends CrudRepository<ImportantDates,
     List<ImportantDates> findAllByTeamGroup(TeamGroup teamGroup);
     @Modifying
     void remove(Long id);
+    List<ImportantDates> findAllByTeamGroupAfterNow(TeamGroup teamGroup, Date time);
+
+
 }

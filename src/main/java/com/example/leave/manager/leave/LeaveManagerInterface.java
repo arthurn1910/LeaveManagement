@@ -6,6 +6,7 @@ import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,4 +22,7 @@ public interface LeaveManagerInterface {
     List<Leave> getLeave(Account account);
 
     List<Leave> getLeaveUserWithType(Account account, LeaveType one);
+
+
+    List<Leave> getLeaveWithTypeAndTeamAndDate(LeaveType one, TeamGroup teamGroup, Date date);
 }

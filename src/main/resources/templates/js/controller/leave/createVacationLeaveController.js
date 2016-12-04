@@ -12,29 +12,101 @@ angular.module('leaveManagement')
         $scope.flag=true;
 
         $scope.Date = function() {
-            $scope.minDate=new Date();
+            var minDate=new Date();
             var dateEnd=new Date(new Date().setFullYear(new Date().getFullYear() + 1));
             dateEnd.setMonth(11);
             dateEnd.setDate(31);
-            $scope.maxDate=dateEnd;
-            console.log($scope.minDate);
-            console.log($scope.maxDate);
+            var maxDate=dateEnd;
             $(function(){
-                $('[type="date"]').prop('min', function(){
-                    return $scope.minDate.toJSON().split('T')[0];
+                $('[name="dateStart"]').prop('min', function(){
+                    return minDate.toJSON().split('T')[0];
                 });
             });
             $(function(){
-                $('[type="date"]').prop('max', function(){
-                    return $scope.maxDate.toJSON().split('T')[0];
+                $('[name="dateStart"]').prop('max', function(){
+                    return maxDate.toJSON().split('T')[0];
                 });
+            });
+        }
+
+        $scope.deleteDate = function() {
+            $scope.dateStart='';
+            $scope.dateEnd='';
+        }
+
+        $scope.changeDateEnd = function() {
+            $scope.dateEnd='';
+            var dateTmp=$scope.dateStart
+            dateTmp.setDate($scope.dateStart.getDate()+1);
+            $(function(){
+                $('[name="dateEnd"]').prop('min', function(){
+                    return dateTmp.toJSON().split('T')[0];
+                });
+            });
+
+            if($scope.type==1) {
+                var dateEnd = new Date($scope.dateStart);
+                countDate($scope.dateStart);
+
+            }else if($scope.type==2){
+                var dateEnd=new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+                dateEnd.setMonth(11);
+                dateEnd.setDate(31);
+                setCloseDate($scope.dateStart,dateEnd);
+            }
+        }
+
+        var countDate=function(dateStart){
+            $http.get('/getLeaveDetails').then(function (response) {
+                $scope.thisYear = response.data.leaveThisYear - response.data.reamainingVacationLeaveThisYear;
+                $scope.lastYear = response.data.leaveLastYear - response.data.reamainingVacationLeaveLastYear;
+                var date=countDateEnd(dateStart);
+                setCloseDate($scope.dateStart,date);
+
+
+            });
+        }
+
+        var countDateEnd=function(dateStart) {
+            var dateTmp = new Date(dateStart);
+            var days = $scope.thisYear + $scope.lastYear;
+            while (days >= 1) {
+                dateTmp.setDate(dateTmp.getDate() + 1);
+                if (dateTmp.getDay() != 0 && dateTmp.getDay() != 6) {
+                    days--;
+                }
+            }
+            console.log(dateTmp)
+            return new Date(dateTmp);
+        }
+
+
+        var setCloseDate=function(dateStart1, dateEnd1){
+            $http.get('/getBlockDate').then(function (response) {
+                var blockDate=response.data;
+                var dateTMP=new Date(dateEnd1);
+                for(var i=0;i<blockDate.length;i++){
+                    if(blockDate[i]>=dateStart1 & blockDate[i]<=dateEnd1 & blockDate[i]<dateTMP){
+                        dateTMP=new Date(blockDate[i]);
+                    }
+                }
+                $(function () {
+                    $('[name="dateEnd"]').prop('max', function (){
+                        return dateTMP.toJSON().split('T')[0];
+                    });
+                });
+
             });
         }
 
 
         $scope.create = function() {
-            $scope.leave=[$scope.type, $scope.dateStart, $scope.lenght]
-            $http.post('/createParentalLeave',$scope.leave)
+            console.log('*');
+            console.log($scope.dateStart);
+            console.log($scope.dateEnd);
+            console.log('**');
+            $scope.leave=[$scope.type, $scope.dateStart, $scope.dateEnd,$scope.dateEnd]
+            $http.post('/createLeave',$scope.leave)
                 .then(function successCallback(response) {
                     $scope.message = response.data;
                     $scope.flag=false;

@@ -3,10 +3,14 @@ package com.example.leave.endpoint.leave;
 import com.example.leave.dto.leave.LeaveDTO;
 import com.example.leave.dto.leave.LeaveDetailsDTO;
 import com.example.leave.entity.account.Account;
+import com.example.leave.entity.group.ImportantDates;
+import com.example.leave.entity.group.TeamGroup;
+import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
 import com.example.leave.manager.leave.LeaveManager;
 import com.example.leave.repository.account.AccountRepository;
+import com.example.leave.repository.group.ImportantDatesRepository;
 import com.example.leave.repository.group.TeamGroupRepository;
 import com.example.leave.repository.leave.LeaveTypeRepository;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -32,6 +36,8 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     LeaveManager leaveManager;
     @Autowired
     LeaveTypeRepository leaveTypeRepository;
+    @Autowired
+    ImportantDatesRepository importantDatesRepository;
     @Override
     public List<LeaveType> getListLeaveType() {
        return leaveManager.getListLeaveType();
@@ -61,11 +67,103 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     }
 
     @Override
-    public void createLeave(LeaveDTO leaveDTO) {
+    public List<Date> getBlockDate() {
+        Collection<TeamGroupMember> teamGroupMemberCollection= getAccount().getTeamGroupMemberCollection();
+        TeamGroup teamGroup=null;
+        for(TeamGroupMember teamGroupMember : teamGroupMemberCollection){
+            teamGroup=teamGroupMember.getTeamGroup();
+            break;
+        }
+        Calendar calendar=Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.HOUR,0);
+        List<Date> dateList=new ArrayList<>();
+        List<ImportantDates> importantDatesList1= importantDatesRepository.findAllByTeamGroup(teamGroup);
+        List<ImportantDates> importantDatesList= importantDatesRepository.findAllByTeamGroupAfterNow(teamGroup,calendar.getTime());
+        int sizeTeam=teamGroup.getTeamGroupMembers().size();
+        for(ImportantDates importantDates : importantDatesList){
+            List<Leave> leaveList=leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(1L),teamGroup,importantDates.getDate());
+            leaveList.addAll(leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(2L),teamGroup,importantDates.getDate()));
+            System.out.println(leaveList.size());
+            int y= (int) (4*0.2);
+            System.out.println((int) (4*0.2));
+            System.out.println((int) (5*0.2));
+            System.out.println((int) (9*0.2));
+            System.out.println((int) (10*0.2));
+            System.out.println((int) (11*0.2));
+            int member=(int)0.2*sizeTeam;
+            if(member==0)
+                member=1;
+            if(member<=leaveList.size())
+                dateList.add(importantDates.getDate());
+
+
+        }
+
+        System.out.println(dateList.size());
+        return dateList;
+
+
+    }
+
+    @Override
+    public void createLeave(List<String> data) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account=accountRepository.findByLogin(user.getUsername());
-//        Leave leave=new Leave(account,leaveDTO.getLeaveType(), leaveDTO.getDateStart(), leaveDTO.getDateEnd(), true);
-//        leaveManager.createLeave(leave);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar dateStart=Calendar.getInstance();
+        Calendar dateEnd=Calendar.getInstance();
+        try {
+            dateStart.setTime(df.parse(data.get(1)));
+            dateEnd.setTime(df.parse(data.get(2)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dateEnd.add(Calendar.DAY_OF_YEAR,1);
+        Leave leave=new Leave(account, leaveTypeRepository.findOne(Long.valueOf(data.get(0))),dateStart.getTime(),0,0,dateEnd.getTime());;
+        List<Date> dateList=getBlockDate();
+        for(Date date : dateList){
+            if(dateStart.before(date)&& dateEnd.after(date)) {
+                System.out.println("Exception date is blocked");
+                return;
+            }
+
+        }
+        LeaveDetailsDTO leaveDetailsDTO=getLeaveDetails();
+        int days=countDays(dateStart.getTime(),dateEnd.getTime());
+        if(days>(leaveDetailsDTO.getReamainingVacationLeaveLastYear()+leaveDetailsDTO.getReamainingVacationLeaveLastYear())){
+            if(days<=leaveDetailsDTO.getReamainingVacationLeaveLastYear()){
+                leave.setLastYearDays(days);
+            }else{
+                leave.setLastYearDays(leave.getLastYearDays());
+                leave.setCurrentYearDays(days-leave.getLastYearDays());
+            }
+        }else{
+            System.out.println("Exception not free days to create leave");
+            return;
+        }
+
+        leaveManager.createLeave(leave);
+    }
+
+    private int countDays(Date dateStart, Date dateEnd) {
+        if(dateStart.before(dateEnd)){
+            Calendar calendarStart=Calendar.getInstance();
+            calendarStart.setTime(dateStart);
+            Calendar calendarEnd=Calendar.getInstance();
+            calendarEnd.setTime(dateEnd);
+            int count=1;
+            while(!calendarStart.getTime().equals(calendarEnd.getTime())){
+                count++;
+                calendarStart.add(Calendar.DAY_OF_YEAR,1);
+            }
+            return count;
+        }else{
+            System.out.println("Exception date start is before date end");
+        }
+        return 0;
     }
 
     @Override

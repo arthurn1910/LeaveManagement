@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,48 +21,59 @@ import java.util.List;
  */
 @Controller
 public class CreateLeaveController {
-        @Autowired
-        LeaveEndpoint leaveEndpoint;
+    @Autowired
+    LeaveEndpoint leaveEndpoint;
 
-        @RequestMapping(value = "/createLeave", method = RequestMethod.GET)
-        public String viewLeave() {
-            return "leave/createLeave";
-        }
+    @RequestMapping(value = "/createLeave", method = RequestMethod.GET)
+    public String viewLeave() {
+        return "leave/createLeave";
+    }
 
-        @RequestMapping(value = "/getLeaveDetails", method = RequestMethod.GET)
-        public @ResponseBody LeaveDetailsDTO getLeaveDetails() {
-            return leaveEndpoint.getLeaveDetails();
+    @RequestMapping(value = "/getLeaveDetails", method = RequestMethod.GET)
+    public @ResponseBody LeaveDetailsDTO getLeaveDetails() {
+        return leaveEndpoint.getLeaveDetails();
 
-        }
+    }
 
-        @RequestMapping(value = "/createParentalLeave", method = RequestMethod.GET)
-        public String createParentalLeave() {
-            System.out.println("*()");
-            return "leave/createParentalLeave";
-        }
+    @RequestMapping(value = "/createParentalLeave", method = RequestMethod.GET)
+    public String createParentalLeave() {
+        System.out.println("*()");
+        return "leave/createParentalLeave";
+    }
 
     @RequestMapping(value = "/createParentalLeave", method = RequestMethod.POST)
     public @ResponseBody String createParentalLeave(@RequestBody List<String> data) {
         return leaveEndpoint.createParentalLeave(data);
     }
 
-        @RequestMapping(value = "/createVacationLeave", method = RequestMethod.GET)
-        public String createVacationLeave() {
-            return "leave/createVacationLeave";
-        }
+    @RequestMapping(value = "/createLeave", method = RequestMethod.POST)
+    public @ResponseBody String createLeave(@RequestBody List<String> data) {
+        leaveEndpoint.createLeave(data);
+        return JSONParser.quote("Leave was created");
+    }
 
-        @RequestMapping(value = "/getCreateParentalLeave", method = RequestMethod.GET)
-        public @ResponseBody String getCreateParentalLeave() {
-            return JSONParser.quote("/createParentalLeave");
-        }
+    @RequestMapping(value = "/getBlockDate", method = RequestMethod.GET)
+    public @ResponseBody List<Date> getBlockDate() {
+        return leaveEndpoint.getBlockDate();
+    }
 
-        @RequestMapping(value = "/getCreateLeave", method = RequestMethod.GET)
-        public @ResponseBody String getCreateLeave() {
-            return JSONParser.quote("/createLeave");
-        }
+    @RequestMapping(value = "/createVacationLeave", method = RequestMethod.GET)
+    public String createVacationLeave() {
+        return "leave/createVacationLeave";
+    }
 
-        @RequestMapping(value = "/getCreateVacationLeave", method = RequestMethod.GET)
-        public @ResponseBody String getCreateVacationLeave() {
+    @RequestMapping(value = "/getCreateParentalLeave", method = RequestMethod.GET)
+    public @ResponseBody String getCreateParentalLeave() {
+        return JSONParser.quote("/createParentalLeave");
+    }
+
+    @RequestMapping(value = "/getCreateLeave", method = RequestMethod.GET)
+    public @ResponseBody String getCreateLeave() {
+        return JSONParser.quote("/createLeave");
+    }
+
+    @RequestMapping(value = "/getCreateVacationLeave", method = RequestMethod.GET)
+    public @ResponseBody String getCreateVacationLeave() {
             return JSONParser.quote("/createVacationLeave");
         }
 }
