@@ -26,12 +26,10 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        System.out.println("wszedlem");
 
         try{
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String name = user.getUsername(); //get logged in username
-            System.out.println("!!!!! "+name);
             String role="";
             for(GrantedAuthority auth : user.getAuthorities()) {
                 role+=auth.getAuthority()+" ";
@@ -57,8 +55,7 @@ public class IndexController {
     }
 
     @RequestMapping("/isAuthenticated")
-    public  @ResponseBody
-    AuthDTO isAuthenticated()   {
+    public  @ResponseBody AuthDTO isAuthenticated()   {
         AuthDTO authDTO=new AuthDTO();
         if(accountEndpoint.isAuthenticated()) {
             authDTO.setLogin(accountEndpoint.getYourAccount().getLogin());

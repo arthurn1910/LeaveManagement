@@ -28,7 +28,6 @@ public class changeUserPasswordController {
 
     @RequestMapping(value = "/saveUserPassword", method = RequestMethod.POST)
     public @ResponseBody String saveUserPassword(@RequestBody List<String> data) {
-        System.out.println(data.get(0)+" "+ data.get(1));
         accountEndpoint.changeUserPassword(data.get(0), data.get(1));
         return JSONParser.quote("Password was changed!");
     }

@@ -13,6 +13,7 @@ import com.example.leave.utils.Functions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,83 +40,130 @@ public class GroupManager implements GroupManagerInterface {
     Functions functions;
 
     @Override
-    public void createGroup(TeamGroup createGroupDTO) {
-        createGroupDTO.setId(7L);
+    @Transactional
+    public void createGroup(TeamGroup createGroupDTO, TeamGroupMember teamGroupMember) {
+        createGroupDTO.setId(teamGroupRepository.getNewID());
         teamGroupRepository.save(createGroupDTO);
+        teamGroupMember.setId(teamGroupMemberRepository.getNewID());
+        teamGroupMember.setActive(true);
+        teamGroupMemberRepository.save(teamGroupMember);
     }
 
     @Override
+    @Transactional
     public List<TeamGroup> getAllGroups() {
         return (List<TeamGroup>) teamGroupRepository.findAll();
     }
 
     @Override
+    @Transactional
     public TeamGroup getTeamGroup(Long id) {
         return teamGroupRepository.findOne(id);
     }
 
     @Override
+    @Transactional
     public void joinToGroup(TeamGroupMember teamGroupMember) {
         teamGroupMember.setId(3L);
         teamGroupMemberRepository.save(teamGroupMember);
     }
 
     @Override
-    public List<TeamGroupMember> getApplicationToGroup(Account account) {
-        TeamGroup teamGroup=teamGroupRepository.findOneByAccount(account);
-        List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, false);
+    @Transactional
+    public List<TeamGroupMember> getTeamGroup(Account account, Boolean active) {
+        List<TeamGroupMember> teamGroupMemberList=teamGroupMemberRepository.findAllByAccountAndActive(account, active);
         return teamGroupMemberList;
     }
 
     @Override
-    public void rejectApplication(TeamGroupMember teamGroupMember) {
-        teamGroupMemberRepository.delete(teamGroupMember);
-    }
-
-    @Override
+    @Transactional
     public void acceptApplication(TeamGroupMember teamGroupMember) {
         teamGroupMemberRepository.save(teamGroupMember);
     }
 
     @Override
+    @Transactional
     public void removeMember(TeamGroupMember teamGroupMember) {
-        teamGroupMemberRepository.delete(teamGroupMember);
+        teamGroupMemberRepository.remove(teamGroupMember.getId());
     }
 
     @Override
+    @Transactional
     public List<TeamGroupMember> getMemberInGroup(TeamGroup teamGroup) {
-        return teamGroupMemberRepository.findAllByTeamGroupIDAndActive(teamGroup, true);
+        return teamGroupMemberRepository.findAllByTeamGroupID(teamGroup);
     }
 
     @Override
+    @Transactional
     public void createImportantDate(ImportantDates importantDates) {
-        importantDates.setId(5L);
+        importantDates.setId(importantDatesRepository.getNewID());
         importantDatesRepository.save(importantDates);
     }
 
     @Override
+    @Transactional
     public void removeImportantDate(ImportantDates importantDates) {
-        importantDatesRepository.delete(importantDates);
+
+        importantDatesRepository.remove(importantDates.getId());
     }
 
     @Override
+    @Transactional
     public List<ImportantDates> getImportantDates(TeamGroup teamGroup) {
         return importantDatesRepository.findAllByTeamGroup(teamGroup);
     }
 
 
     @Override
-    public List<Leave> getAllLeavePlannedInGroup(TeamGroup teamGroup) {
+    @Transactional
+    public List<Leave> getAllLeaveInGroup(TeamGroup teamGroup) {
         List<TeamGroupMember> teamGroupMemberList=getMemberInGroup(teamGroup);
         List<Leave> leaveList=new ArrayList<>();
         Date date=functions.removeTimeInDate(new Date());
-        for(TeamGroupMember teamGroupMember : teamGroupMemberList)
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList) {
             leaveList.addAll(leaveRepository.findAllByAccountAndActiveAndAfterDate(teamGroupMember.getEmployee(), true, date));
+        }
         return leaveList;
     }
 
     @Override
+    @Transactional
     public void rejectPlannedLeave(Leave leave) {
         leaveRepository.delete(leave);
+    }
+
+    @Override
+    @Transactional
+    public void removeGroup(TeamGroup teamGroup) {
+        for(ImportantDates importantDates:teamGroup.getImportantDates()){
+            removeImportantDate(importantDates);
+        }
+        for(TeamGroupMember teamGroupMember : teamGroup.getTeamGroupMembers()){
+            removeMember(teamGroupMember);
+        }
+        teamGroupRepository.remove(teamGroup.getId());
+    }
+
+    @Override
+    @Transactional
+    public void applyToGroup(TeamGroupMember teamGroupMember) {
+        teamGroupMember.setId(teamGroupMemberRepository.getNewID());
+        teamGroupMemberRepository.save(teamGroupMember);
+    }
+
+    @Override
+    @Transactional
+    public void rejectLeave(String id) {
+        Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
+        leave.setActive(false);
+        leaveRepository.save(leave);
+    }
+
+    @Override
+    @Transactional
+    public void confirmLeave(String id) {
+        Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
+        leave.setConfirm(true);
+        leaveRepository.save(leave);
     }
 }

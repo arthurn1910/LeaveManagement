@@ -1,103 +1,77 @@
 <!DOCTYPE html>
-<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">>
-<head>
-    <meta charset="UTF-8"/>
-    <title>Leave Management</title>
-</head>
-<body >
-<div id="container">
-    <ng-include src="'/menu'"></ng-include>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body >
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
 
-    <div ng-controller="usersListController" id="content">
-        <br/>
-        <h1> User List: </h1>
-        <table  st-table="rowCollection" class="table table-striped">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Login</th>
-                <th>Access Level</th>
-                <th>Starting Date</th>
-                <th>Active</th>
-                <th>Confirmed</th>
-                <th>Change</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="row in rowCollection.accountList">
-                    <td>{{row.id}}</td>
-                    <td>{{row.login}}</td>
-                    <td>{{accessLevel(row.accessLevel)}}</td>
-                    <td>{{row.startingDate}}</td>
-                    <td>
-                        <!--ng-click="changeActive(row)"-->
-                        <button type="button" ng-hide="{{row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-success">
-                            <i class="glyphicon glyphicon-ok-circle">
-                            </i>
-                            Activate
-                        </button>
-                        <button type="button" ng-hide="{{!row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-danger">
-                            <i class="glyphicon glyphicon-remove-circle">
-                            </i>
-                            Deactivate
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" ng-hide="{{row.confirm}}" ng-click="changeUserConfirmStatus(row)" class="btn btn-sm btn-success">
-                            <i class="glyphicon glyphicon-ok-circle">
-                            </i>
-                            Confirm
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" ng-click="changeUserPassword(row)" class="btn btn-sm btn-info">
-                            Password
-                        </button>
-                        <button type="button" ng-click="changeUserData(row)" class="btn btn-sm btn-info">
-                            Data User
-                        </button>
-                        <button type="button" ng-click="changeUserRole(row)" class="btn btn-sm btn-info">
-                            Role
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-
-
-</div>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
-<script src="../js/config/jquery-3.1.1.js"></script>
-<script src="../js/config/bootstrap.min.js"></script>
-<script src="../js/config/angular.min.js"></script>
-<script src="../js/app/leaveManagement.js"></script>
-<script src="../js/controller/userController.js"></script>
-<link rel="stylesheet" href="../../../css/style.css"/>
-<link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
-</body>
+            <div ng-controller="usersListController" id="content" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h1> User List: </h1>
+                <table  st-table="rowCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Login</th>
+                            <th>Access Level</th>
+                            <th>Starting Date</th>
+                            <th>Active</th>
+                            <th>Confirmed</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in rowCollection.accountList">
+                            <td>{{row.id}}</td>
+                            <td>{{row.login}}</td>
+                            <td>{{accessLevel(row.accessLevel)}}</td>
+                            <td>{{row.startingDate}}</td>
+                            <td>
+                                <button type="button" ng-hide="{{row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-ok-circle">
+                                    </i>
+                                    Activate
+                                </button>
+                                <button type="button" ng-hide="{{!row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-remove-circle">
+                                    </i>
+                                    Deactivate
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" ng-hide="{{row.confirm}}" ng-click="changeUserConfirmStatus(row)" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-ok-circle">
+                                    </i>
+                                    Confirm
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" ng-click="changeUserPassword(row)" class="btn btn-sm btn-info">
+                                    Password
+                                </button>
+                                <button type="button" ng-click="changeUserData(row)" class="btn btn-sm btn-info">
+                                    Data User
+                                </button>
+                                <button type="button" ng-click="changeUserRole(row)" class="btn btn-sm btn-info">
+                                    Role
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../../../js/controller/account/authorizated/userListController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
 </html>
-
-
-
-
-<!--<form method="POST" modelattribute="accountDTO">-->
-<!--<p th:text="'Name: ' + ${listUsersDTO.getAccountList().size()} + '!'" />-->
-
-<!--<table style="width:100%">-->
-<!--    <tr>-->
-<!--<th>login</th>-->
-<!--<th>id</th>-->
-<!--<th>active</th>-->
-<!--<th>confirm</th>-->
-<!--</tr>-->
-<!--<tr th:each="account : ${listUsersDTO.getAccountList()}">-->
-<!--<td th:text="${account.getLogin()}"/>-->
-<!--<td th:text="${account.getId()}"/>-->
-<!--<td th:text="${account.getActive()}"/>-->
-<!--<td th:text="${account.getConfirm()}"/>-->
-<!--</tr>-->
-<!--</table>-->
-<!--</form>-->

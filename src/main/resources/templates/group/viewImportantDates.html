@@ -1,30 +1,23 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Important Dates</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Important Dates</h1>
-    </div>
-    <div class="content">
-        <p th:text="'Group: '+${listImportantDatesDTO.getTeamGroup().getTitle()}"/>
-        <form method="POST" modelattribute="listImportantDatesDTO">
-            <table style="width:100%">
-                    <tr>
-                <th>Start Date</th>
-                <th>End Date</th>
-
-            </tr>
-                <tr th:each="teamGroupDate : ${listImportantDatesDTO.getImportantDatesList()}">
-                    <td th:text="${teamGroupDate.getDateStart()}"/>
-                    <td th:text="${teamGroupDate.getDateEnd()}"/>
-                </tr>
-                <input type="submit" value="Remove Group" />
-            </table>
-        </form>
-    </div>
+<div class="col-md-7 col-md-offset-2">
+    <table  ng-controller="importantDatesController" st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in importantDates">
+            <td>{{getDate(row.date)}}</td>
+            <td>
+                <a ng-hide="checkManager('')">
+                    <button type="button" ng-click="remove(row.id)" class="btn btn-sm btn-danger">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                        Remove
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-</body>
-</html>

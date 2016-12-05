@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body>
+        <div ng-controller="showGroupController" id="container">
+            <ng-include src="'/menu'"></ng-include>
+            <div class="col-md-10 col-md-offset-1">
+                <div id="content">
+                    <br/><br/><h1> Group : {{teamGroup.title}}</h1>
+
+                    <ul class="nav nav-tabs">
+                        <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)">List of application</a></li>
+                        <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Create Important Dates</a></li>
+                        <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)">Planned Leave</a></li>
+                        <li ng-class="{'active' : activeTab == 4}"><a href="" ng-click="setActiveTab(4)">Remove Group</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div ng-class="{'tab-pane active': activeTab === 1, 'tab-pane' : activeTab !== 1}">
+                            <ng-include src="'/listOfApplication'"></ng-include>
+                        </div>
+                        <div ng-class="{'tab-pane active': activeTab === 2, 'tab-pane' : activeTab !== 2}">
+                            <ng-include src="'/createImportantDateView'"></ng-include>
+                        </div>
+                        <div ng-class="{'tab-pane active': activeTab === 3, 'tab-pane' : activeTab !== 3}">
+                            <ng-include src="'/memberPlannedLeaveInGroup'"></ng-include>
+                        </div>
+                        <div ng-class="{'tab-pane active': activeTab === 4, 'tab-pane' : activeTab !== 4}">
+                            <ng-include src="'/removeGroupView'"></ng-include>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div  ng-controller="administrationGroupController" class="col-md-4 col-md-offset-5">
+                <br/><br/><button type="button" ng-click="return()">Return</button>
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../js/controller/group/showGroupController.js"></script>
+        <script src="../../js/controller/group/manager/createImportantDateController.js"></script>
+        <script src="../../js/controller/group/manager/administrationGroupController.js"></script>
+        <script src="../../js/controller/group/manager/removeGroupController.js"></script>
+        <script src="../../js/controller/group/memberLeaveGroupController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
+</html>

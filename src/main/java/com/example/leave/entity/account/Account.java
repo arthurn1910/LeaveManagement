@@ -61,6 +61,8 @@ public class Account implements Serializable {
     private String lastname;
     @Column(name = "email", table = "user_data")
     private String email;
+    @Column(name="work_time", table = "user_data")
+    private int workTime;
     @Column(name = "starting_date", table = "user_data")
     private Date startingDate;
     @Column(name = "expirience_year", table = "user_data")
@@ -98,6 +100,14 @@ public class Account implements Serializable {
 
     public Date getStartingDate() {
         return startingDate;
+    }
+
+    public int getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(int workTime) {
+        this.workTime = workTime;
     }
 
     public Collection<Leave> getLeaveCollection() {
@@ -177,15 +187,17 @@ public class Account implements Serializable {
         this.active=true;
         this.confirm=false;
         this.version=0;
+        this.workTime=100;
     }
 
-    public Account(Long id, String login, String password, Boolean confirm, Boolean active, long version) {
+    public Account(Long id, String login, String password, int workTime, Boolean confirm, Boolean active, long version) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.confirm = confirm;
         this.active = active;
         this.version = version;
+        this.workTime=workTime;
     }
 
     public void setUserData(String name, String lastname, String email){
@@ -198,6 +210,7 @@ public class Account implements Serializable {
         this.expirienceMonth=0;
         this.expirienceDay=0;
         this.versionUserData=0;
+        this.workTime=100;
     }
 
     public Collection<AccessLevel> getAccessLevelCollection() {
@@ -251,28 +264,6 @@ public class Account implements Serializable {
 
     public void setVersion(long version) {
         this.version = version;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", confirm=" + confirm +
-                ", active=" + active +
-                ", version=" + version +
-                ", versionUserData=" + versionUserData +
-                ", accessLevelCollection={" + getAccessLevelToString()  +"}"+
-                ", name='" + name + '\'' +
-                ", lastName='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", startingDate=" + startingDate +
-                ", expirienceYear=" + expirienceYear +
-                ", expirienceMonth=" + expirienceMonth +
-                ", expirienceDay=" + expirienceDay +
-                ", createDate=" + createDate +
-                '}';
     }
 
     public String getAccessLevelToString() {

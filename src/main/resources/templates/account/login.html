@@ -3,11 +3,6 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>Leave Management</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
 	</head>
 	<body ng-app="leaveManagement">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,21 +21,6 @@
 							<ul class="nav navbar-nav">
 								<li class="login" disabled="false"><a href="/login">Login</a></li>
 								<li class="register" disabled="false"><a href="/register">Register</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li class="administration" disabled="false"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration<span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li class="userList" disabled="false"><a href="/usersList">User List</a></li>
-									</ul>
-								</li>
-								<li class="settings" disable="false"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-cog">
-								</i><span class="caret"></span></a>
-									<ul class="dropdown-menu">
-										<li class="changePassword" disabled="false"><a href="/changePassword">Change Password</a></li>
-										<li class="logout" disabled="false"><a href="/logout">Sign Out</a></li>
-									</ul>
-								</li>
-
 							</ul>
 						</div>
 					</nav>
@@ -62,5 +42,9 @@
 					   class="btn btn-primary" />
 			</form>
 		</div>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 	</body>
 </html>

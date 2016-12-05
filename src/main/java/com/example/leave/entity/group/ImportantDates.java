@@ -10,6 +10,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "important_dates")
+@NamedQueries({
+
+        @NamedQuery(name = "ImportantDates.getNewID",
+                query = "select max(id)+1 from ImportantDates"),
+        @NamedQuery(name = "ImportantDates.findAllByTeamGroupAfterNow",
+                query = "select i from ImportantDates i where teamGroup=?1 and date>=?2"),
+        @NamedQuery(name = "ImportantDates.remove",
+                query = "delete from ImportantDates where id=?1")
+})
 public class ImportantDates {
     @Id
     @Column(name = "important_dates_id")
@@ -18,10 +27,8 @@ public class ImportantDates {
     @ManyToOne
     private TeamGroup teamGroup;
 
-    @Column(name = "date_start")
-    private Date dateStart;
-    @Column(name = "date_end")
-    private Date dateEnd;
+    @Column(name = "date")
+    private Date date;
 
     @Column(name = "version")
     @Version
@@ -31,18 +38,16 @@ public class ImportantDates {
     public ImportantDates() {
     }
 
-    public ImportantDates(Long id, TeamGroup teamGroup, Date dateStart, Date dateEnd, long version) {
+    public ImportantDates(Long id, TeamGroup teamGroup, Date date, long version) {
         this.id = id;
         this.teamGroup = teamGroup;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+        this.date = date;
         this.version = version;
     }
 
-    public ImportantDates(TeamGroup teamGroup, Date dateStart, Date dateEnd) {
+    public ImportantDates(TeamGroup teamGroup, Date date) {
         this.teamGroup = teamGroup;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
+        this.date = date;
         this.version=0;
     }
 
@@ -62,20 +67,12 @@ public class ImportantDates {
         this.teamGroup = teamGroup;
     }
 
-    public Date getDateStart() {
-        return dateStart;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public Date getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(Date dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public long getVersion() {
@@ -86,5 +83,13 @@ public class ImportantDates {
         this.version = version;
     }
 
-
+    @Override
+    public String toString() {
+        return "ImportantDates{" +
+                "id=" + id +
+                ", teamGroup=" + teamGroup.toString() +
+                ", date=" + date +
+                ", version=" + version +
+                '}';
+    }
 }

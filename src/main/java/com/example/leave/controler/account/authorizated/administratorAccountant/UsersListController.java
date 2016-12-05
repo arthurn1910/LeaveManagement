@@ -41,10 +41,6 @@ public class UsersListController {
             listUserDTO.add(userDTO);
         }
         listUsersDTO.setAccountList(listUserDTO);
-        for(UserDTO user: listUserDTO){
-            System.out.print(user.toString());
-        }
-        System.out.println(listUserDTO.size());
         return listUsersDTO;
     }
 

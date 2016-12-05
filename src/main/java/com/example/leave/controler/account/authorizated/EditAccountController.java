@@ -25,19 +25,16 @@ public class EditAccountController {
 
     @RequestMapping(value = "/editAccountGet", method = RequestMethod.GET)
     public @ResponseBody String editUserAccountPost() {
-        System.out.println("editAccountGet");
         return JSONParser.quote("/editAccount");
     }
 
     @RequestMapping(value = "/editAccount", method = RequestMethod.GET)
     public String editAccount() {
-        System.out.println("editAccount");
         return "account/authorizated/editAccount";
     }
 
     @RequestMapping(value = "/saveAccount", method = RequestMethod.POST)
     public @ResponseBody String editUserAccountData( @RequestBody List<String> data) {
-        System.out.println("@@ "+ data.toString());
         accountEndpoint.editYourAccountData(data);
         return JSONParser.quote("Account changed!");
     }

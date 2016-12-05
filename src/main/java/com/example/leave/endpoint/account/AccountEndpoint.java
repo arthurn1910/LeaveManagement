@@ -74,13 +74,14 @@ public class AccountEndpoint implements AccountEndpointInterface {
             this.accountToEdit.setEmail(data.get(3));
             this.accountToEdit.setName(data.get(1));
             this.accountToEdit.setLastName(data.get(2));
-            this.accountToEdit.setExpirienceDay(Integer.parseInt(data.get(7)));
-            this.accountToEdit.setExpirienceMonth(Integer.parseInt(data.get(6)));
-            this.accountToEdit.setExpirienceYear(Integer.parseInt(data.get(5)));
+            this.accountToEdit.setExpirienceDay(Integer.parseInt(data.get(8)));
+            this.accountToEdit.setExpirienceMonth(Integer.parseInt(data.get(7)));
+            this.accountToEdit.setExpirienceYear(Integer.parseInt(data.get(6)));
+            this.accountToEdit.setWorkTime(Integer.valueOf(data.get(4)));
             DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
             Date startingDate= null;
             try {
-                startingDate = df.parse(data.get(4));
+                startingDate = df.parse(data.get(5));
             } catch (ParseException e) {
                 System.out.println("Exception parsing string to date");
             }
@@ -111,11 +112,9 @@ public class AccountEndpoint implements AccountEndpointInterface {
     @Override
     public void changeUserPassword(String login, String newPassword) {
         if(login.equals(accountToEdit.getLogin())){
-            System.out.println("1");
             accountToEdit.setPassword(newPassword);
             accountManager.changePassword(accountToEdit);
         } else{
-            System.out.println("2");
             System.out.println("Exception changeUserPassword");
         }
 
@@ -124,7 +123,6 @@ public class AccountEndpoint implements AccountEndpointInterface {
     @Override
     public void changeUserRole(List<String> changeUserRole) {
         if(changeUserRole.get(0).equals(accountToEdit.getLogin())) {
-            System.out.println("changeUserRole.get(2) "+changeUserRole.get(2));
             if(changeUserRole.get(2).equals("activate")){
                 accountManager.addRoleToUser("ROLE_"+changeUserRole.get(1), accountToEdit);
             }else if(changeUserRole.get(2).equals("deactivate")) {

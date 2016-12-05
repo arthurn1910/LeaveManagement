@@ -1,26 +1,15 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Edit User Account</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Create important Dates</h1>
-    </div>
-    <div class="content">
-        <h2 th:text="'Group: '+${importantDateDTO.getTeamGroup().getGroupTitle()}"/>
-        <form method="POST" modelattribute="importantDateDTO">
-            <p th:text="'Start Date: '"/>
-            <input type="date" name="dateStart" path="dateStart"/>
-            <if test="${pageContext.request.method=='POST'}"><errors path="dateStart" /></if>
+<div ng-controller="createImportantDateController" class="col-md-7 col-md-offset-2">
+    <a>{{message}}</a>
+    <form name="CreateImportantDateForm" ng-show="flag" class="css-form" novalidate="true">
+        <div class="form-group">
+            <label>Date</label>
+            <input type="date" name="date" class="form-control" ng-model="dateCreate" required="true"/>
+            <div ng-show="CreateImportantDateForm.$submitted || CreateImportantDateForm.password.$touched">
+                <span ng-show="CreateImportantDateForm.date.$error.required" class="help-block">Date is required</span>
+                <span ng-show="CreateImportantDateForm.date.$error.date" class="help-block">Date is not correct</span>
 
-            <p th:text="'End Date: '"/>
-            <input type="date" name="dateEnd" path="dateEnd"/>
-            <if test="${pageContext.request.method=='POST'}"><errors path="dateEnd" /></if>
-            <input type="submit" value="Create" />
-        </form>
-    </div>
+            </div>
+            <br/><button type='button' ng-disabled="CreateImportantDateForm.$invalid" ng-click="create()" >Create</button><br/>
+        </div>
+    </form>
 </div>
-</body>
-</html>

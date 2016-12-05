@@ -1,11 +1,14 @@
 package com.example.leave.dto.group;
 
+import com.example.leave.dto.account.UserDTO;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.TeamGroup;
+import com.example.leave.entity.group.TeamGroupMember;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -19,7 +22,7 @@ public class TeamGroupDTO {
     @Size(min=2)
     private String title;
 
-    private Account manager;
+    private UserDTO manager;
 
     private Date createDate;
 
@@ -30,7 +33,8 @@ public class TeamGroupDTO {
 
     public TeamGroupDTO(String title, Account manager, Date createDate, int numberOfEmployee) {
         this.title = title;
-        this.manager = manager;
+        this.manager = new UserDTO();
+        this.manager.setAccount(manager);
         this.createDate = createDate;
         this.numberOfEmployee = numberOfEmployee;
     }
@@ -51,11 +55,11 @@ public class TeamGroupDTO {
         this.title = title;
     }
 
-    public Account getManager() {
+    public UserDTO getManager() {
         return manager;
     }
 
-    public void setManager(Account manager) {
+    public void setManager(UserDTO manager) {
         this.manager = manager;
     }
 
@@ -78,8 +82,27 @@ public class TeamGroupDTO {
     public void setTeamGroup(TeamGroup teamGroup) {
         this.ID = teamGroup.getId();
         this.title = teamGroup.getGroupTitle();
-        this.manager = teamGroup.getManager();
+        this.manager =  new UserDTO();
+        this.manager.setAccount(teamGroup.getManager());
         this.createDate = teamGroup.getCreateDate();
         this.numberOfEmployee = teamGroup.getTeamGroupMembers().size();
+    }
+
+    public TeamGroupDTO(TeamGroup teamGroup) {
+        this.ID = teamGroup.getId();
+        this.title = teamGroup.getTitle();
+        this.manager = new UserDTO();
+        this.manager.setAccount(teamGroup.getManager());
+        this.createDate = teamGroup.getCreateDate();
+        setNumberOfEmployee(teamGroup.getTeamGroupMembers());
+    }
+
+    public void setNumberOfEmployee(Collection<TeamGroupMember> teamGroupMemberCollection){
+        int tmp=0;
+        for(TeamGroupMember teamGroupMember : teamGroupMemberCollection){
+            if(teamGroupMember.getActive()==true)
+                tmp++;
+        }
+        this.numberOfEmployee=tmp;
     }
 }

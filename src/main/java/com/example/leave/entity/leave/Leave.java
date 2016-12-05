@@ -12,8 +12,22 @@ import java.util.Date;
 @Entity
 @Table(name = "leave")
 @NamedQueries({
+        @NamedQuery(name = "Leave.getNewID",
+                query = "select max(id)+1 from Leave"),
+        @NamedQuery(name = "Leave.remove",
+                query = "delete from Leave where id=?1"),
         @NamedQuery(name = "Leave.findAllByAccountAndActiveAndAfterDate",
-                query = "select l from Leave l where account = ?1 and active = ?2 and dateEnd >= ?3")
+                query = "select l from Leave l where account = ?1 and active = ?2 and dateStart >= ?3"),
+        @NamedQuery(name = "Leave.findAllByTypeAndAccountAndActiveAndConfirm",
+                query = "select l from Leave l where leaveType = ?1 and account = ?2 and active=true and confirm=true"),
+        @NamedQuery(name = "Leave.findAllByActiveAndConfirm",
+                query = "select l from Leave l where active=true and confirm=true"),
+        @NamedQuery(name = "Leave.findLeaveById",
+                query = "select l from Leave l where id = ?1"),
+        @NamedQuery(name = "Leave.findAllByAccount",
+                query = "select l from Leave l where account = ?1"),
+        @NamedQuery(name = "Leave.findAllByAccountAndLeaveType",
+                query = "select l from Leave l where account = ?1 and leaveType = ?2")
 })
 public class Leave implements Serializable{
 
@@ -29,13 +43,19 @@ public class Leave implements Serializable{
     @OneToOne(optional = false)
     private LeaveType leaveType;
 
-    @Column(name = "date_start")
+    @Column(name = "datestart")
     private Date dateStart;
-    @Column(name = "date_end")
+    @Column(name = "dateend")
     private Date dateEnd;
 
     @Column(name = "active")
     private Boolean active;
+    @Column(name = "confirm")
+    private Boolean confirm;
+    @Column(name="lastyeardays")
+    private int lastYearDays;
+    @Column(name="currentyeardays")
+    private int currentYearDays;
     @Column(name = "version")
     @Version
     private long version;
@@ -43,23 +63,30 @@ public class Leave implements Serializable{
     public Leave() {
     }
 
-    public Leave(Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active) {
-        this.version=0;
-        this.account = account;
-        this.leaveType = leaveType;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.active = active;
-    }
-
-    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, long version) {
+    public Leave(Long id, Account account, LeaveType leaveType, Date dateStart, Date dateEnd, int lastYearDays, int  currentYearDays,Boolean active, Boolean confirm, long version) {
         this.id = id;
         this.account = account;
         this.leaveType = leaveType;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.active = active;
+        this.confirm = confirm;
         this.version = version;
+        this.lastYearDays = lastYearDays;
+        this.currentYearDays = currentYearDays;
+    }
+
+    public Leave(Account account, LeaveType leaveType, Date dateStart,int lastYearDays, int  currentYearDays, Date dateEnd) {
+        this.id = 0L;
+        this.account = account;
+        this.leaveType = leaveType;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.active = true;
+        this.confirm = false;
+        this.lastYearDays = lastYearDays;
+        this.currentYearDays = currentYearDays;
+        this.version = 0L;
     }
 
     public Long getId() {
@@ -110,11 +137,35 @@ public class Leave implements Serializable{
         this.active = active;
     }
 
+    public Boolean getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(Boolean confirm) {
+        this.confirm = confirm;
+    }
+
     public long getVersion() {
         return version;
     }
 
     public void setVersion(long version) {
         this.version = version;
+    }
+
+    public int getLastYearDays() {
+        return lastYearDays;
+    }
+
+    public void setLastYearDays(int lastYearDays) {
+        this.lastYearDays = lastYearDays;
+    }
+
+    public int getCurrentYearDays() {
+        return currentYearDays;
+    }
+
+    public void setCurrentYearDays(int currentYearDays) {
+        this.currentYearDays = currentYearDays;
     }
 }

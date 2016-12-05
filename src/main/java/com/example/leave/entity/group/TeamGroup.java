@@ -15,8 +15,12 @@ import java.util.Date;
 @Entity
 @Table(name = "team_group")
 @NamedQueries({
-        @NamedQuery(name = "TeamGroup.findOneByAccount",
-                query = "select t from TeamGroup t where manager=?1")
+        @NamedQuery(name = "TeamGroup.remove",
+                query = "delete from TeamGroup where id=?1"),
+        @NamedQuery(name = "TeamGroup.getNewID",
+                query = "select max(id)+1 from TeamGroup"),
+        @NamedQuery(name = "TeamGroup.findAllByAccount",
+                query = "select t from TeamGroup t where account=?1")
 })
 public class TeamGroup implements Serializable{
     @Id
@@ -30,10 +34,10 @@ public class TeamGroup implements Serializable{
     @Column(name = "date_create")
     private Date createDate;
 
-    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "teamGroup")
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.EAGER, mappedBy = "teamGroup")
     private Collection<TeamGroupMember> teamGroupMembers = new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST}, mappedBy = "teamGroup")
+    @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.EAGER, mappedBy = "teamGroup")
     private Collection<ImportantDates> importantDates = new ArrayList<>();
 
     @Column(name = "version")
@@ -120,5 +124,17 @@ public class TeamGroup implements Serializable{
 
     public void setTeamGroupMembers(Collection<TeamGroupMember> teamGroupMembers) {
         this.teamGroupMembers = teamGroupMembers;
+    }
+
+    @Override
+    public String toString() {
+        return "TeamGroup{" +
+                "id=" + id +
+                ", manager login=" + account.getId() +
+                ", title='" + title  +
+                ", createDate=" + createDate +
+                ", teamGroupMembers size=" + teamGroupMembers.size() +
+                ", version=" + version +
+                '}';
     }
 }

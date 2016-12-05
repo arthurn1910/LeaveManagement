@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Users List</title>
-</head>
-<body onload="document.f.username.focus();">
-<div class="container">
-    <div class="navbar">
-        <h1>Leave Management System</h1>
-    </div>
-    <div class="content">
-        <h2>List application to group</h2>
-        <form method="POST" modelattribute="listApplicationGroupDTO">
-            <table style="width:100%">
-                    <tr>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Login</th>
-                <th>Email</th>
+<table ng-controller="administrationGroupController" st-table="rowCollection" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Login</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in applyGroup">
+            <td>{{row.employee.name}}</td>
+            <td>{{row.employee.lastname}}</td>
+            <td>{{(row.employee.login)}}</td>
+            <td>{{row.employee.email}}</td>
+            <td>
+                <a ng-hide="checkManager(row.employee.login)" >
+                    <a ng-controller="administrationGroupController">
+                        <button type="button" ng-click="active(row)" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicons-ok"></i>
+                            Active
+                        </button>
+                        <button type="button" ng-click="remove(row)" class="btn btn-sm btn-danger">
+                            <i class="glyphicon glyphicon-remove-circle"></i>
+                            Remove
+                        </button>
+                    </a>
+                </a>
 
-            </tr>
-                <tr th:each="teamGroupMember : ${listApplicationGroupDTO.getTeamGroupMemberList()}">
-                    <td th:text="${teamGroupMember.getEmployee().getName()}"/>
-                    <td th:text="${teamGroupMember.getEmployee().getLastname()}"/>
-                    <td th:text="${teamGroupMember.getEmployee().getLogin()}"/>
-                    <td th:text="${teamGroupMember.getEmployee().getEmail()}"/>
-                    <input type="submit" value="Create Group" />
-                </tr>
-            </table>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+            </td>
+        </tr>
+    </tbody>
+</table>

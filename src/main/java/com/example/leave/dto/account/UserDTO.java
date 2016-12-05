@@ -31,6 +31,7 @@ public class UserDTO {
     private int expirienceYear;
     private int expirienceMonth;
     private int expirienceDay;
+    private int workTime;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createDate;
     private List<String> accessLevel;
@@ -55,6 +56,7 @@ public class UserDTO {
         this.createDate = account.getCreateDate();
         setAccessLevel(account.getAccessLevelCollection());
         this.version=account.getVersion();
+        this.workTime=account.getWorkTime();
     }
 
     public Long getId() {
@@ -192,5 +194,13 @@ public class UserDTO {
                 ", accessLevelCollection=" + accessLevel +
                 ", version=" + version +
                 '}';
+    }
+
+    public int getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(int workTime) {
+        this.workTime = workTime;
     }
 }
