@@ -11,20 +11,19 @@
             <div id="content" ng-controller="reportLeaveController" class="col-md-8 col-md-offset-2">
                 <br/><br/><br/>
                 <h1> Leave List</h1>
-                <tr>
-                    <th>
-                        <tr class="col-md-2"><br/></tr>
-                        <tr class="col-md-2"><br/></tr>
-                        <tr class="col-md-2"><br/></tr>
-                        <tr><input type="text" name="name" ng-model="name" class="col-md-2" placeholder="Filter by name"/></tr>
+                <br/>
+                <div class="row">
+                    <button type='button' ng-click="print()" class="col-md-2 col-md-offset-9">Print</button>
+                </div>
+                <br/>
+                <!--<button type='button' ng-click="print()" class="col-md-2 col-md-offset-9">Print</button>-->
+                <div class="row">
+                    <input type="text" name="name" ng-model="name" class="col-md-2" placeholder="Filter by name"/>
+                    <div class="col-md-8 col-md-offset-1" id="slider"></div>
+                </div>
 
-                    </th>
-                    <th>
-                        <div class="col-md-8 col-md-offset-1" id="slider"></div>
-                    </th>
-                </tr>
-
-                <table  st-table="rowCollection" class="table table-striped">
+                <br/>
+                <table name="reportLeave" st-table="rowCollection" class="table table-striped" id="print" border="1" cellpadding="3">
                     <thead>
                         <tr>
                             <th>ID Account</th>
@@ -33,20 +32,18 @@
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Type</th>
-                            <th>Days current year</th>
-                            <th>Days last year</th>
+                            <th>Days this/last year</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="row in reportLeave">
+                        <tr ng-repeat="row in reportLeave678" >
                             <td>{{(row.account.id)}}</td>
                             <td>{{(row.account.name)}}</td>
                             <td>{{(row.account.lastname)}}</td>
                             <td>{{(row.dateStart) | date:  "dd.MM.y"}}</td>
                             <td>{{(row.dateEnd) | date:  "dd.MM.y"}}</td>
                             <td>{{(row.leaveType.name)}}</td>
-                            <td>{{(row.currentYearDays)}}</td>
-                            <td>{{(row.lastYearDays)}}</td>
+                            <td>{{(row.currentYearDays)}}/{{(row.lastYearDays)}}</td>
                         </tr>
                     </tbody>
                 </table>

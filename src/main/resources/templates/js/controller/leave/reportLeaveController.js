@@ -8,8 +8,13 @@ angular.module('leaveManagement')
             $http.get('/getLeave')
                 .then(function(response) {
                     $scope.leaveList = response.data;
-                    setUTCTime()
-                    $scope.reportLeave=$scope.leaveList;
+                    console.log($scope.leaveList);
+                    for(var i=0;i<$scope.leaveList.length;i++){
+                        console.log('+++')
+                        console.log(new Date($scope.leaveList[i].dateStart))
+                        console.log(new Date($scope.leaveList[i].dateEnd))
+                    }
+                    $scope.reportLeave678=$scope.leaveList;
                     console.log($scope.leaveList);
                     setDate();
 
@@ -20,28 +25,27 @@ angular.module('leaveManagement')
             return new Date(row+3600*1000).toISOString().split('T')[0];
         };
 
-        var setUTCTime = function(){
-            for(var i=0;i<$scope.leaveList.length;i++) {
-                console.log($scope.leaveList[i].dateStart)
-                console.log($scope.leaveList[i].dateEnd)
-                $scope.leaveList[i].dateStart=new Date($scope.leaveList[i].dateStart.toGMTString());
-                $scope.leaveList[i].dateEnd=new Date($scope.leaveList[i].dateEnd.toGMTString());
-                console.log($scope.leaveList[i].dateStart)
-                console.log($scope.leaveList[i].dateEnd)
-            }
-        };
-
         var setDate = function () {
+            console.log('*');
             var flag=true;
             var dateStart=new Date();
             var dateEnd=new Date();
 
             for(var i=0;i<$scope.leaveList.length;i++){
                 if(flag==true){
+                    console.log('a');
+                    console.log(new Date($scope.leaveList[i].dateStart));
+                    console.log(new Date($scope.leaveList[i].dateEnd));
                     dateStart=new Date($scope.leaveList[i].dateStart);
                     dateEnd=new Date($scope.leaveList[i].dateEnd);
                     flag=false;
                 }else{
+                    console.log('b');
+                    console.log(new Date($scope.leaveList[i].dateStart));
+                    console.log(new Date($scope.leaveList[i].dateEnd));
+                    console.log('c');
+                    console.log(new Date(dateStart));
+                    console.log(new Date(dateEnd));
                     if(dateStart>$scope.leaveList[i].dateStart){
                         dateStart=new Date($scope.leaveList[i].dateStart);
                     }
@@ -76,12 +80,12 @@ angular.module('leaveManagement')
                 console.log(new Date($scope.leaveList[i].dateStart))
                 console.log(new Date($scope.leaveList[i].dateEnd))
                 console.log('i');
-                console.log(new Date($scope.leaveList[i].dateEnd) < dateStart)
-                console.log(new Date($scope.leaveList[i].dateStart) > dateEnd)
-                console.log((new Date($scope.leaveList[i].dateEnd) < dateStart) ||
-                    (new Date($scope.leaveList[i].dateStart) > dateEnd))
+                console.log(new Date($scope.leaveList[i].dateEnd) < new Date(dateStart))
+                console.log(new Date($scope.leaveList[i].dateStart) > new Date(dateEnd))
+                console.log((new Date($scope.leaveList[i].dateEnd) < new Date(dateStart)) ||
+                    (new Date($scope.leaveList[i].dateStart) > new Date(dateEnd)))
 
-                if ((!(new Date($scope.leaveList[i].dateEnd) < dateStart)) || (!(new Date($scope.leaveList[i].dateStart) > dateEnd) )) {
+                if (((new Date($scope.leaveList[i].dateEnd) < dateStart) || (new Date($scope.leaveList[i].dateStart) > dateEnd) )==false) {
                     list.push($scope.leaveList[i])
                     console.log('o');
                 }
@@ -89,10 +93,14 @@ angular.module('leaveManagement')
 
 
             console.log('&*(');
+            while($scope.reportLeave678.length>0)
+                $scope.reportLeave678.pop();
             console.log(list);
-            console.log($scope.reportLeave);
-            $scope.reportLeave=list;
-            console.log($scope.reportLeave);
+            console.log('rep b');
+            console.log($scope.reportLeave678);
+            $scope.reportLeave678=list;
+            console.log('rep a');
+            console.log($scope.reportLeave678);
         }
 
         $("#slider").on("valuesChanging", function(e, data){
@@ -107,7 +115,19 @@ angular.module('leaveManagement')
             dateEnd.setMinutes(0);
             dateEnd.setHours(0);
             filterByDate(dateStart,dateEnd);
+            console.log('123')
+            console.log($scope.reportLeave678)
         });
+
+        $scope.print = function() {
+            var divToPrint=document.getElementById("print");
+            var newWin= window.open("");
+            newWin.document.write(divToPrint.outerHTML);
+            newWin.print();
+            newWin.close();
+        }
+
+
         $scope.getLeave();
 
     })

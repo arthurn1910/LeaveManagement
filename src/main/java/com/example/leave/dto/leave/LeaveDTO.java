@@ -8,8 +8,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Medion on 2016-09-27.
@@ -32,8 +31,8 @@ public class LeaveDTO {
     public LeaveDTO(Leave leave) {
         this.id = leave.getId();
         this.leaveType = leave.getLeaveType();
-        this.dateStart = leave.getDateStart();
-        this.dateEnd = leave.getDateEnd();
+        this.dateStart = returnUTCDate(leave.getDateStart());
+        this.dateEnd = returnUTCDate(leave.getDateEnd());
         this.active = leave.getActive();
         this.confirm = leave.getConfirm();
         UserDTO userDTO=new UserDTO();
@@ -41,6 +40,21 @@ public class LeaveDTO {
         this.account=userDTO;
         this.lastYearDays=leave.getLastYearDays();
         this.currentYearDays=leave.getCurrentYearDays();
+    }
+
+    public Date returnUTCDate(Date date){
+        Calendar  calendarTmp=new GregorianCalendar();
+        Calendar  calendar=new GregorianCalendar();
+        calendarTmp.setTime(date);
+        calendar.set(Calendar.HOUR,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+        calendar.set(Calendar.YEAR, calendarTmp.get(Calendar.YEAR));
+        calendar.set(Calendar.MONTH, calendarTmp.get(Calendar.MONTH));
+        calendar.set(Calendar.DAY_OF_YEAR, calendarTmp.get(Calendar.DAY_OF_YEAR));
+        return calendar.getTime();
+
     }
 
     public LeaveDTO(Long id, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, Boolean confirm, Account account) {
