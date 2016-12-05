@@ -72,5 +72,11 @@ public class LeaveManager implements LeaveManagerInterface {
         return leaveList;
     }
 
+    @Override
+    @Transactional
+    public List<Leave> getAllLeave() {
+       return leaveRepository.findAllByActiveAndConfirm();
+    }
+
 
 }

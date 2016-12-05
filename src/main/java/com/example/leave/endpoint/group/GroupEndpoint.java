@@ -96,7 +96,6 @@ public class GroupEndpoint implements GroupEndpointInterface {
     public void acceptApplication(List<String> data) {
         this.teamGroup=getTeamGroup(this.teamGroup.getId());
         Collection<TeamGroupMember> teamGroupMemberList=getMemberInGroup();
-        System.out.println(teamGroupMemberList.toString());
         for(TeamGroupMember teamGroupMember : teamGroupMemberList){
             if(teamGroupMember.getId().equals(Long.valueOf(data.get(0)))){
                 if(groupManager.getTeamGroup(teamGroupMember.getEmployee(),true).size()==0) {

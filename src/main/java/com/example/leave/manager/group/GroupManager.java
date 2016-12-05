@@ -154,20 +154,16 @@ public class GroupManager implements GroupManagerInterface {
     @Override
     @Transactional
     public void rejectLeave(String id) {
-        System.out.println("z1 "+id);
         Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
         leave.setActive(false);
-        System.out.println(leave.getId()+" "+leave.getId());
         leaveRepository.save(leave);
     }
 
     @Override
     @Transactional
     public void confirmLeave(String id) {
-        System.out.println("z2 " + id);
         Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
         leave.setConfirm(true);
-        System.out.println(leave.getId()+" "+leave.getId());
         leaveRepository.save(leave);
     }
 }

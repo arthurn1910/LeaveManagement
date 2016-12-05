@@ -22,6 +22,9 @@ public class LeaveDTO {
     private Boolean active;
     private Boolean confirm;
     private UserDTO account;
+    private int currentYearDays;
+    private int lastYearDays;
+
 
     public LeaveDTO() {
     }
@@ -36,6 +39,8 @@ public class LeaveDTO {
         UserDTO userDTO=new UserDTO();
         userDTO.setAccount(leave.getAccount());
         this.account=userDTO;
+        this.lastYearDays=leave.getLastYearDays();
+        this.currentYearDays=leave.getCurrentYearDays();
     }
 
     public LeaveDTO(Long id, LeaveType leaveType, Date dateStart, Date dateEnd, Boolean active, Boolean confirm, Account account) {
@@ -49,6 +54,7 @@ public class LeaveDTO {
         userDTO.setAccount(account);
         this.account=userDTO;
     }
+
 
     public Long getId() {
         return id;
@@ -110,5 +116,21 @@ public class LeaveDTO {
         UserDTO userDTO=new UserDTO();
         userDTO.setAccount(account);
         this.account = userDTO;
+    }
+
+    public int getCurrentYearDays() {
+        return currentYearDays;
+    }
+
+    public void setCurrentYearDays(int currentYearDays) {
+        this.currentYearDays = currentYearDays;
+    }
+
+    public int getLastYearDays() {
+        return lastYearDays;
+    }
+
+    public void setLastYearDays(int lastYearDays) {
+        this.lastYearDays = lastYearDays;
     }
 }

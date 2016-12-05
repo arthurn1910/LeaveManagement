@@ -19,8 +19,6 @@ public class GroupLeaveController {
 
     @RequestMapping(value = "/getGroupLeave", method = RequestMethod.POST)
     public @ResponseBody String createImportantDate(@RequestBody String date) {
-//        System.out.println("1");
-//        groupEndpoint.createImportantDate(date);
         return JSONParser.quote("getGroupLeave");
     }
 

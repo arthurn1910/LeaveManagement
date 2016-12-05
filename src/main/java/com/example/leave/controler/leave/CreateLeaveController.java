@@ -37,7 +37,6 @@ public class CreateLeaveController {
 
     @RequestMapping(value = "/createParentalLeave", method = RequestMethod.GET)
     public String createParentalLeave() {
-        System.out.println("*()");
         return "leave/createParentalLeave";
     }
 

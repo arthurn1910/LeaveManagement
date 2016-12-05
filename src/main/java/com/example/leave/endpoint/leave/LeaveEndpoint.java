@@ -57,9 +57,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         Calendar calendar=Calendar.getInstance();
         calendar.setTime(date1);
         int week=Integer.parseInt(data.get(2));
-        System.out.println(calendar);
         calendar.add(Calendar.WEEK_OF_YEAR,week);
-        System.out.println(calendar);
         Leave leave=new Leave(account,leaveType,date1,0,0,calendar.getTime());
         leaveManager.createLeave(leave);
         return JSONParser.quote("Leave was created");
@@ -86,13 +84,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         for(ImportantDates importantDates : importantDatesList){
             List<Leave> leaveList=leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(1L),teamGroup,importantDates.getDate());
             leaveList.addAll(leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(2L),teamGroup,importantDates.getDate()));
-            System.out.println(leaveList.size());
             int y= (int) (4*0.2);
-            System.out.println((int) (4*0.2));
-            System.out.println((int) (5*0.2));
-            System.out.println((int) (9*0.2));
-            System.out.println((int) (10*0.2));
-            System.out.println((int) (11*0.2));
             int member=(int)0.2*sizeTeam;
             if(member==0)
                 member=1;
@@ -102,10 +94,19 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
 
         }
 
-        System.out.println(dateList.size());
         return dateList;
 
 
+    }
+
+    @Override
+    public List<LeaveDTO> getAllLeave() {
+        List<Leave> leaveList= leaveManager.getAllLeave();
+        List<LeaveDTO> leaveDTOList=new ArrayList<>();
+        for(Leave leave : leaveList){
+            leaveDTOList.add(new LeaveDTO(leave));
+        }
+        return leaveDTOList;
     }
 
     @Override
@@ -182,7 +183,6 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         for(Leave leave : leaveList){
             leaveListDTO.add(new LeaveDTO(leave));
         }
-        System.out.println(leaveListDTO.size());
         return leaveListDTO;
     }
 
@@ -371,9 +371,6 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                         int countMonth=(int) Math.floor(days/30);
                         daysLeave=(int) Math.ceil(countMonth*20/12);
                         daysLeave+=(int) Math.ceil(((int) Math.floor(((workDays-days)/30))*26/12));
-                        System.out.println(Math.ceil(((int) Math.floor(((workDays-days)/30))*26/12)));
-                        System.out.println(((int) Math.floor(((workDays-days)/30))*26/12));
-                        System.out.println((workDays-days/30));
                         if(daysLeave>26)
                             daysLeave=26;
                         daysLeave=(int) Math.ceil((double) daysLeave*account.getWorkTime()/100);

@@ -25,4 +25,6 @@ public interface LeaveEndpointInterface {
     String createParentalLeave(List<String> data);
 
     List<Date> getBlockDate();
+
+    List<LeaveDTO> getAllLeave();
 }

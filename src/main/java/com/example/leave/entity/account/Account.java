@@ -107,7 +107,6 @@ public class Account implements Serializable {
     }
 
     public void setWorkTime(int workTime) {
-        System.out.println("&&& "+workTime);
         this.workTime = workTime;
     }
 

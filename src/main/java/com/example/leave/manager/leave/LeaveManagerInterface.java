@@ -25,4 +25,6 @@ public interface LeaveManagerInterface {
 
 
     List<Leave> getLeaveWithTypeAndTeamAndDate(LeaveType one, TeamGroup teamGroup, Date date);
+
+    List<Leave> getAllLeave();
 }
