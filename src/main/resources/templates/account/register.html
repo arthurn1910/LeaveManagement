@@ -11,11 +11,11 @@
                 <div id="content" ng-controller="registerController">
                     <div class="col-md-8 col-md-offset-2">
                         <br/><br/><br/>
-                        <H1>Register</H1>
+                        <H1 th:text="#{register}"/>
                         <H3>{{messageRegister}}</H3>
                         <form name="RegisterForm" class="css-form" novalidate="true" ng-submit="registration.submit(registrationForm.$valid)">
                             <div class="form-group">
-                                <label>Login</label>
+                                <label th:text="#{user_login}"/>
                                 <input type="text" name="login" class="form-control" ng-model="registerDTO.login" required="true" minlength="4" maxlength="32"/>
                                 <div ng-show="RegisterForm.$submitted || RegisterForm.login.$touched">
                                     <span ng-show="RegisterForm.login.$error.required" class="help-block">Login is required</span>
@@ -24,17 +24,17 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
+                                <label th:text="#{password}"/>
                                 <input type="password" name="password" class="form-control" ng-model="registerDTO.password" required="true" minlength="6" maxlength="32" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
                                 <div ng-show="RegisterForm.$submitted || RegisterForm.password.$touched">
-                                    <span ng-show="RegisterForm.password.$error.required" class="help-block">Pasword is required</span>
+                                    <span ng-show="RegisterForm.password.$error.required" class="help-block" th:text="#{password_required}"/>
                                     <span ng-show="RegisterForm.password.$error.pattern" class="help-block">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span>
                                     <span ng-show="RegisterForm.password.$error.minlength" class="help-block">Password must contain at least 6 characters</span>
                                     <span ng-show="RegisterForm.password.$error.maxlength" class="help-block">Password must contain at least 32 characters</span>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Confirm password</label>
+                                <label th:text="#{confirm_password}"/>
                                 <input type="password" name="confirmPassword" class="form-control" ng-model="confirmPassword" required="true" compare-to="registerDTO.password"/>
                                 <div ng-show="RegisterForm.$submitted || RegisterForm.confirmPassword.$touched">
                                     <span ng-show="RegisterForm.confirmPassword.$error.required" class="help-block">Pasword is required</span>
@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label th:text="#{email}"/>
                                 <input type="email" name="email" class="form-control" ng-model="registerDTO.email" required="true"/>
                                 <div ng-show="RegisterForm.$submitted || RegisterForm.email.$touched">
                                     <span ng-show="RegisterForm.email.$error.required" class="help-block">Email is required</span>
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Name</label>
+                                <label th:text="#{name}"/>
                                 <input type="text" name="name" class="form-control" ng-model="registerDTO.name" required="true" minlength="2" maxlength="32"/>
                                 <div ng-show="RegisterForm.$submitted || RegisterForm.name.$touched">
                                     <span ng-show="RegisterForm.name.$error.required" class="help-block">Name is required</span>
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Lastname</label>
+                                <label th:text="#{lastname}"/>
                                 <input type="text" name="lastname" class="form-control" ng-model="registerDTO.lastname" required="true" minlength="2" maxlength="32"/>
                                 <div ng-show="RegisterForm.$submitted || registratioRegisterFormnForm.lastname.$touched">
                                     <span ng-show="RegisterForm.lastname.$error.required" class="help-block">Lastname is required</span>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
 
-                            <button type='button' ng-disabled="RegisterForm.$invalid" ng-click="register()" >Register</button><br/>
+                            <button type='button' ng-disabled="RegisterForm.$invalid" ng-click="register()" th:text="#{button_register}"/><br/>
                         </form>
                     </div>
                 </div>

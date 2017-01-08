@@ -9,17 +9,17 @@
             <ng-include src="'/menu'"></ng-include>
 
             <div ng-controller="usersListController" id="content" class="col-md-8 col-md-offset-2">
-                <br/><br/><br/><h1> User List: </h1>
+                <br/><br/><br/><h1 th:text="#{user_list}"/>
                 <table  st-table="rowCollection" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Login</th>
-                            <th>Access Level</th>
-                            <th>Starting Date</th>
-                            <th>Active</th>
-                            <th>Confirmed</th>
-                            <th>Change</th>
+                            <th th:text="#{id}"/>
+                            <th  th:text="#{login}"/>
+                            <th th:text="#{access_level}"/>
+                            <th th:text="#{starting_date}"/>
+                            <th th:text="#{active}"/>
+                            <th th:text="#{confirmed}"/>
+                            <th th:text="#{change}"/>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,31 +32,25 @@
                                 <button type="button" ng-hide="{{row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle">
                                     </i>
-                                    Activate
+                                    <th th:text="#{activate}"/>
                                 </button>
                                 <button type="button" ng-hide="{{!row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-danger">
                                     <i class="glyphicon glyphicon-remove-circle">
                                     </i>
-                                    Deactivate
+                                    <th th:text="#{deactivate}"/>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" ng-hide="{{row.confirm}}" ng-click="changeUserConfirmStatus(row)" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle">
                                     </i>
-                                    Confirm
+                                    <th th:text="#{confirm}"/>
                                 </button>
                             </td>
                             <td>
-                                <button type="button" ng-click="changeUserPassword(row)" class="btn btn-sm btn-info">
-                                    Password
-                                </button>
-                                <button type="button" ng-click="changeUserData(row)" class="btn btn-sm btn-info">
-                                    Data User
-                                </button>
-                                <button type="button" ng-click="changeUserRole(row)" class="btn btn-sm btn-info">
-                                    Role
-                                </button>
+                                <button type="button" ng-click="changeUserPassword(row)" class="btn btn-sm btn-info" th:text="#{password}"/>
+                                <button type="button" ng-click="changeUserData(row)" class="btn btn-sm btn-info" th:text="#{account_details}"/>
+                                <button type="button" ng-click="changeUserRole(row)" class="btn btn-sm btn-info" th:text="#{access_level}"/>
                             </td>
                         </tr>
                     </tbody>
