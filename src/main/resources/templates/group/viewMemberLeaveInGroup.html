@@ -1,12 +1,13 @@
-<div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController">
+<div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController"
+     xmlns:th="http://www.w3.org/1999/xhtml">
     <table  st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Lastname</th>
-            <th>Login</th>
-            <th>Date Start</th>
-            <th>Date End</th>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{user_login}"/>
+            <th th:text="#{date_start}"/>
+            <th th:text="#{date_end}"/>
         </tr>
         </thead>
         <tbody>

@@ -32,19 +32,19 @@
                                 <button type="button" ng-hide="{{row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle">
                                     </i>
-                                    <th th:text="#{activate}"/>
+                                    <i th:text="#{activate}"/>
                                 </button>
                                 <button type="button" ng-hide="{{!row.active}}" ng-click="changeUserActiveStatus(row)" class="btn btn-sm btn-danger">
                                     <i class="glyphicon glyphicon-remove-circle">
                                     </i>
-                                    <th th:text="#{deactivate}"/>
+                                    <i th:text="#{deactivate}"/>
                                 </button>
                             </td>
                             <td>
                                 <button type="button" ng-hide="{{row.confirm}}" ng-click="changeUserConfirmStatus(row)" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle">
                                     </i>
-                                    <th th:text="#{confirm}"/>
+                                    <i th:text="#{confirm}"/>
                                 </button>
                             </td>
                             <td>

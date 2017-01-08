@@ -1,11 +1,11 @@
-<div class="col-md-7 col-md-offset-2">
+<div class="col-md-7 col-md-offset-2" xmlns:th="http://www.w3.org/1999/xhtml">
     <table  st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Lastname</th>
-            <th>Login</th>
-            <th>Email</th>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{login}"/>
+            <th th:text="#{email}"/>
             <th></th>
         </tr>
         </thead>
@@ -19,7 +19,7 @@
                     <a ng-hide="checkManager(row.employee.login)">
                         <button type="button" ng-controller="administrationGroupController" ng-click="remove(row)" class="btn btn-sm btn-danger">
                             <i class="glyphicon glyphicon-remove-circle"></i>
-                            Remove
+                            <i th:text="#{remove}"/>
                         </button>
                     </a>
                 </td>

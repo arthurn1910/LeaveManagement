@@ -9,27 +9,27 @@
             <ng-include src="'/menu'"></ng-include>
             <div id="content" ng-controller="createLeaveController" class="col-md-8 col-md-offset-2">
                 <br/><br/><br/>
-                <h1> Leave </h1>
-                <h3> Vacation days</h3>
-                <p>Current year: {{thisYear}}</p>
-                <p>Last year: {{lastYear}}</p>
+                <h1 th:text="#{leave}"/>
+                <h3 th:text="#{vacation_days}"/>
+                <p><i th:text="#{current_year}"/>: {{thisYear}}</p>
+                <p><i  th:text="#{last_year}"/>: {{lastYear}}</p>
                 <br/><br/><br/>
-                <h1>Create Leave </h1>
+                <h1 th:text="#{create_leave}"/>
                 <table  st-table="leaveCollection" class="table table-striped">
                     <thead>
                     <tr>
-                        <th>Type</th>
+                        <th th:text="#{type}"/>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th>Vacation</th>
-                            <th><button type='button' ng-click="createVacationLeave()" >Create</button></th>
+                            <th th:text="#{vacation}"/>
+                            <th><button type='button' ng-click="createVacationLeave()" th:text="#{create_leave}"/></th>
                         </tr>
                         <tr>
-                            <th>Maternal / Parental / Paternity</th>
-                            <th><button type='button' ng-click="createParentalLeave()" >Create</button></th>
+                            <th th:text="#{maternal_parental_paternity}"/>
+                            <th><button type='button' ng-click="createParentalLeave()" th:text="#{create_leave}"/></th>
                         </tr>
                     </tbody>
                 </table>

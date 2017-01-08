@@ -9,15 +9,15 @@
             <ng-include src="'/menu'"></ng-include>
 
             <div ng-controller="changeUserRoleController" id="content" class="col-md-8 col-md-offset-2">
-                <br/><br/><br/><h1>Change User Role</h1>
+                <br/><br/><br/><h1 th:text="#{change_user_role}"/>
                 <br/><br/>
-                <h2>User login: {{userRole[0]}}</h2>
+                <h2><i  th:text="#{user_login}"/> {{userRole[0]}}</h2>
                 <br/>
                 <table  st-table="roleCollection" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Access Level</th>
-                            <th>Active</th>
+                            <th th:text="#{access_level}"/>
+                            <th th:text="#{active}"/>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,11 +26,11 @@
                             <td>
                                 <button type="button" ng-hide="role.active" ng-click="changeRole(role.name, 'activate')" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle"></i>
-                                    Activate
+                                    <i  th:text="#{activate}"/>
                                 </button>
                                 <button type="button" ng-hide="!role.active" ng-click="changeRole(role.name, 'deactivate')" class="btn btn-sm btn-danger">
                                     <i class="glyphicon glyphicon-remove-circle"></i>
-                                    Deactivate
+                                    <i  th:text="#{deactivate}"/>
                                 </button>
                             </td>
                         </tr>
