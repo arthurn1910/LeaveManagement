@@ -2,6 +2,7 @@ package com.example.leave.endpoint.leave;
 
 import com.example.leave.dto.leave.LeaveDTO;
 import com.example.leave.dto.leave.LeaveDetailsDTO;
+import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -24,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-27.
@@ -42,6 +44,8 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     public List<LeaveType> getListLeaveType() {
        return leaveManager.getListLeaveType();
     }
+
+    Logger log = Logger.getLogger(LeaveEndpoint.class.getName());
 
     @Override
     public String createParentalLeave(List<String> data) {
@@ -127,7 +131,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         List<Date> dateList=getBlockDate();
         for(Date date : dateList){
             if(dateStart.before(date)&& dateEnd.after(date)) {
-                System.out.println("Exception date is blocked");
+                log.warning("Exception in createLeave. Date is blocked " + data);
                 return;
             }
 
@@ -143,7 +147,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                     leave.setCurrentYearDays(days - leave.getLastYearDays());
                 }
             } else {
-                System.out.println("Exception not days to create paid leave");
+                log.warning("Exception in createLeave. Not days to create paid leave");
                 return;
             }
         }
@@ -164,7 +168,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
             }
             return count;
         }else{
-            System.out.println("Exception date start is before date end");
+            log.warning("Exception in caountDays. Date start is before date end");
         }
         return 0;
     }

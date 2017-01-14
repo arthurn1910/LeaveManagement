@@ -4,6 +4,7 @@ import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.dto.group.UserGroupDTO;
 import com.example.leave.dto.leave.LeaveDTO;
+import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -23,12 +24,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-20.
  */
 @Component
 public class GroupEndpoint implements GroupEndpointInterface {
+    Logger log = Logger.getLogger(GroupEndpoint.class.getName());
+
     private TeamGroup teamGroup;
     private Account account;
     @Autowired
@@ -178,7 +182,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
         try {
             dateNow = formatter.parse(formatter.format(today));
         } catch (ParseException e) {
-            System.out.println("Exception getImportantDates");
+            log.warning("Exception getImportantDates "+e);
         }
         List<ImportantDateDTO> importantDateDTOList =new ArrayList<>();
         for(ImportantDates importantDates : importantDatesList){

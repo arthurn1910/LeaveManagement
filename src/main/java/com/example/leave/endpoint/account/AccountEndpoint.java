@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 /**
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
  */
 @Component
 public class AccountEndpoint implements AccountEndpointInterface {
+    Logger log = Logger.getLogger(AccountEndpoint.class.getName());
 
     private Account account;
     private Account accountToEdit;
@@ -83,11 +85,11 @@ public class AccountEndpoint implements AccountEndpointInterface {
             try {
                 startingDate = df.parse(data.get(5));
             } catch (ParseException e) {
-                System.out.println("Exception parsing string to date");
+                log.warning("Exception parsing string to date"+ e);
             }
             this.accountToEdit.setStartingDate(startingDate);
         } else{
-            System.out.println("Exception editUserAccount ");
+            log.warning("Exception editUserAccount diffrent account " + data.get(0));
         }
         accountManager.editAccount(accountToEdit);
     }
@@ -115,7 +117,7 @@ public class AccountEndpoint implements AccountEndpointInterface {
             accountToEdit.setPassword(newPassword);
             accountManager.changePassword(accountToEdit);
         } else{
-            System.out.println("Exception changeUserPassword");
+            log.warning("Exception changeUserPassword for user "+login);
         }
 
     }
@@ -158,9 +160,8 @@ public class AccountEndpoint implements AccountEndpointInterface {
             account.setActive(!account.getActive());
             accountManager.editAccount(account);
         }else{
-            //accountendpoint exception optimistic lock
+            log.warning("exception optimistic lock : changeUserActiveStatus for user "+ login);
         }
-        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
 
     }
 
@@ -171,9 +172,8 @@ public class AccountEndpoint implements AccountEndpointInterface {
             account.setConfirm(true);
             accountManager.editAccount(account);
         }else{
-            //accountendpoint exception optimistic lock
+            log.warning("exception optimistic lock : changeUserConfirmStatus for user "+ login);
         }
-        System.out.println("Attenthion!! accountendpoint exception optimistic lock");
     }
 
     @Override
