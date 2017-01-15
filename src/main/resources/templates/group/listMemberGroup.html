@@ -1,0 +1,29 @@
+<div class="col-md-7 col-md-offset-2" xmlns:th="http://www.w3.org/1999/xhtml">
+    <table  st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{login}"/>
+            <th th:text="#{email}"/>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in memberList">
+                <td>{{row.employee.name}}</td>
+                <td>{{row.employee.lastname}}</td>
+                <td>{{(row.employee.login)}}</td>
+                <td>{{row.employee.email}}</td>
+                <td>
+                    <a ng-hide="checkManager(row.employee.login)">
+                        <button type="button" ng-controller="administrationGroupController" ng-click="remove(row)" class="btn btn-sm btn-danger">
+                            <i class="glyphicon glyphicon-remove-circle"></i>
+                            <i th:text="#{remove}"/>
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

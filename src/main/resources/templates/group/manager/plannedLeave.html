@@ -1,0 +1,37 @@
+<div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <h4>{{message}}</h4>
+    <table  st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{user_login}"/>
+            <th th:text="#{type}"/>
+            <th th:text="#{date_start}"/>
+            <th th:text="#{date_end}"/>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in plannedLeave">
+            <td>{{row.account.name}}</td>
+            <td>{{row.account.lastname}}</td>
+            <td>{{(row.account.login)}}</td>
+            <td>{{(row.leaveType.name)}}</td>
+            <td>{{getDate(row.dateStart)}}</td>
+            <td>{{getDate(row.dateEnd)}}</td>
+            <td>
+                <button type="button" ng-click="confirm(row.id)" class="btn btn-sm btn-success">
+                    <i class="glyphicon glyphicons-ok"></i>
+                    <i th:text="#{confirm}"/>
+                </button>
+                <button type="button" ng-click="reject(row.id)" class="btn btn-sm btn-danger">
+                    <i class="glyphicon glyphicon-remove-circle"></i>
+                    <i th:text="#{reject}"/>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

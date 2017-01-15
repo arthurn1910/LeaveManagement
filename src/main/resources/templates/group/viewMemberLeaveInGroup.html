@@ -1,0 +1,23 @@
+<div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <table  st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{user_login}"/>
+            <th th:text="#{date_start}"/>
+            <th th:text="#{date_end}"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in approvedLeave">
+            <td>{{row.account.name}}</td>
+            <td>{{row.account.lastname}}</td>
+            <td>{{(row.account.login)}}</td>
+            <td>{{getDate(row.dateStart)}}</td>
+            <td>{{getDate(row.dateEnd)}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

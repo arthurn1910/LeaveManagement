@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body >
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
+            <div class="col-md-10 col-md-offset-1">
+                <div ng-controller="groupListController" id="content">
+                    <br/><br/><h1 th:text="#{groups_list}"/>
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-8">
+                            <button type="button" ng-show="userGroupDto.manager"  ng-click="createGroup()" class="btn btn-sm btn-info pull-right" th:text="#{create_group}"/>
+                        </div>
+                    </div>
+                    <table  st-table="rowCollection" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th th:text="#{id}"/>
+                            <th th:text="#{title}"/>
+                            <th th:text="#{manager}"/>
+                            <th th:text="#{number_of_employee}"/>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in rowCollection">
+                                <td>{{row.id}}</td>
+                                <td>{{row.title}}</td>
+                                <td>{{(row.manager.name)}} {{(row.manager.lastname)}}</td>
+                                <td>{{row.numberOfEmployee}}</td>
+                                <td>
+                                    <button type="button" ng-hide="checkIfUserApply(row)" ng-click="applyToGroup(row)" class="btn btn-sm btn-success">
+                                        <i class="glyphicon glyphicon-ok-circle"></i><i  th:text="#{apply}"/>
+                                    </button>
+                                    <button type="button" ng-hide="checkYourGroup(row)" ng-click="showGroup(row)" class="btn btn-sm btn-info">
+                                        <i  th:text="#{show}"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../js/controller/group/groupListController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
+</html>

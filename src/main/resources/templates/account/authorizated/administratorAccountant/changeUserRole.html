@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
+    </head>
+    <body>
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
+
+            <div ng-controller="changeUserRoleController" id="content" class="col-md-8 col-md-offset-2">
+                <br/><br/><br/><h1 th:text="#{change_user_role}"/>
+                <br/><br/>
+                <h2><i  th:text="#{user_login}"/> {{userRole[0]}}</h2>
+                <br/>
+                <table  st-table="roleCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th th:text="#{access_level}"/>
+                            <th th:text="#{active}"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="role in roleCollection">
+                            <td>{{role.name}}</td>
+                            <td>
+                                <button type="button" ng-hide="role.active" ng-click="changeRole(role.name, 'activate')" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-ok-circle"></i>
+                                    <i  th:text="#{activate}"/>
+                                </button>
+                                <button type="button" ng-hide="!role.active" ng-click="changeRole(role.name, 'deactivate')" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-remove-circle"></i>
+                                    <i  th:text="#{deactivate}"/>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <button type='button' ng-click="return()" >Return</button><br/>
+                {{$scope.message}}
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../../../js/controller/account/authorizated/administratorAccountant/changeUserRoleController.js"></script>
+        <link rel="stylesheet" href="../../../css/style.css"/>
+        <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
+    </body>
+</html>

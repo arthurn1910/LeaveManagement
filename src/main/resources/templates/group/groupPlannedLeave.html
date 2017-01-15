@@ -1,0 +1,23 @@
+<div ng-controller="groupPlannedLeaveController" class="col-md-8 col-md-offset-2"
+     xmlns:th="http://www.w3.org/1999/xhtml">
+    <table  st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{user_login}"/>
+            <th th:text="#{date_start}"/>
+            <th th:text="#{date_end}"/>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in plannedLeave">
+            <td>{{row.employee.name}}</td>
+            <td>{{row.employee.lastname}}</td>
+            <td>{{(row.employee.login)}}</td>
+            <td>{{getDate(row)}}</td>
+            <td>{{getDate(row)}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,31 +1,87 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Register</title>
+        <meta charset="UTF-8"/>
+        <title>Leave Management</title>
     </head>
-    <body onload="document.f.username.focus();">
-        <div class="container">
-            <div class="navbar">
-                <h1>Leave Management System</h1>
-            </div>
-            <div class="content">
-                <h2>Create account</h2>
-                <form method="POST" modelattribute="registerDTO">
-                    <input type="text" name="login" path="login" placeholder="Login" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="login" /></if>
-                    <input type="password" name="password" path="password" placeholder="Password" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="password" /></if>
-                    <input type="password" name="confirmPassword" path="confirmPassword" placeholder="Confirm Password" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="confirmPassword" /></if>
-                    <input type="text" name="name" path="name" placeholder="Name" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="name" /></if>
-                    <input type="text" name="lastname" path="lastname" placeholder="Lastname" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="lastname" /></if>
-                    <input type="text" name="email" path="email" placeholder="Email" />
-                    <if test="${pageContext.request.method=='POST'}"><errors path="email" /></if>
-                    <input type="submit" value="Register" />
-                </form>
+    <body>
+        <div id="container">
+            <ng-include src="'/menu'"></ng-include>
+            <div class="col-md-10 col-md-offset-1">
+                <div id="content" ng-controller="registerController">
+                    <div class="col-md-8 col-md-offset-2">
+                        <br/><br/><br/>
+                        <H1 th:text="#{register}"/>
+                        <H3>{{messageRegister}}</H3>
+                        <form name="RegisterForm" class="css-form" novalidate="true" ng-submit="registration.submit(registrationForm.$valid)">
+                            <div class="form-group">
+                                <label th:text="#{user_login}"/>
+                                <input type="text" name="login" class="form-control" ng-model="registerDTO.login" required="true" minlength="4" maxlength="32"/>
+                                <div ng-show="RegisterForm.$submitted || RegisterForm.login.$touched">
+                                    <span ng-show="RegisterForm.login.$error.required" class="help-block">Login is required</span>
+                                    <span ng-show="RegisterForm.login.$error.minlength" class="help-block">Login must contain at least 4 characters</span>
+                                    <span ng-show="RegisterForm.login.$error.maxlength" class="help-block">Login must contain at least 32 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{password}"/>
+                                <input type="password" name="password" class="form-control" ng-model="registerDTO.password" required="true" minlength="6" maxlength="32" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
+                                <div ng-show="RegisterForm.$submitted || RegisterForm.password.$touched">
+                                    <span ng-show="RegisterForm.password.$error.required" class="help-block" th:text="#{password_required}"/>
+                                    <span ng-show="RegisterForm.password.$error.pattern" class="help-block">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span>
+                                    <span ng-show="RegisterForm.password.$error.minlength" class="help-block">Password must contain at least 6 characters</span>
+                                    <span ng-show="RegisterForm.password.$error.maxlength" class="help-block">Password must contain at least 32 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{confirm_password}"/>
+                                <input type="password" name="confirmPassword" class="form-control" ng-model="confirmPassword" required="true" compare-to="registerDTO.password"/>
+                                <div ng-show="RegisterForm.$submitted || RegisterForm.confirmPassword.$touched">
+                                    <span ng-show="RegisterForm.confirmPassword.$error.required" class="help-block">Pasword is required</span>
+                                    <span ng-show="RegisterForm.confirmPassword.$error.compareTo" class="help-block">Password is not this same</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{email}"/>
+                                <input type="email" name="email" class="form-control" ng-model="registerDTO.email" required="true"/>
+                                <div ng-show="RegisterForm.$submitted || RegisterForm.email.$touched">
+                                    <span ng-show="RegisterForm.email.$error.required" class="help-block">Email is required</span>
+                                    <span ng-show="RegisterForm.email.$error.email" class="help-block">Email is wrong</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{name}"/>
+                                <input type="text" name="name" class="form-control" ng-model="registerDTO.name" required="true" minlength="2" maxlength="32"/>
+                                <div ng-show="RegisterForm.$submitted || RegisterForm.name.$touched">
+                                    <span ng-show="RegisterForm.name.$error.required" class="help-block">Name is required</span>
+                                    <span ng-show="RegisterForm.name.$error.minlength" class="help-block">Name must contain at least 2 characters</span>
+                                    <span ng-show="RegisterForm.name.$error.maxlength" class="help-block">Name must contain at least 32 characters</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{lastname}"/>
+                                <input type="text" name="lastname" class="form-control" ng-model="registerDTO.lastname" required="true" minlength="2" maxlength="32"/>
+                                <div ng-show="RegisterForm.$submitted || registratioRegisterFormnForm.lastname.$touched">
+                                    <span ng-show="RegisterForm.lastname.$error.required" class="help-block">Lastname is required</span>
+                                    <span ng-show="RegisterForm.lastname.$error.minlength" class="help-block">Lastname must contain at least 2 characters</span>
+                                    <span ng-show="RegisterForm.lastname.$error.maxlength" class="help-block">Lastname must contain at least 32 characters</span>
+                                </div>
+                            </div>
+
+                            <button type='button' ng-disabled="RegisterForm.$invalid" ng-click="register()" th:text="#{button_register}"/><br/>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <script src="../js/config/jquery-3.1.1.js"></script>
+        <script src="../js/config/bootstrap.min.js"></script>
+        <script src="../js/config/angular.min.js"></script>
+        <script src="../js/config/angular-route.min.js"></script>
+        <script src="../js/app/leaveManagement.js"></script>
+        <script src="../js/controller/menuController.js"></script>
+        <script src="../js/controller/account/registerController.js"></script>
+        <link rel="stylesheet" href="../css/style.css"/>
     </body>
 </html>
