@@ -10,16 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-04.
  */
 @Controller
 public class IndexController {
+
+    Logger log = Logger.getLogger(IndexController.class.getName());
 
     @Autowired
     AccountEndpoint accountEndpoint;
@@ -38,6 +42,7 @@ public class IndexController {
             model.addAttribute("user", name);
             model.addAttribute("role", role);
         }catch(Exception ex){
+            log.info("User is not authenticate");
             model.addAttribute("user", "brak");
             model.addAttribute("role", "brak");
         }
@@ -50,8 +55,7 @@ public class IndexController {
     }
 
     @RequestMapping("/user")
-    public Principal user(Principal user) {
-        return user;
+    public Principal user(Principal user) {return user;
     }
 
     @RequestMapping("/isAuthenticated")
@@ -80,4 +84,11 @@ public class IndexController {
         }
         return authDTO;
     }
+
+    @RequestMapping("/error2")
+    public String error2() {
+        return "account/error";
+    }
+
+
 }

@@ -8,19 +8,19 @@
         <div id="container">
             <ng-include src="'/menu'"></ng-include>
             <div ng-controller="userAccountController" class="col-md-8 col-md-offset-2">
-                <br/><br/><br/><h1> Account Details: </h1>
+                <br/><br/><br/><h1 th:text="#{account_details}"/>
                 <form name="detailsAccountForm" class="css-form" novalidate="true">
                     <div class="form-group">
-                        <label>Name:</label> {{account.name}}<br/>
-                        <label>Lastname:</label> {{account.lastname}}<br/>
-                        <label>Email:</label> {{account.email}}<br/>
-                        <label>Access Level:</label> {{accessLevel(account.accessLevel)}}<br/>
-                        <label>Starting date:</label> {{account.startingDate}}<br/>
-                        <label>Work Time:</label> {{account.workTime}} <label>%</label><br/>
-                        <label>Expirience:</label> {{account.expirienceYear}} yers {{account.expirienceMonth}} months {{account.expirienceDay}} days<br/>
+                        <label th:text="#{name}"/> {{account.name}}<br/>
+                        <label th:text="#{lastname}"/> {{account.lastname}}<br/>
+                        <label th:text="#{email}"/> {{account.email}}<br/>
+                        <label th:text="#{access_level}"/> {{accessLevel(account.accessLevel)}}<br/>
+                        <label th:text="#{starting_date}"/> {{account.startingDate}}<br/>
+                        <label th:text="#{work_time}"/> {{account.workTime}} <label>%</label><br/>
+                        <label th:text="#{expirience}"/> {{account.expirienceYear}} <a th:text="#{years}"/> {{account.expirienceMonth}} <a th:text="#{months}"/> {{account.expirienceDay}} <a th:text="#{days}"/><br/>
                     </div>
                 </form>
-                <button type="button" ng-click="change()" class="btn btn-sm btn-info">Edit</button>
+                <button type="button" ng-click="change()" class="btn btn-sm btn-info" th:text="#{edit}"/>
             </div>
         </div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>

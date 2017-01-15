@@ -1,5 +1,6 @@
 package com.example.leave.manager.account;
 
+import com.example.leave.controler.account.IndexController;
 import com.example.leave.entity.account.AccessLevel;
 import com.example.leave.entity.account.Account;
 import com.example.leave.repository.account.AccessLevelRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-13.
@@ -17,6 +19,7 @@ import java.util.List;
 @Component
 public class AccountManager implements AccountManagerInterface {
 
+    Logger log = Logger.getLogger(AccountManager.class.getName());
     @Autowired
     AccountRepository accountRepository;
     @Autowired
@@ -65,7 +68,7 @@ public class AccountManager implements AccountManagerInterface {
             accessLevel.setId(accessLevelRepository.getNewAccessLevelID());
             accessLevelRepository.save(accessLevel);
         } else{
-            System.out.println("Exception addRoleToUser");
+            log.warning("Exception add role "+ role+ "to user"+account.getLogin());
         }
 
     }
@@ -80,7 +83,7 @@ public class AccountManager implements AccountManagerInterface {
                 accessLevelRepository.removeLevel(accessLevel.getId());
             }
         } else{
-            System.out.println("Exception addRoleToUser");
+            log.warning("Exception add role "+ role+ "to user"+account.getLogin());
         }
     }
 }

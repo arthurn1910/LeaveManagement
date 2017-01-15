@@ -10,17 +10,17 @@
             <ng-include src="'/menu'"></ng-include>
             <div class="col-md-10 col-md-offset-1">
                 <div id="content">
-                    <h1> <br/><br/>Group : {{teamGroup.title}}</h1>
+                    <h1> <br/><br/><i  th:text="#{group}"/> : {{teamGroup.title}}</h1>
                     <row>
                         <div class="col-md-1 col-md-offset-7">
-                            <button type="button" ng-show="!checkManager('')" ng-click="administration()" class="btn btn-warning">Administation</button>
+                            <button type="button" ng-show="!checkManager('')" ng-click="administration()" class="btn btn-warning" th:text="#{administration}"/>
                         </div>
                     </row>
                     <div class="col-md-10 col-md-offset-1">
                         <ul class="nav nav-tabs">
-                            <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)">Group Member</a></li>
-                            <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Important Dates</a></li>
-                            <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)">Group Planned Leave</a></li>
+                            <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)" th:text="#{group_member}"/></li>
+                            <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)" th:text="#{important_dates}"/></li>
+                            <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)" th:text="#{group_planned_leave}"/></li>
                         </ul>
 
                         <div class="tab-content">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-md-offset-6">
-                <br/><br/><button type="button" ng-click="return()">Return</button>
+                <br/><br/><button type="button" ng-click="return()" th:text="#{return}"/>
             </div>
         </div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>

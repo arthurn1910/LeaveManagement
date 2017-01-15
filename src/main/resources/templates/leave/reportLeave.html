@@ -10,7 +10,7 @@
             <ng-include src="'/menu'"></ng-include>
             <div id="content" ng-controller="reportLeaveController" class="col-md-8 col-md-offset-2">
                 <br/><br/><br/>
-                <h1> Leave List</h1>
+                <h1 th:text="#{leave_list}"/>
                 <br/>
                 <div class="row">
                     <button type='button' ng-click="print()" class="col-md-2 col-md-offset-9">Print</button>
@@ -25,13 +25,13 @@
                 <table name="reportLeave" st-table="rowCollection" class="table table-striped" id="print" border="1" cellpadding="3">
                     <thead>
                         <tr>
-                            <th>ID Account</th>
-                            <th>Name</th>
-                            <th>Lastname</th>
-                            <th>Date Start</th>
-                            <th>Date End</th>
-                            <th>Type</th>
-                            <th>Days this/last year</th>
+                            <th th:text="#{id_account}"/>
+                            <th th:text="#{name}"/>
+                            <th th:text="#{lastname}"/>
+                            <th th:text="#{date_start}"/>
+                            <th th:text="#{date_end}"/>
+                            <th th:text="#{type}"/>
+                            <th th:text="#{days_leave}"/>
                         </tr>
                     </thead>
                     <tbody>

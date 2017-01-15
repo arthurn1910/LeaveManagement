@@ -11,7 +11,7 @@
             <div ng-controller="createGroupController" id="content">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-1">
-                        <br/><br/><h1> Group List: </h1>
+                        <br/><br/><h1 th:text="#{create_group}"/>
                         <br/><H3>{{message}}</H3>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-1">
                             <div class="row">
-                                <label>Title:</label>
+                                <label th:text="#{title}"/>
                                 <input type="text" name="title" class="form-control" ng-model="title" required="true" minlength="4" maxlength="80"/>
                                 <div ng-show="createGroupForm.$submitted || createGroupForm.title.$touched">
                                     <span ng-show="createGroupForm.title.$error.required" class="help-block">Title is required</span>
@@ -30,13 +30,13 @@
                             </div>
                             <br/>
                             <div class="row">
-                                <button type='button' ng-disabled="createGroupForm.$invalid" ng-click="createGroup()">Register</button><br/>
+                                <button type='button' ng-disabled="createGroupForm.$invalid" ng-click="createGroup()"><i th:text="#{create}"/></button><br/>
                             </div>
                         </div>
                     </div>
                 </form>
                 <div class="col-md-4 col-md-offset-5">
-                    <button type="button" ng-click="return()">Return</button>
+                    <button type="button" ng-click="return()"><i th:text="#{reaturn}"/></button>
                 </div>
             </div>
         </div>

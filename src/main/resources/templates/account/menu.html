@@ -1,4 +1,4 @@
-<div ng-controller="menuController" id="menu">
+<div ng-controller="menuController" id="menu" xmlns:th="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -11,46 +11,40 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="login" hidden="true">
-                    <a href="/login">Login</a>
+                    <a href="/login" th:text="#{login}"/>
                 </li>
                 <li class="register" hidden="true">
-                    <a href="/register">Register</a>
+                    <a href="/register" th:text="#{register}"/>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="groups" hidden="true">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Group
-                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{group}"/>
                     <ul class="dropdown-menu">
                         <li class="userList">
-                            <a href="/groupList">Groups List</a>
+                            <a href="/groupList" th:text="#{groups_list}"/>
                         </li>
                     </ul>
                 </li>
                 <li class="administration" hidden="true">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Administration
-                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{administration}"/>
                     <ul class="dropdown-menu">
                         <li class="userList">
-                            <a href="/usersList">User List</a>
+                            <a href="/usersList" th:text="#{user_list}"/>
                         </li>
                     </ul>
                 </li>
                 <li class="leave" hidden="true">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Leave
-                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{leave}"/>
                     <ul class="dropdown-menu">
                         <li class="viewLeave">
-                            <a href="/viewLeave">View Leave</a>
+                            <a href="/viewLeave" th:text="#{view_leave}"/>
                         </li>
                         <li class="createLeave">
-                            <a href="/createLeave">Create Leave</a>
+                            <a href="/createLeave" th:text="#{create_leave}"/>
                         </li>
                         <li class="reportLeave">
-                            <a href="/reportLeave">Report</a>
+                            <a href="/reportLeave" th:text="#{report_leave}"/>
                         </li>
                     </ul>
                 </li>
@@ -62,16 +56,35 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li class="accountDetails">
-                            <a href="/accountDetails">Account Details</a>
+                            <a href="/accountDetails" th:text="#{account_details}"/>
                         </li>
                         <li class="changePassword">
-                            <a href="/changePassword">Change Password</a>
+                            <a href="/changePassword" th:text="#{change_password}"/>
                         </li>
                         <li class="logout">
-                            <a href="/logout">Sign Out</a>
+                            <a href="/logout" th:text="#{logout}"/>
                         </li>
                     </ul>
                 </li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="languages" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="glyphicon glyphicon-globe"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="accountDetails">
+                                <a href="?language=pl">
+                                    Polski
+                                </a>
+                            </li>
+                            <li class="changePassword">
+                                <a href="?language=en">
+                                    English
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
             </ul>
         </div>

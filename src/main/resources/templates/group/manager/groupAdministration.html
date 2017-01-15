@@ -9,13 +9,13 @@
             <ng-include src="'/menu'"></ng-include>
             <div class="col-md-10 col-md-offset-1">
                 <div id="content">
-                    <br/><br/><h1> Group : {{teamGroup.title}}</h1>
+                    <br/><br/><h1> <i th:text="#{group}"/> : {{teamGroup.title}}</h1>
 
                     <ul class="nav nav-tabs">
-                        <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)">List of application</a></li>
-                        <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)">Create Important Dates</a></li>
-                        <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)">Planned Leave</a></li>
-                        <li ng-class="{'active' : activeTab == 4}"><a href="" ng-click="setActiveTab(4)">Remove Group</a></li>
+                        <li ng-class="{'active' : activeTab == 1}"><a href="" ng-click="setActiveTab(1)" th:text="#{list_of_application}"/></li>
+                        <li ng-class="{'active' : activeTab == 2}"><a href="" ng-click="setActiveTab(2)" th:text="#{create_important_date}"/></li>
+                        <li ng-class="{'active' : activeTab == 3}"><a href="" ng-click="setActiveTab(3)" th:text="#{group_planned_leave}"/></li>
+                        <li ng-class="{'active' : activeTab == 4}"><a href="" ng-click="setActiveTab(4)" th:text="#{remove_group}"/></li>
                     </ul>
 
                     <div class="tab-content">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div  ng-controller="administrationGroupController" class="col-md-4 col-md-offset-5">
-                <br/><br/><button type="button" ng-click="return()">Return</button>
+                <br/><br/><button type="button" ng-click="return()" th:text="#{reaturn}"/>
             </div>
         </div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>

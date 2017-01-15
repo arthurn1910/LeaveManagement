@@ -9,15 +9,15 @@
             <ng-include src="'/menu'"></ng-include>
             <div id="content" ng-controller="viewLeaveController" class="col-md-8 col-md-offset-2">
                 <br/><br/><br/>
-                <h1> Leave </h1>
+                <h1 th:text="#{leave}"/>
                 <table  st-table="rowCollection" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Type</th>
-                            <th>Date Start</th>
-                            <th>Date End</th>
-                            <th>Active</th>
-                            <th>Confirm</th>
+                            <th th:text="#{type}"/>
+                            <th th:text="#{date_start}"/>
+                            <th th:text="#{date_end}"/>
+                            <th th:text="#{active}"/>
+                            <th th:text="#{confirm}"/>
                             <th></th>
                         </tr>
                     </thead>
@@ -45,7 +45,7 @@
                             <td>
                                 <button type="button" ng-click="remove(row.id)" ng-show="check(row.dateStart)" class="btn btn-sm btn-danger">
                                     <i class="glyphicon glyphicon-remove-circle"></i>
-                                    Remove
+                                    <i th:text="#{remove}"/>
                                 </button>
                             </td>
                         </tr>
