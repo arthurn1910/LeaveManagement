@@ -149,6 +149,7 @@ public class AccountEndpoint implements AccountEndpointInterface {
             getYourAccount();
             return true;
         }catch(Exception e){
+            log.warning("exception user is not authenticated : isAuthenticated");
             return false;
         }
     }
