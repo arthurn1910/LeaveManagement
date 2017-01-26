@@ -13,6 +13,7 @@
                 <br/><br/>
                 <h2><i  th:text="#{user_login}"/> {{userRole[0]}}</h2>
                 <br/>
+                <h3>{{message}}</h3>
                 <table  st-table="roleCollection" class="table table-striped">
                     <thead>
                         <tr>
@@ -24,7 +25,7 @@
                         <tr ng-repeat="role in roleCollection">
                             <td>{{role.name}}</td>
                             <td>
-                                <button type="button" ng-hide="role.active" ng-click="changeRole(role.name, 'activate')" class="btn btn-sm btn-success">
+                                <button type="button" ng-hide="checkIfAvailable()" ng-click="changeRole(role.name, 'activate')" class="btn btn-sm btn-success">
                                     <i class="glyphicon glyphicon-ok-circle"></i>
                                     <i  th:text="#{activate}"/>
                                 </button>

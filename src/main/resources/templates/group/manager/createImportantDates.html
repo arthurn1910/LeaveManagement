@@ -3,7 +3,7 @@
     <a>{{message}}</a>
     <form name="CreateImportantDateForm" ng-show="flag" class="css-form" novalidate="true">
         <div class="form-group">
-            <label th:text="#{date}"/>
+            <label th:text="#{date}"/>*
             <input type="date" name="date" class="form-control" ng-model="dateCreate" required="true"/>
             <div ng-show="CreateImportantDateForm.$submitted || CreateImportantDateForm.password.$touched">
                 <span ng-show="CreateImportantDateForm.date.$error.required" class="help-block">Date is required</span>

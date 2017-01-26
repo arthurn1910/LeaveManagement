@@ -14,40 +14,40 @@
                 <p>{{message}}</p><br/>
                 <form name="changeUserAccountForm" class="css-form" novalidate="true">
                     <div class="form-group">
-                        <label th:text="#{name}"/>
+                        <label th:text="#{name}"/>*
                         <input type="text" name="name" class="form-control" ng-model="userAccount.name" required="true" minlength="2" maxlength="32"/>
                         <div ng-messages="changeUserAccountForm.name.$error">
                             <div ng-messages-include="messages.html"></div>
                         </div>
-                        <label th:text="#{lastname}"/>
+                        <label th:text="#{lastname}"/>*
                         <input type="text" name="lastname" class="form-control" ng-model="userAccount.lastname" required="true" minlength="2" maxlength="32"/>
                         <div ng-messages="changeUserAccountForm.lastname.$error">
                             <div ng-messages-include="messages.html"></div>
                         </div>
-                        <label th:text="#{email}"/>
+                        <label th:text="#{email}"/>*
                         <input type="email" name="email" class="form-control" ng-model="userAccount.email" required="true" minlength="2" maxlength="32"/>
                         <div ng-messages="changeUserAccountForm.email.$error">
                             <div ng-messages-include="messages.html"></div>
                         </div>
-                        <label> <i th:text="#{work_time}"/>:{{userAccount.workTime}}%</label><br/>
+                        <label> <i th:text="#{work_time}"/>:{{userAccount.workTime}}%*</label><br/>
                         <select name="repeatSelect" id="repeatSelectWorkTime" ng-model="userAccount.workTime">
                             <option ng-repeat="option in modelExpirience.workTime" value="{{option.id}}" >{{option.id}}</option>
                         </select><br/>
-                        <label><i th:text="#{starting_date}"/>:{{userAccount.startingDate}}</label>
+                        <label><i th:text="#{starting_date}"/>:{{userAccount.startingDate}}*</label>
                         <input type="date" name="date"  class="form-control" ng-model="userAccount.startingDate"/>
                         <div ng-messages="changeUserAccountForm.email.$error">
                             <div ng-messages-include="messages.html"></div>
                         </div>
-                        <label><i th:text="#{expirience}"/>{{userAccount.expirienceYear}} <i th:text="#{years}"/> {{userAccount.expirienceMonth}} <i th:text="#{months}"/> {{userAccount.expirienceDay}} <i th:text="#{days}"/></label><br/>
-                        <i th:text="#{years}"/>:
+                        <label><i th:text="#{expirience}"/>{{userAccount.expirienceYear}} <i th:text="#{years}"/> {{userAccount.expirienceMonth}} <i th:text="#{months}"/> {{userAccount.expirienceDay}}<i th:text="#{days}"/></label><br/>
+                        <i th:text="#{years}"/>:*
                         <select name="repeatSelect" id="repeatSelectYear" ng-model="userAccount.expirienceYear">
                             <option ng-repeat="option in modelExpirience.year" value="{{option.id}}" >{{option.name}}</option>
                         </select>
-                        <i th:text="#{months}"/>:
+                        <i th:text="#{months}"/>:*
                         <select name="repeatSelect" id="repeatSelectMonth" ng-model="userAccount.expirienceMonth">
                             <option ng-repeat="option in modelExpirience.month" value="{{option.id}}">{{option.name}}</option>
                         </select>
-                        <i th:text="#{days}"/>:
+                        <i th:text="#{days}"/>:*
                         <select name="repeatSelect" id="repeatSelectDay" ng-model="userAccount.expirienceDay">
                             <option ng-repeat="option in modelExpirience.day" value="{{option.id}}">{{option.name}}</option>
                         </select>

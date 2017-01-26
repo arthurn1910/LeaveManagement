@@ -10,7 +10,7 @@
             <ng-include src="'/menu'"></ng-include>
             <div class="col-md-10 col-md-offset-1">
                 <div id="content">
-                    <h1> <br/><br/><i  th:text="#{group}"/> : {{teamGroup.title}}</h1>
+                    <h1> <br/><br/><i  th:text="#{group_title}"/> : {{teamGroup.title}}</h1>
                     <row>
                         <div class="col-md-1 col-md-offset-7">
                             <button type="button" ng-show="!checkManager('')" ng-click="administration()" class="btn btn-warning" th:text="#{administration}"/>

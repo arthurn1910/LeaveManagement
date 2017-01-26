@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Medion on 2016-09-27.
  */
 public interface LeaveEndpointInterface {
-    void createLeave(List<String> data);
+    String createLeave(List<String> data);
 
     void removeLeave(Long id);
 

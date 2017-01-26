@@ -47,8 +47,8 @@ public class CreateLeaveController {
 
     @RequestMapping(value = "/createLeave", method = RequestMethod.POST)
     public @ResponseBody String createLeave(@RequestBody List<String> data) {
-        leaveEndpoint.createLeave(data);
-        return JSONParser.quote("Leave was created");
+        String response = leaveEndpoint.createLeave(data);
+        return JSONParser.quote(response);
     }
 
     @RequestMapping(value = "/getBlockDate", method = RequestMethod.GET)

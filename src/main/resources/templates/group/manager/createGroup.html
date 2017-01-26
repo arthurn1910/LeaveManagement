@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-1">
                             <div class="row">
-                                <label th:text="#{title}"/>
+                                <label th:text="#{title}"/>*
                                 <input type="text" name="title" class="form-control" ng-model="title" required="true" minlength="4" maxlength="80"/>
                                 <div ng-show="createGroupForm.$submitted || createGroupForm.title.$touched">
                                     <span ng-show="createGroupForm.title.$error.required" class="help-block">Title is required</span>

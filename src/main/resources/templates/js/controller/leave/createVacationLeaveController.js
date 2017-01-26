@@ -85,11 +85,13 @@ angular.module('leaveManagement')
             $http.get('/getBlockDate').then(function (response) {
                 var blockDate=response.data;
                 var dateTMP=new Date(dateEnd1);
+                console.log(blockDate);
                 for(var i=0;i<blockDate.length;i++){
                     if(blockDate[i]>=dateStart1 & blockDate[i]<=dateEnd1 & blockDate[i]<dateTMP){
                         dateTMP=new Date(blockDate[i]);
                     }
                 }
+                console.log(dateTMP.toJSON().split('T')[0])
                 $(function () {
                     $('[name="dateEnd"]').prop('max', function (){
                         return dateTMP.toJSON().split('T')[0];

@@ -13,7 +13,7 @@
                 <a>{{message}}</a>
                 <form name="CreateParentalLeaveForm" ng-show="flag" class="css-form" novalidate="true">
                     <div class="form-group">
-                        <Label th:text="#{type}"/>
+                        <Label th:text="#{type}"/>*
                         <select name="typeLeave"  ng-model="type" ng-change="changeTypeLeave()" required="true">
                             <option value='5' selected="true" th:text="#{maternal}"/>
                             <option value='6' th:text="#{parental}"/>
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label th:text="#{date}"/>
+                        <label th:text="#{date}"/>*
                         <input type="date" name="date" class="form-control" ng-model="dateStart" required="true" min="minDate" max="maxDate"/>
                         <div ng-show="CreateParentalLeaveForm.$submitted || CreateParentalLeaveForm.date.$touched">
                             <span ng-show="CreateParentalLeaveForm.date.$error.required" class="help-block">Date is required</span>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <Label th:text="#{length}"/>
+                        <Label th:text="#{length}"/>*
                         <select name="lenght" ng-model="lenght" required="true">
                             <option ng-repeat="option in selectLenght" value="{{option.id}}">{{option.id}} week</option>
                         </select>

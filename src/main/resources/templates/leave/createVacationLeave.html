@@ -13,7 +13,7 @@
                 <a>{{message}}</a>
                 <form name="CreateVacationLeaveForm" ng-show="flag" class="css-form" novalidate="true">
                     <div class="form-group">
-                        <Label>Type</Label>
+                        <Label>Type</Label>*
                         <select name="typeLeave"  ng-model="type" required="true" ng-change="deleteDate()">
                             <option value='1' selected="true"><i th:text="#{paid}"/></option>
                             <option value='2'><i th:text="#{free}"/></option>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label th:text="#{date_start}"/>
+                        <label th:text="#{date_start}"/>*
                         <input type="date" name="dateStart" class="form-control" ng-model="dateStart" ng-change="changeDateEnd()" required="true" min="minDate" max="maxDate"/>
                         <div ng-show="CreateVacationLeaveForm.$submitted || CreateVacationLeaveForm.dateStart.$touched">
                             <span ng-show="CreateVacationLeaveForm.dateStart.$error.required" class="help-block">Date is required</span>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label th:text="#{date_end}"/>
+                        <label th:text="#{date_end}"/>*
                         <input type="date" name="dateEnd" class="form-control" ng-model="dateEnd" required="true"/>
                         <div ng-show="CreateVacationLeaveForm.$submitted || CreateVacationLeaveForm.dateEnd.$touched">
                             <span ng-show="CreateVacationLeaveForm.dateEnd.$error.required" class="help-block">Date is required</span>

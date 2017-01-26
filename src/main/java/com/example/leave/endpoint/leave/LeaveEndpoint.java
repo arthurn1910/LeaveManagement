@@ -114,7 +114,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     }
 
     @Override
-    public void createLeave(List<String> data) {
+    public String createLeave(List<String> data) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account=accountRepository.findByLogin(user.getUsername());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -132,38 +132,41 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         for(Date date : dateList){
             if(dateStart.before(date)&& dateEnd.after(date)) {
                 log.warning("Exception in createLeave. Date is blocked " + data);
-                return;
+                return "date is blocked";
             }
 
         }
         if(leave.getLeaveType().getId().equals(1L)) {
             LeaveDetailsDTO leaveDetailsDTO = getLeaveDetails();
             int days = countDays(dateStart.getTime(), dateEnd.getTime());
-            if (days > (leaveDetailsDTO.getReamainingVacationLeaveLastYear() + leaveDetailsDTO.getReamainingVacationLeaveLastYear())) {
-                if (days <= leaveDetailsDTO.getReamainingVacationLeaveLastYear()) {
+            if (days <= (leaveDetailsDTO.getLeaveThisYear()+leaveDetailsDTO.getLeaveLastYear() - leaveDetailsDTO.getReamainingVacationLeaveLastYear()
+                    - leaveDetailsDTO.getReamainingVacationLeaveLastYear())) {
+                if (days <= (leaveDetailsDTO.getLeaveLastYear()- leaveDetailsDTO.getReamainingVacationLeaveLastYear())) {
                     leave.setLastYearDays(days);
                 } else {
-                    leave.setLastYearDays(leave.getLastYearDays());
+                    leave.setLastYearDays(leaveDetailsDTO.getLeaveLastYear()-leaveDetailsDTO.getReamainingVacationLeaveLastYear());
                     leave.setCurrentYearDays(days - leave.getLastYearDays());
                 }
             } else {
                 log.warning("Exception in createLeave. Not days to create paid leave");
-                return;
+                return " Not days to create paid leave";
             }
         }
 
         leaveManager.createLeave(leave);
+        return "leave was created";
     }
 
     private int countDays(Date dateStart, Date dateEnd) {
-        if(dateStart.before(dateEnd)){
+        if(dateStart.before(dateEnd) || dateStart.equals(dateEnd)){
             Calendar calendarStart=Calendar.getInstance();
             calendarStart.setTime(dateStart);
             Calendar calendarEnd=Calendar.getInstance();
             calendarEnd.setTime(dateEnd);
             int count=1;
             while(!calendarStart.getTime().equals(calendarEnd.getTime())){
-                count++;
+                if(calendarStart.get(Calendar.DAY_OF_WEEK)!=6 && calendarStart.get(Calendar.DAY_OF_WEEK)!=7)
+                    count++;
                 calendarStart.add(Calendar.DAY_OF_YEAR,1);
             }
             return count;
@@ -228,7 +231,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
 
         List<Leave> leaveList=leaveManager.getLeaveUserWithType(account,leaveTypeRepository.findOne(1L));
         for(Leave leave : leaveList){
-            if(leave.getActive()==true) {
+            if(leave.getActive()==true && leave.getConfirm()==true) {
                 if (leave.getDateStart().after(calendarCurrentYearStart.getTime()) && leave.getDateStart().before(calendarCurrentYearEnd.getTime())) {
                     lastYear += leave.getLastYearDays();
                     currentYear += leave.getCurrentYearDays();
@@ -336,7 +339,11 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                     int days=(int) Math.ceil((double) 26*account.getWorkTime()/100);
                     leaveDetailsDTO.setLeaveLastYear(days);
                     return;
-                } else {
+                } else if((expirience + 365)<=10*12*30){
+                    int days=(int) Math.ceil((double) 20*account.getWorkTime()/100);
+                    leaveDetailsDTO.setLeaveLastYear(days);
+                    return;
+                }else{
                     int days=10*12*30-expirience;
                     int countMonth=(int) Math.floor(days/30);
                     int daysLeave=(int) Math.ceil(countMonth*20/12);
@@ -348,7 +355,6 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                     }
                     daysLeave=(int) Math.ceil((double) daysLeave*account.getWorkTime()/100);
                     leaveDetailsDTO.setLeaveLastYear(daysLeave);
-                    return;
                 }
             }else{
                 Calendar calendar1=new GregorianCalendar();
