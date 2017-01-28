@@ -64,6 +64,6 @@ public class ShowGroupController {
     @RequestMapping(value = "/removeMember", method = RequestMethod.POST)
     public @ResponseBody String removeMember(@RequestBody List<String> data) {
         groupEndpoint.removeMember(data);
-        return JSONParser.quote("Member "+data.get(1)+" removed");
+        return JSONParser.quote("Użytkownik "+data.get(1)+" usunięty");
     }
 }

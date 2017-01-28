@@ -2,7 +2,7 @@
 <html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
-        <title>Leave Management</title>
+        <title>Czas Na Urlop</title>
     </head>
     <body>
         <div id="container">
@@ -27,8 +27,8 @@
                         <label th:text="#{date}"/>*
                         <input type="date" name="date" class="form-control" ng-model="dateStart" required="true" min="minDate" max="maxDate"/>
                         <div ng-show="CreateParentalLeaveForm.$submitted || CreateParentalLeaveForm.date.$touched">
-                            <span ng-show="CreateParentalLeaveForm.date.$error.required" class="help-block">Date is required</span>
-                            <span ng-show="CreateParentalLeaveForm.date.$error.date" class="help-block">Date is not correct</span>
+                            <span ng-show="CreateParentalLeaveForm.date.$error.required" class="help-block" th:text="#{date_required}"/>
+                            <span ng-show="CreateParentalLeaveForm.date.$error.date" class="help-block" th:text="#{date_date}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -37,7 +37,7 @@
                             <option ng-repeat="option in selectLenght" value="{{option.id}}">{{option.id}} week</option>
                         </select>
                         <div ng-show="CreateParentalLeaveForm.$submitted || CreateParentalLeaveForm.lenght.$touched">
-                            <span ng-show="CreateParentalLeaveForm.lenght.$error.required" class="help-block">Choose lenght</span>
+                            <span ng-show="CreateParentalLeaveForm.lenght.$error.required" class="help-block" th:text="#{choose_lenght}"/>
                         </div>
                     </div>
 

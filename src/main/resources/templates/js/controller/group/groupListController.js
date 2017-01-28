@@ -24,14 +24,12 @@ angular.module('leaveManagement')
             $http.get('/getCreateGroup').success(function(response) {
                 $window.location.href=response;
             }).error(function(){
-                console.log("error createGroup");
             });
         }
         $scope.showGroup = function(data) {
             $http.post('/showGroup',data.id).success(function(response) {
                 $window.location.href=response;
             }).error(function(){
-                console.log("error showGroup");
             });
         }
 
@@ -63,7 +61,6 @@ angular.module('leaveManagement')
             $http.post('/applyToGroup',data.id).success(function(response) {
                 $scope.getUserGroupDTO();
             }).error(function(){
-                console.log("error showGroup");
             });
         }
 

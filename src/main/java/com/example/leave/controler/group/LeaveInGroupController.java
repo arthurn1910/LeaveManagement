@@ -34,13 +34,14 @@ public class LeaveInGroupController {
 
     @RequestMapping(value = "/confirmLeave", method = RequestMethod.POST)
     public @ResponseBody String acceptApplication(@RequestBody String id){
-        groupEndpoint.confirmLeave(id);
-        return JSONParser.quote("Leave was confirmed");
+        String response = groupEndpoint.confirmLeave(id);
+        return JSONParser.quote(response);
     }
+
     @RequestMapping(value = "/rejectLeave", method = RequestMethod.POST)
     public @ResponseBody String rejectApplication(@RequestBody String id){
         groupEndpoint.rejectLeave(id);
-        return JSONParser.quote("Leave was rejected");
+        return JSONParser.quote("Urlop odmówiony");
     }
 
     @RequestMapping("/getLeaveInGroup")

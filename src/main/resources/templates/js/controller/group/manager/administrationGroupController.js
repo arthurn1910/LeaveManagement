@@ -3,7 +3,6 @@
  */
 angular.module('leaveManagement')
     .controller('administrationGroupController', function ($scope,$http,$window) {
-
         $scope.return = function() {
             $http.get('/getShowGroup').then(function successCallback(response) {
                 $window.location.href = response.data;
@@ -12,7 +11,12 @@ angular.module('leaveManagement')
         $scope.active = function(data) {
             var list=[data.id, data.employee.login]
             $http.post('/acceptApplication',list).then(function successCallback(response) {
-                $window.location.reload();
+                if(response.data.length>=26){
+                    $scope.messageResponse=response.data;
+                    console.log($scope.messageResponse)
+                } else {
+                    $window.location.reload();
+                }
             });
         }
         $scope.remove = function(data) {
@@ -23,6 +27,7 @@ angular.module('leaveManagement')
             });
         }
 
+        $scope.messageResponse= "";
 
 
     })

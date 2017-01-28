@@ -7,7 +7,6 @@ angular.module('leaveManagement')
             $http.get('/getImportantDates')
                 .then(function(response) {
                     $scope.importantDates = response.data;
-                    console.log($scope.importantDates);
                 });
         };
 

@@ -1,13 +1,16 @@
 <table ng-controller="administrationGroupController" st-table="rowCollection" class="table table-striped"
        xmlns:th="http://www.w3.org/1999/xhtml">
+    <br/><br/>
+    <a>{{$scope.messageResponse}}</a>
+    <H3>{{messageResponse}}</H3>
     <thead>
-    <tr>
-        <th th:text="#{name}"/>
-        <th th:text="#{lastname}"/>
-        <th th:text="#{user_login}"/>
-        <th th:text="#{email}"/>
-        <th></th>
-    </tr>
+        <tr>
+            <th th:text="#{name}"/>
+            <th th:text="#{lastname}"/>
+            <th th:text="#{user_login}"/>
+            <th th:text="#{email}"/>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
         <tr ng-repeat="row in applyGroup">
@@ -32,4 +35,6 @@
             </td>
         </tr>
     </tbody>
+    <h4>{{messageResponse}}</h4>
+    <p>{{messageResponse}}</p>
 </table>

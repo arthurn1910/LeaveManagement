@@ -41,9 +41,9 @@ public class GroupManager implements GroupManagerInterface {
 
     @Override
     @Transactional
-    public void createGroup(TeamGroup createGroupDTO, TeamGroupMember teamGroupMember) {
-        createGroupDTO.setId(teamGroupRepository.getNewID());
-        teamGroupRepository.save(createGroupDTO);
+    public void createGroup(TeamGroup createGroup, TeamGroupMember teamGroupMember) {
+        createGroup.setId(teamGroupRepository.getNewID());
+        teamGroupRepository.save(createGroup);
         teamGroupMember.setId(teamGroupMemberRepository.getNewID());
         teamGroupMember.setActive(true);
         teamGroupMemberRepository.save(teamGroupMember);

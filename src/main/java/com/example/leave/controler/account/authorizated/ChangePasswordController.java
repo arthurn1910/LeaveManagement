@@ -37,7 +37,7 @@ public class ChangePasswordController {
             accountEndpoint.changePassword(password);
             return JSONParser.quote("Password Changed!");
         } catch (Exception e) {
-            return JSONParser.quote("Actual Password Incorect!");
+            return JSONParser.quote("Aktualne hasło niepoprawne");
         }
 
     }

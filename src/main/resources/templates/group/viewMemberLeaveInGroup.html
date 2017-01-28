@@ -1,5 +1,11 @@
 <div class="col-md-7 col-md-offset-2" ng-controller="memberLeaveGroupController"
      xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="row">
+        <input id="filterName" type="text" ng-model="name" class="col-md-2" />
+        <div class="col-md-8 col-md-offset-1" id="slider"></div>
+    </div>
+
     <table  st-table="rowCollection" class="table table-striped">
         <thead>
         <tr>
@@ -11,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in approvedLeave">
+        <tr ng-repeat="row in leaveInGroupShow">
             <td>{{row.account.name}}</td>
             <td>{{row.account.lastname}}</td>
             <td>{{(row.account.login)}}</td>

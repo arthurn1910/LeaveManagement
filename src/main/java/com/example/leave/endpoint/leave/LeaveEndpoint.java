@@ -64,13 +64,16 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         calendar.add(Calendar.WEEK_OF_YEAR,week);
         Leave leave=new Leave(account,leaveType,date1,0,0,calendar.getTime());
         leaveManager.createLeave(leave);
-        return JSONParser.quote("Leave was created");
+        return JSONParser.quote("Urlop został stworzony");
 
     }
 
     @Override
     public List<Date> getBlockDate() {
         Collection<TeamGroupMember> teamGroupMemberCollection= getAccount().getTeamGroupMemberCollection();
+        List<Date> dateList=new ArrayList<>();
+        if(teamGroupMemberCollection.size()==0)
+            return dateList;
         TeamGroup teamGroup=null;
         for(TeamGroupMember teamGroupMember : teamGroupMemberCollection){
             teamGroup=teamGroupMember.getTeamGroup();
@@ -81,20 +84,17 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.HOUR,0);
-        List<Date> dateList=new ArrayList<>();
         List<ImportantDates> importantDatesList1= importantDatesRepository.findAllByTeamGroup(teamGroup);
         List<ImportantDates> importantDatesList= importantDatesRepository.findAllByTeamGroupAfterNow(teamGroup,calendar.getTime());
         int sizeTeam=teamGroup.getTeamGroupMembers().size();
         for(ImportantDates importantDates : importantDatesList){
             List<Leave> leaveList=leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(1L),teamGroup,importantDates.getDate());
             leaveList.addAll(leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(2L),teamGroup,importantDates.getDate()));
-            int y= (int) (4*0.2);
-            int member=(int)0.2*sizeTeam;
+            int member=(int)((100-teamGroup.getNumber())/100)*sizeTeam;
             if(member==0)
                 member=1;
             if(member<=leaveList.size())
                 dateList.add(importantDates.getDate());
-
 
         }
 
@@ -132,7 +132,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         for(Date date : dateList){
             if(dateStart.before(date)&& dateEnd.after(date)) {
                 log.warning("Exception in createLeave. Date is blocked " + data);
-                return "date is blocked";
+                return "Data jest zablokowana";
             }
 
         }
@@ -149,12 +149,12 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                 }
             } else {
                 log.warning("Exception in createLeave. Not days to create paid leave");
-                return " Not days to create paid leave";
+                return "Nie wystarczająca liczba dni do stworzenia urlopu";
             }
         }
 
         leaveManager.createLeave(leave);
-        return "leave was created";
+        return "Urlop został stworzony";
     }
 
     private int countDays(Date dateStart, Date dateEnd) {
@@ -197,9 +197,17 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     public LeaveDetailsDTO getLeaveDetails() {
         LeaveDetailsDTO leaveDetailsDTO=new LeaveDetailsDTO();
         List<Leave> leaveList=leaveManager.getLeaveUserWithType(getAccount(), leaveTypeRepository.findOne(1L));
-        setPaidVacationDetails(leaveList,leaveDetailsDTO);
+        Account account=getAccount();
+        setPaidVacationDetails(leaveList,leaveDetailsDTO, account);
         return leaveDetailsDTO;
 
+    }
+
+    public LeaveDetailsDTO getLeaveDetails(Leave leave){
+        LeaveDetailsDTO leaveDetailsDTO=new LeaveDetailsDTO();
+        List<Leave> leaveList=leaveManager.getLeaveUserWithType(leave.getAccount(), leaveTypeRepository.findOne(1L));
+        setPaidVacationDetails(leaveList,leaveDetailsDTO, leave.getAccount());
+        return leaveDetailsDTO;
     }
 
     private Account getAccount(){
@@ -208,8 +216,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         return account;
     }
 
-    private void setPaidVacationDetails(List<Leave> leaveList, LeaveDetailsDTO leaveDetailsDTO){
-        Account account=getAccount();
+    public void setPaidVacationDetails(List<Leave> leaveList, LeaveDetailsDTO leaveDetailsDTO, Account account){
         setLeaveDaysLastYear(account, leaveDetailsDTO);
         setLeaveDaysCurrentYear(account, leaveDetailsDTO);
         setUsingVacationDays(account, leaveDetailsDTO);

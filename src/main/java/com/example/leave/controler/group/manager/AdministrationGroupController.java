@@ -4,6 +4,8 @@ import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.endpoint.group.GroupEndpoint;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,13 +39,12 @@ public class AdministrationGroupController {
 
     @RequestMapping(value = "/acceptApplication", method = RequestMethod.POST)
     public @ResponseBody String acceptApplication(@RequestBody List<String> data){
-        groupEndpoint.acceptApplication(data);
-        return JSONParser.quote("Application user:"+data.get(1)+" was accepted");
+        return JSONParser.quote(groupEndpoint.acceptApplication(data));
     }
     @RequestMapping(value = "/rejectApplication", method = RequestMethod.POST)
     public @ResponseBody String rejectApplication(@RequestBody List<String> data){
         groupEndpoint.removeMember(data);
-        return JSONParser.quote("Application user: "+data.get(1)+" was reject");
+        return JSONParser.quote("Aplikacja użytkownika: "+data.get(1)+" odmówiona");
     }
 
     @RequestMapping(value = "/removeGroup", method = RequestMethod.GET)

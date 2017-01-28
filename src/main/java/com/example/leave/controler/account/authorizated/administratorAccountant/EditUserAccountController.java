@@ -43,6 +43,6 @@ public class EditUserAccountController {
     @RequestMapping(value = "/saveUserAccount", method = RequestMethod.POST)
     public @ResponseBody String editUserAccountData( @RequestBody List<String> data) {
         accountEndpoint.editUserAccount(data);
-        return JSONParser.quote("User account changed!");
+        return JSONParser.quote("Konto użytkownika zmienione!");
     }
 }

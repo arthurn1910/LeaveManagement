@@ -3,8 +3,8 @@
      */
 angular.module('leaveManagement')
     .controller('changeUserRoleController', function ($scope,$http,$window) {
-        $scope.roleCollection=[{name:"ADMINISTRATOR", active:false},{name:"EMPLOYEE", active:false},
-            {name:"MANAGER", active:false},{name:"ACCOUNTANT", active:false}];
+        $scope.roleCollection=[{name:"ADMINISTRATOR", active:false},{name:"PRACOWNIK", active:false},
+            {name:"MENADŻER", active:false},{name:"KSIĘGOWY", active:false}];
         $scope.return = function() {
             $window.location.href="/usersList";
         };

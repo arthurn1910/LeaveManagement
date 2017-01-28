@@ -5,13 +5,18 @@ angular.module('leaveManagement')
     .controller('createGroupController', function ($scope,$http,$window, $location) {
         $scope.message = "";
         $scope.title="";
+        var number = [{id:50},{id:60},{id:70}, {id:80},{id:90}]
+        $scope.modelExpirience={number};
+        $scope.number=50;
+
         $scope.createGroup = function() {
-            $http.post('/createGroup',$scope.title)
+            var data=[$scope.title, $scope.number]
+            $http.post('/createGroup',data)
                 .then(function successCallback(response) {
-                    $scope.message = "Group was created.";
+                    $scope.message = "Grupa została stworzona.";
                     $("form.css-form").hide();
                 }, function errorCallback(error) {
-                    $scope.message = "Error create group.";
+                    $scope.message = "Błąd w trakcie tworzenia grupy.";
                 });
         };
 

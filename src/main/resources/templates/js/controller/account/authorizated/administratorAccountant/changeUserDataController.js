@@ -34,8 +34,6 @@ angular.module('leaveManagement')
         }
         $scope.modelExpirience={year,month,day,workTime}
 
-        console.log($scope.modelExpirience.year);
-        console.log($scope.modelExpirience.workTime);
         $scope.getUserAccount = function() {
             $http.get('/getUserAccount').success(function (response) {
                 $scope.userAccount = response;

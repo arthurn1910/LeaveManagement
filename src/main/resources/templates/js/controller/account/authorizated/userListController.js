@@ -21,7 +21,9 @@ angular.module('leaveManagement')
 
         $scope.changeUserConfirmStatus = function(data) {
             var account =[data.login, data.version];
-            $http.post('/changeUserConfirmStatus',account);
+            $http.post('/changeUserConfirmStatus',account).then(function(response) {
+                $scope.getUsersList();
+            });
         }
 
         $scope.changeUserPassword = function(data) {
@@ -51,7 +53,14 @@ angular.module('leaveManagement')
         $scope.accessLevel=function(data){
             var accesslevel ='';
             for (var level in data) {
-                accesslevel += data[level] + " ";
+                if(data[level]=='ADMINISTRATOR')
+                    accesslevel += 'ADMINISTRATOR' + " ";
+                else if(data[level]=='ACCOUNTANT')
+                    accesslevel += 'KSIĘGOWY' + " ";
+                else if(data[level]=='EMPLOYEE')
+                    accesslevel += 'PRACOWNIK' + " ";
+                else if(data[level]=='MANAGER')
+                    accesslevel += 'MENADŻER' + " ";
             }
             return accesslevel;
         }

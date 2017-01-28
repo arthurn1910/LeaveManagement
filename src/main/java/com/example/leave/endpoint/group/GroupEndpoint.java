@@ -4,7 +4,9 @@ import com.example.leave.dto.group.ImportantDateDTO;
 import com.example.leave.dto.group.TeamGroupDTO;
 import com.example.leave.dto.group.UserGroupDTO;
 import com.example.leave.dto.leave.LeaveDTO;
+import com.example.leave.dto.leave.LeaveDetailsDTO;
 import com.example.leave.endpoint.account.AccountEndpoint;
+import com.example.leave.endpoint.leave.LeaveEndpoint;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -12,6 +14,7 @@ import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.manager.group.GroupManager;
 import com.example.leave.repository.account.AccountRepository;
+import com.example.leave.repository.leave.LeaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -39,14 +42,21 @@ public class GroupEndpoint implements GroupEndpointInterface {
     AccountRepository accountRepository;
 
     @Autowired
+    LeaveRepository leaveRepository;
+
+    @Autowired
+    LeaveEndpoint leaveEndpoint;
+
+    @Autowired
     GroupManager groupManager;
 
     @Override
-    public void createGroup(String title) {
+    public void createGroup(List<String>  data) {
         TeamGroup teamGroupTmp=new TeamGroup();
         teamGroupTmp.setVersion(0L);
         teamGroupTmp.setCreateDate(new java.util.Date());
-        teamGroupTmp.setGroupTitle(title);
+        teamGroupTmp.setGroupTitle(data.get(0));
+        teamGroupTmp.setNumber(Integer.parseInt(data.get(1)));
         getYourAccount();
         teamGroupTmp.setManager(this.account);
         TeamGroupMember teamGroupMember=new TeamGroupMember(this.account,teamGroupTmp);
@@ -97,7 +107,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void acceptApplication(List<String> data) {
+    public String acceptApplication(List<String> data) {
         this.teamGroup=getTeamGroup(this.teamGroup.getId());
         Collection<TeamGroupMember> teamGroupMemberList=getMemberInGroup();
         for(TeamGroupMember teamGroupMember : teamGroupMemberList){
@@ -106,11 +116,13 @@ public class GroupEndpoint implements GroupEndpointInterface {
                     teamGroupMember.setActive(true);
                     groupManager.acceptApplication(teamGroupMember);
                 }else{
-                    groupManager.removeMember(teamGroupMember);
+//                    groupManager.removeMember(teamGroupMember);
+                    return "Użytkownik należy już do innej grupy";
                 }
             }
         }
         this.teamGroup=getTeamGroup();
+        return "Użytkownik zaakceptowany";
     }
 
     @Override
@@ -207,8 +219,18 @@ public class GroupEndpoint implements GroupEndpointInterface {
     }
 
     @Override
-    public void confirmLeave(String id) {
-        groupManager.confirmLeave(id);
+    public String confirmLeave(String id) {
+        Leave leave=leaveRepository.findOne(Long.valueOf(id));
+        LeaveDetailsDTO leaveDetailsDTO=leaveEndpoint.getLeaveDetails(leave);
+        System.out.println("wczesniej sprawdzić czy dany termin nie ejst już zablokowany");
+
+        if((leaveDetailsDTO.getLeaveLastYear()+leaveDetailsDTO.getLeaveThisYear()-leaveDetailsDTO.getReamainingVacationLeaveLastYear()
+                -leaveDetailsDTO.getReamainingVacationLeaveThisYear())>=(leave.getLastYearDays()+leave.getCurrentYearDays())) {
+            groupManager.confirmLeave(id);
+            return "Urlop potwierdzony";
+        }
+        rejectLeave(id);
+        return "Urlop nie został potwierdzony. Użytkownik nie ma wystarczającej liczby dni urlopu";
     }
 
     @Override

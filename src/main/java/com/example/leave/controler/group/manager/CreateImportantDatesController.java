@@ -22,7 +22,7 @@ public class CreateImportantDatesController {
     @RequestMapping(value = "/createImportantDate", method = RequestMethod.POST)
     public @ResponseBody String createImportantDate(@RequestBody String date) {
         groupEndpoint.createImportantDate(date);
-        return JSONParser.quote("Important date created");
+        return JSONParser.quote("Ważna data stworzona");
     }
 
     @RequestMapping(value = "/createImportantDateView", method = RequestMethod.GET)

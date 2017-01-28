@@ -41,6 +41,6 @@ public class changeUserRoleController {
     @RequestMapping(value = "/setUserRole", method = RequestMethod.POST)
     public @ResponseBody String changeUserRolePost(@RequestBody List<String> data) {
         accountEndpoint.changeUserRole(data);
-        return JSONParser.quote("Role "+data.get(2)+" changed!");
+        return JSONParser.quote("Rola "+data.get(2)+" zmieniona!");
     }
 }

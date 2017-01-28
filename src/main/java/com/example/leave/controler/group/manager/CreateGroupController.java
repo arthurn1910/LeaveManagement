@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * Created by Medion on 2016-09-20.
@@ -26,12 +28,12 @@ public class CreateGroupController {
     }
 
     @RequestMapping(value = "/createGroup", method = RequestMethod.POST)
-    public @ResponseBody String createGroupPost(@RequestBody String title) {
+    public @ResponseBody String createGroupPost(@RequestBody List<String> data) {
         try{
-            groupEndpoint.createGroup(title);
-            return JSONParser.quote("Group created");
+            groupEndpoint.createGroup(data);
+            return JSONParser.quote("Grupa stworzona");
         } catch(Exception e){
-            return JSONParser.quote("Group  wasn't created");
+            return JSONParser.quote("Grupa nie została stworzona");
         }
     }
 }

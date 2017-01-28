@@ -34,6 +34,9 @@ public class TeamGroup implements Serializable{
     @Column(name = "date_create")
     private Date createDate;
 
+    @Column(name = "number")
+    private int number;
+
     @OneToMany(cascade = {CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.EAGER, mappedBy = "teamGroup")
     private Collection<TeamGroupMember> teamGroupMembers = new ArrayList<>();
 
@@ -124,6 +127,22 @@ public class TeamGroup implements Serializable{
 
     public void setTeamGroupMembers(Collection<TeamGroupMember> teamGroupMembers) {
         this.teamGroupMembers = teamGroupMembers;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     @Override

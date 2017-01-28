@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Medion on 2016-09-20.
  */
 public interface GroupEndpointInterface {
-    void createGroup(String title);
+    void createGroup(List<String> data);
 
     List<TeamGroup> getAllGroups();
 
@@ -30,7 +30,7 @@ public interface GroupEndpointInterface {
 
     List<TeamGroupMember> getTeamGroupUser(Boolean active);
 
-    void acceptApplication(List<String> data);
+    String acceptApplication(List<String> data);
 
     void removeMember(List<String> data);
 
@@ -64,7 +64,7 @@ public interface GroupEndpointInterface {
 
     public List<LeaveDTO> getAllLeaveInGroup();
 
-    public void confirmLeave(String id);
+    public String confirmLeave(String id);
 
     public void rejectLeave(String id);
 }

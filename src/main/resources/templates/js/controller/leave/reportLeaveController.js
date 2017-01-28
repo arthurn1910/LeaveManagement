@@ -10,7 +10,6 @@ angular.module('leaveManagement')
                     $scope.leaveList = response.data;
                     $scope.reportLeave678=$scope.leaveList.slice(0);
                     setDate();
-
                 });
         };
 
@@ -23,17 +22,9 @@ angular.module('leaveManagement')
             var list=[];
             for(var i=0;i<$scope.leaveList.length;i++) {
                 var tmp=$scope.leaveList[i].account.name+" "+$scope.leaveList[i].account.lastname;
-                console.log(tmp);
-                console.log($scope.name);
-                console.log(tmp.toUpperCase())
-                console.log($scope.name.toUpperCase())
-                console.log(tmp.toUpperCase().indexOf($scope.name.toUpperCase()));
                 if (tmp.toUpperCase().indexOf($scope.name.toUpperCase()) > -1) {
                     list.push($scope.leaveList[i])
                 }
-                // if (((new Date($scope.leaveList[i].dateEnd) < dateStart) || (new Date($scope.leaveList[i].dateStart) > dateEnd) )==false) {
-                //     list.push($scope.leaveList[i])
-                // }
             }
 
 

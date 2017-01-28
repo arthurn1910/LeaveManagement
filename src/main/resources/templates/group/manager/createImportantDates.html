@@ -6,9 +6,8 @@
             <label th:text="#{date}"/>*
             <input type="date" name="date" class="form-control" ng-model="dateCreate" required="true"/>
             <div ng-show="CreateImportantDateForm.$submitted || CreateImportantDateForm.password.$touched">
-                <span ng-show="CreateImportantDateForm.date.$error.required" class="help-block">Date is required</span>
-                <span ng-show="CreateImportantDateForm.date.$error.date" class="help-block">Date is not correct</span>
-
+                <span ng-show="CreateImportantDateForm.date.$error.required" class="help-block" th:text="#{date_required}"/>
+                <span ng-show="CreateImportantDateForm.date.$error.date" class="help-block" th:text="#{date_date}"/>
             </div>
             <br/><button type='button' ng-disabled="CreateImportantDateForm.$invalid" ng-click="create()" th:text="#{create}"/><br/>
         </div>

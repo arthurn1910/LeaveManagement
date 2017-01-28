@@ -2,7 +2,7 @@
 <html ng-app="leaveManagement" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
-        <title>Leave Management</title>
+        <title>Czas Na Urlop</title>
     </head>
     <body >
         <div id="container">
@@ -23,12 +23,18 @@
                                 <label th:text="#{title}"/>*
                                 <input type="text" name="title" class="form-control" ng-model="title" required="true" minlength="4" maxlength="80"/>
                                 <div ng-show="createGroupForm.$submitted || createGroupForm.title.$touched">
-                                    <span ng-show="createGroupForm.title.$error.required" class="help-block">Title is required</span>
-                                    <span ng-show="createGroupForm.title.$error.minlength" class="help-block">Title must contain at least 4 characters</span>
-                                    <span ng-show="createGroupForm.title.$error.maxlength" class="help-block">Title must contain at least 80 characters</span>
+                                    <span ng-show="createGroupForm.title.$error.required" class="help-block" th:text="#{title_required}"/>
+                                    <span ng-show="createGroupForm.title.$error.minlength" class="help-block" th:text="#{title_minlength}"/>
+                                    <span ng-show="createGroupForm.title.$error.maxlength" class="help-block" th:text="#{title_maxlength}"/>
                                 </div>
                             </div>
+                            <br/><br/>
+                            <i th:text="#{number_employee}"/>: {{number}}%
+                            <select name="repeatSelect" id="repeatSelectWorkTime" ng-model="number" required="true">
+                                <option ng-repeat="option in modelExpirience.number" value="{{option.id}}" >{{option.id}}</option>
+                            </select>
                             <br/>
+                            <br/><br/>
                             <div class="row">
                                 <button type='button' ng-disabled="createGroupForm.$invalid" ng-click="createGroup()"><i th:text="#{create}"/></button><br/>
                             </div>
@@ -36,7 +42,7 @@
                     </div>
                 </form>
                 <div class="col-md-4 col-md-offset-5">
-                    <button type="button" ng-click="return()"><i th:text="#{reaturn}"/></button>
+                    <button type="button" ng-click="return()"><i th:text="#{return}"/></button>
                 </div>
             </div>
         </div>
@@ -52,31 +58,3 @@
         <link rel="stylesheet" href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css"/>
     </body>
 </html>
-
-
-
-
-
-
-<!--<td th:text="${teamGroup.getTitle()}"/>-->
-<!--<td th:text="${teamGroup.getManager().getLastname()}"/>-->
-<!--<td th:text="${teamGroup.getCreateDate()}"/>-->
-<!--<td th:text="${teamGroup.getNumberOfEmployee()}"/>-->
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<h2>Create Group</h2>-->
-        <!--<form method="POST" modelattribute="teamGroupDTO">-->
-            <!--<input type="text" name="title" path="title" placeholder="Title" />-->
-            <!--<if test="${pageContext.request.method=='POST'}"><errors path="title" /></if>-->
-            <!--<input type="submit" value="Create Group" />-->
-        <!--</form>-->

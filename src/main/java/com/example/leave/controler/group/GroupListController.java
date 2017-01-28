@@ -50,6 +50,6 @@ public class GroupListController {
     @RequestMapping(value = "/applyToGroup", method = RequestMethod.POST)
     public @ResponseBody String applyToGroup(@RequestBody String id) {
         groupEndpoint.applyToGroup(id);
-        return JSONParser.quote("Apply was created");
+        return JSONParser.quote("Aplikacja utworzona");
     }
 }

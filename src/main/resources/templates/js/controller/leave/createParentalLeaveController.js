@@ -47,7 +47,7 @@ angular.module('leaveManagement')
                     $scope.message = response.data;
                     $scope.flag=false;
                 }, function errorCallback(error) {
-                    $scope.messageRegister = "Error.";
+                    $scope.messageRegister = "Błąd";
             });
 
         }
