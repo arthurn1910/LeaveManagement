@@ -6,6 +6,8 @@ import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +35,9 @@ public interface GroupManagerInterface {
     List<ImportantDates> getImportantDates(TeamGroup teamGroup);
 
     void removeImportantDate(ImportantDates importantDates);
+
+    @Transactional
+    List<ImportantDates> getImportantDates(TeamGroup teamGroup, Date date);
 
     List<Leave> getAllLeaveInGroup(TeamGroup teamGroup);
 

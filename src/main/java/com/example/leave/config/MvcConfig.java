@@ -42,6 +42,7 @@ public class MvcConfig  extends WebMvcConfigurerAdapter{
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
+        System.out.println("!@#");
         return localeChangeInterceptor;
     }
 
@@ -51,6 +52,7 @@ public class MvcConfig  extends WebMvcConfigurerAdapter{
         cookieLocaleResolver.setCookieName("language");
         cookieLocaleResolver.setDefaultLocale(new Locale("pl"));
         cookieLocaleResolver.setCookieMaxAge(604800);
+        System.out.println("*()");
         return cookieLocaleResolver;
     }
 

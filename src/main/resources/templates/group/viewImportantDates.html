@@ -3,12 +3,14 @@
         <thead>
         <tr>
             <th th:text="#{date}"/>
+            <th th:text="#{free_date}"/>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="row in importantDates">
             <td>{{getDate(row.date)}}</td>
+            <td>{{row.number}}</td>
             <td>
                 <a ng-hide="checkManager('')">
                     <button type="button" ng-click="remove(row.id)" class="btn btn-sm btn-danger">

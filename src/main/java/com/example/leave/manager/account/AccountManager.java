@@ -33,6 +33,7 @@ public class AccountManager implements AccountManagerInterface {
         accountRepository.save(account);
         accessLevel.setAccount(account);
         accessLevelRepository.save(accessLevel);
+        log.info("User "+account.getLogin()+"was registered");
     }
 
     @Override
@@ -45,6 +46,7 @@ public class AccountManager implements AccountManagerInterface {
     @Transactional
     public void editAccount(Account account) {
         accountRepository.save(account);
+        log.info("Edited account "+account.getLogin());
     }
 
     @Override
@@ -57,6 +59,7 @@ public class AccountManager implements AccountManagerInterface {
     @Transactional
     public void changePassword(Account account) {
         accountRepository.save(account);
+        log.info("User password "+account.getLogin()+"changed");
     }
 
     @Override
@@ -67,6 +70,7 @@ public class AccountManager implements AccountManagerInterface {
             AccessLevel accessLevel = new AccessLevel(role, true, accountTmp);
             accessLevel.setId(accessLevelRepository.getNewAccessLevelID());
             accessLevelRepository.save(accessLevel);
+            log.info("Add role "+role+ "to user "+account.getLogin());
         } else{
             log.warning("Exception add role "+ role+ "to user"+account.getLogin());
         }
@@ -81,6 +85,7 @@ public class AccountManager implements AccountManagerInterface {
         if(accessLevelList.size()!=0) {
             for (AccessLevel accessLevel : accessLevelList) {
                 accessLevelRepository.removeLevel(accessLevel.getId());
+                log.info("Remove role "+role+ " user "+account.getLogin());
             }
         } else{
             log.warning("Exception add role "+ role+ "to user"+account.getLogin());

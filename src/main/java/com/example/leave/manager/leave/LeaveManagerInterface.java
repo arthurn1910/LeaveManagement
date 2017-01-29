@@ -27,4 +27,6 @@ public interface LeaveManagerInterface {
     List<Leave> getLeaveWithTypeAndTeamAndDate(LeaveType one, TeamGroup teamGroup, Date date);
 
     List<Leave> getAllLeave();
+
+    List<Leave> findAllByAccountAndActiveAndConfirmAndDate(Account account, Boolean b, Boolean b1, Date date);
 }

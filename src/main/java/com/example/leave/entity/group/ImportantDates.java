@@ -16,6 +16,8 @@ import java.util.Date;
                 query = "select max(id)+1 from ImportantDates"),
         @NamedQuery(name = "ImportantDates.findAllByTeamGroupAfterNow",
                 query = "select i from ImportantDates i where teamGroup=?1 and date>=?2"),
+        @NamedQuery(name = "ImportantDates.findAllByTeamGroupAndDate",
+                query = "select i from ImportantDates i where teamGroup=?1 and date=?2"),
         @NamedQuery(name = "ImportantDates.remove",
                 query = "delete from ImportantDates where id=?1")
 })

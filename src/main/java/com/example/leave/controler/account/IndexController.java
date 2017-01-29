@@ -2,6 +2,7 @@ package com.example.leave.controler.account;
 import com.example.leave.dto.account.AuthDTO;
 import com.example.leave.endpoint.account.AccountEndpoint;
 import com.example.leave.entity.account.AccessLevel;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;

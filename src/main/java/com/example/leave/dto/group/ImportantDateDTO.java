@@ -23,6 +23,7 @@ public class ImportantDateDTO {
 
     private Long id;
     private TeamGroupDTO teamGroupDTO;
+    private int number;
     private Date date;
 
     public ImportantDateDTO(Long id, TeamGroupDTO teamGroupDTO, Date date) {
@@ -40,6 +41,14 @@ public class ImportantDateDTO {
         } catch (ParseException e) {
             log.warning("Exception in importantDateDTO. Parse date " + importantDates);
         }
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public ImportantDateDTO() {

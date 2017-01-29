@@ -7,6 +7,7 @@ import com.example.leave.entity.leave.LeaveType;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -29,4 +30,7 @@ public interface LeaveRepository extends CrudRepository<Leave, Long>{
 
     @Modifying
     List<Leave> findAllByActiveAndConfirm();
+
+    @Modifying
+    List<Leave> findAllByAccountAndActiveAndConfirmAndCheckDate(Account employee, Boolean b, Boolean b1, Date date);
 }

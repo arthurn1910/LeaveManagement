@@ -5,6 +5,7 @@ import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
+import com.example.leave.manager.account.AccountManager;
 import com.example.leave.repository.group.ImportantDatesRepository;
 import com.example.leave.repository.group.TeamGroupMemberRepository;
 import com.example.leave.repository.group.TeamGroupRepository;
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-20.
@@ -24,6 +26,7 @@ import java.util.List;
 @Component
 public class GroupManager implements GroupManagerInterface {
 
+    Logger log = Logger.getLogger(AccountManager.class.getName());
     @Autowired
     TeamGroupRepository teamGroupRepository;
 
@@ -47,6 +50,7 @@ public class GroupManager implements GroupManagerInterface {
         teamGroupMember.setId(teamGroupMemberRepository.getNewID());
         teamGroupMember.setActive(true);
         teamGroupMemberRepository.save(teamGroupMember);
+        log.info("Group "+createGroup.getTitle()+" created");
     }
 
     @Override
@@ -66,6 +70,7 @@ public class GroupManager implements GroupManagerInterface {
     public void joinToGroup(TeamGroupMember teamGroupMember) {
         teamGroupMember.setId(3L);
         teamGroupMemberRepository.save(teamGroupMember);
+        log.info("Add user "+teamGroupMember.getEmployee().getLogin()+" to group "+teamGroupMember.getTeamGroup().getTitle());
     }
 
     @Override
@@ -79,12 +84,14 @@ public class GroupManager implements GroupManagerInterface {
     @Transactional
     public void acceptApplication(TeamGroupMember teamGroupMember) {
         teamGroupMemberRepository.save(teamGroupMember);
+        log.info("Accept user aplication "+teamGroupMember.getEmployee().getLogin()+" to group "+teamGroupMember.getTeamGroup().getTitle());
     }
 
     @Override
     @Transactional
     public void removeMember(TeamGroupMember teamGroupMember) {
         teamGroupMemberRepository.remove(teamGroupMember.getId());
+        log.info("Remove user "+teamGroupMember.getEmployee().getLogin()+" from group "+teamGroupMember.getTeamGroup().getTitle());
     }
 
     @Override
@@ -98,6 +105,7 @@ public class GroupManager implements GroupManagerInterface {
     public void createImportantDate(ImportantDates importantDates) {
         importantDates.setId(importantDatesRepository.getNewID());
         importantDatesRepository.save(importantDates);
+        log.info("Create important date "+importantDates.getDate().toString()+" to group "+importantDates.getTeamGroup().getTitle());
     }
 
     @Override
@@ -105,12 +113,19 @@ public class GroupManager implements GroupManagerInterface {
     public void removeImportantDate(ImportantDates importantDates) {
 
         importantDatesRepository.remove(importantDates.getId());
+        log.info("Remove important date "+importantDates.getDate().toString()+" from group "+importantDates.getTeamGroup().getTitle());
     }
 
     @Override
     @Transactional
     public List<ImportantDates> getImportantDates(TeamGroup teamGroup) {
         return importantDatesRepository.findAllByTeamGroup(teamGroup);
+    }
+
+    @Override
+    @Transactional
+    public List<ImportantDates> getImportantDates(TeamGroup teamGroup, Date date) {
+        return importantDatesRepository.findAllByTeamGroupAndDate(teamGroup,date);
     }
 
 
@@ -130,6 +145,7 @@ public class GroupManager implements GroupManagerInterface {
     @Transactional
     public void rejectPlannedLeave(Leave leave) {
         leaveRepository.delete(leave);
+        log.info("Reject planned leave user "+leave.getAccount().getLogin()+" id "+leave.getId());
     }
 
     @Override
@@ -142,6 +158,7 @@ public class GroupManager implements GroupManagerInterface {
             removeMember(teamGroupMember);
         }
         teamGroupRepository.remove(teamGroup.getId());
+        log.info("Group "+teamGroup.getTitle() + " removed");
     }
 
     @Override
@@ -149,6 +166,7 @@ public class GroupManager implements GroupManagerInterface {
     public void applyToGroup(TeamGroupMember teamGroupMember) {
         teamGroupMember.setId(teamGroupMemberRepository.getNewID());
         teamGroupMemberRepository.save(teamGroupMember);
+        log.info("Apply to group "+teamGroupMember.getTeamGroup().getTitle() +" user "+teamGroupMember.getEmployee().getLogin());
     }
 
     @Override
@@ -157,6 +175,7 @@ public class GroupManager implements GroupManagerInterface {
         Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
         leave.setActive(false);
         leaveRepository.save(leave);
+        log.info("Reject leave "+leave.getId());
     }
 
     @Override
@@ -165,5 +184,6 @@ public class GroupManager implements GroupManagerInterface {
         Leave leave = leaveRepository.findLeaveById(Long.valueOf(id));
         leave.setConfirm(true);
         leaveRepository.save(leave);
+        log.info("Confirm leave "+leave.getId());
     }
 }

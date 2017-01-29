@@ -13,6 +13,7 @@ import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.manager.group.GroupManager;
+import com.example.leave.manager.leave.LeaveManager;
 import com.example.leave.repository.account.AccountRepository;
 import com.example.leave.repository.leave.LeaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,7 @@ import org.springframework.stereotype.Component;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -43,6 +41,9 @@ public class GroupEndpoint implements GroupEndpointInterface {
 
     @Autowired
     LeaveRepository leaveRepository;
+
+    @Autowired
+    LeaveManager leaveManager;
 
     @Autowired
     LeaveEndpoint leaveEndpoint;
@@ -203,6 +204,12 @@ public class GroupEndpoint implements GroupEndpointInterface {
                 importantDateDTOList.add(importantDateDTO);
             }
         }
+        for(ImportantDateDTO importantDateDTO : importantDateDTOList){
+            TeamGroup teamGroup=groupManager.getTeamGroup(importantDateDTO.getTeamGroupDTO().getID());
+            int number =checkdate(importantDateDTO.getDate(), teamGroup);
+            importantDateDTO.setNumber(number);
+        }
+
         return importantDateDTOList;
 
     }
@@ -223,6 +230,27 @@ public class GroupEndpoint implements GroupEndpointInterface {
         Leave leave=leaveRepository.findOne(Long.valueOf(id));
         LeaveDetailsDTO leaveDetailsDTO=leaveEndpoint.getLeaveDetails(leave);
         System.out.println("wczesniej sprawdzić czy dany termin nie ejst już zablokowany");
+        TeamGroupMember teamGroupMember=groupManager.getTeamGroup(leave.getAccount(), true).get(0);
+        TeamGroup teamGroup=groupManager.getTeamGroup(teamGroupMember.getTeamGroup().getId());
+
+
+        Calendar calendarStart=Calendar.getInstance();
+        calendarStart.setTime(leave.getDateStart());
+        Calendar calendarEnd=Calendar.getInstance();
+        calendarEnd.setTime(leave.getDateEnd());
+        int tmp=0;
+        while(!calendarStart.getTime().after(calendarEnd.getTime())){
+            if(tmp!=0) {
+                calendarStart.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            if(checkdate(calendarStart.getTime(), teamGroup)==0){
+                rejectLeave(id);
+                return "Urlop zawiera termin: "+calendarStart.getTime().toString()+" w którym osiągnięto maksymalną liczbę pracowników na urlopie";
+            }
+            tmp++;
+        }
+
+
 
         if((leaveDetailsDTO.getLeaveLastYear()+leaveDetailsDTO.getLeaveThisYear()-leaveDetailsDTO.getReamainingVacationLeaveLastYear()
                 -leaveDetailsDTO.getReamainingVacationLeaveThisYear())>=(leave.getLastYearDays()+leave.getCurrentYearDays())) {
@@ -236,6 +264,31 @@ public class GroupEndpoint implements GroupEndpointInterface {
     @Override
     public void rejectLeave(String id) {
         groupManager.rejectLeave(id);
+    }
+
+    @Override
+    public int checkdate(Date date, TeamGroup teamGroup) {
+        List<TeamGroupMember> teamGroupMemberList=groupManager.getMemberInGroup(teamGroup);
+        int member=teamGroupMemberList.size();
+        List<ImportantDates> importantDatesList=groupManager.getImportantDates(teamGroup,date);
+        if(importantDatesList.size()==0)
+            return -1;
+
+        List<Leave> leaveList=new ArrayList<>();
+        for(TeamGroupMember teamGroupMember : teamGroupMemberList){
+            Account account=teamGroupMember.getEmployee();
+            List<Leave> leaveList1=leaveManager.findAllByAccountAndActiveAndConfirmAndDate(account,true,true,date);
+            if(leaveList1.size()>0)
+                leaveList.addAll(leaveList1);
+        }
+        int tmp=(int) Math.ceil(member*((100-teamGroup.getNumber())/100));
+        if(tmp==0)
+            tmp=1;
+        if(leaveList.size()>=tmp)
+            return 0;
+        else{
+            return tmp-leaveList.size();
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,4 +68,6 @@ public interface GroupEndpointInterface {
     public String confirmLeave(String id);
 
     public void rejectLeave(String id);
+
+    public int checkdate(Date date, TeamGroup teamGroup);
 }

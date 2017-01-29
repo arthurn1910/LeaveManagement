@@ -6,6 +6,7 @@ import com.example.leave.entity.group.TeamGroup;
 import com.example.leave.entity.group.TeamGroupMember;
 import com.example.leave.entity.leave.Leave;
 import com.example.leave.entity.leave.LeaveType;
+import com.example.leave.manager.account.AccountManager;
 import com.example.leave.repository.leave.LeaveRepository;
 import com.example.leave.repository.leave.LeaveTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,15 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Medion on 2016-09-27.
  */
 @Component
 public class LeaveManager implements LeaveManagerInterface {
+    Logger log = Logger.getLogger(AccountManager.class.getName());
+
     @Autowired
     LeaveRepository leaveRepository;
 
@@ -38,12 +42,14 @@ public class LeaveManager implements LeaveManagerInterface {
     public void createLeave(Leave leave) {
         leave.setId(leaveRepository.getNewID());
         leaveRepository.save(leave);
+        log.info("Create leave "+leave.getId());
     }
 
     @Override
     @Transactional
     public void removeLeave(Long id) {
         leaveRepository.remove(id);
+        log.info("Remove leave "+id);
     }
 
     @Override
@@ -76,6 +82,13 @@ public class LeaveManager implements LeaveManagerInterface {
     @Transactional
     public List<Leave> getAllLeave() {
        return leaveRepository.findAllByActiveAndConfirm();
+    }
+
+    @Override
+    @Transactional
+    public List<Leave> findAllByAccountAndActiveAndConfirmAndDate(Account account, Boolean b, Boolean b1, Date date) {
+        System.out.println("wesz");
+        return leaveRepository.findAllByAccountAndActiveAndConfirmAndCheckDate(account,b,b1,date);
     }
 
 

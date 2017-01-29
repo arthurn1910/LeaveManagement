@@ -18,5 +18,6 @@ public interface ImportantDatesRepository extends CrudRepository<ImportantDates,
     void remove(Long id);
     List<ImportantDates> findAllByTeamGroupAfterNow(TeamGroup teamGroup, Date time);
 
-
+    @Modifying
+    List<ImportantDates> findAllByTeamGroupAndDate(TeamGroup teamGroup, Date date);
 }
