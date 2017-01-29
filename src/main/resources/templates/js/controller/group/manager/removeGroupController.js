@@ -6,6 +6,8 @@ angular.module('leaveManagement')
         $scope.remove = function() {
             $http.get('/removeGroup').then(function successCallback(response) {
                 $window.location.href = response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
     })

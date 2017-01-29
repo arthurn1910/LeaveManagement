@@ -37,9 +37,11 @@ angular.module('leaveManagement')
 
         $scope.getLeaveInGroup = function(){
             $http.get('/getLeaveInGroup')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.leaveInGroup = response.data;
                     $scope.setLeave();
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
@@ -67,6 +69,8 @@ angular.module('leaveManagement')
             $http.post('/confirmLeave', row).then(function successCallback(response) {
                 $scope.message=response.data;
                 $scope.getLeaveInGroup();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
@@ -74,6 +78,8 @@ angular.module('leaveManagement')
             $http.post('/rejectLeave', row).then(function successCallback(response) {
                 $scope.message=response.data;
                 $scope.getLeaveInGroup();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
@@ -142,15 +148,6 @@ angular.module('leaveManagement')
             filterByDate(dateStart,dateEnd);
             $scope.$apply();
         });
-
-
-
-
-
-
-
-
-
 
 
 

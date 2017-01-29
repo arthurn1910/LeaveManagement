@@ -17,6 +17,8 @@ angular.module('leaveManagement')
                 } else {
                     $window.location.reload();
                 }
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
         $scope.remove = function(data) {
@@ -24,6 +26,8 @@ angular.module('leaveManagement')
             console.log(list);
             $http.post('/rejectApplication',list).then(function successCallback(response) {
                 $window.location.reload();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

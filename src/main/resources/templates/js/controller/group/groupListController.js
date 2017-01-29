@@ -7,29 +7,35 @@ angular.module('leaveManagement')
 
         $scope.getGroupList = function(){
             $http.get('/groupListData')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.rowCollection = response.data;
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
         $scope.getUserGroupDTO = function(){
             $http.get('/getUserGroupDTO')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.userGroupDto = response.data;
                     $scope.flag=true;
                     console.log($scope.userGroupDto);
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
         $scope.createGroup = function() {
-            $http.get('/getCreateGroup').success(function(response) {
-                $window.location.href=response;
-            }).error(function(){
+            $http.get('/getCreateGroup').then(function successCallback(response) {
+                $window.location.href=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
         $scope.showGroup = function(data) {
-            $http.post('/showGroup',data.id).success(function(response) {
-                $window.location.href=response;
-            }).error(function(){
+            $http.post('/showGroup',data.id).then(function successCallback(response) {
+                $window.location.href=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
@@ -58,9 +64,10 @@ angular.module('leaveManagement')
 
         $scope.applyToGroup = function(data) {
             console.log('juz');
-            $http.post('/applyToGroup',data.id).success(function(response) {
+            $http.post('/applyToGroup',data.id).then(function successCallback(response) {
                 $scope.getUserGroupDTO();
-            }).error(function(){
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

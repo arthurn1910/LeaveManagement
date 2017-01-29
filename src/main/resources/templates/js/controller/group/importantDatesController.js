@@ -5,8 +5,10 @@ angular.module('leaveManagement')
     .controller('importantDatesController', function ($scope,$http,$window) {
         $scope.getImportantDates = function(){
             $http.get('/getImportantDates')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.importantDates = response.data;
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
@@ -17,6 +19,8 @@ angular.module('leaveManagement')
         $scope.remove = function(row) {
             $http.post('/removeImportantDates', row).then(function successCallback(response) {
                 $scope.getImportantDates();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

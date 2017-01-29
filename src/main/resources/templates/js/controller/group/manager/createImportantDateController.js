@@ -11,6 +11,8 @@ angular.module('leaveManagement')
             $http.post('/createImportantDate', $scope.date).then(function successCallback(response) {
                 $scope.flag=false;
                 $scope.message=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
     })

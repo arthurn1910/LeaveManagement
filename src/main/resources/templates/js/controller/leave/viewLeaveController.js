@@ -5,9 +5,11 @@ angular.module('leaveManagement')
     .controller('viewLeaveController', function ($scope,$http) {
         $scope.getLeave = function(){
             $http.get('/getYourLeave')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.leaveList = response.data;
                     console.log($scope.leaveList);
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
@@ -25,6 +27,8 @@ angular.module('leaveManagement')
             $http.post('/removeLeave', row).then(function successCallback(response) {
                 $scope.message=response.data;
                 $scope.getLeave();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

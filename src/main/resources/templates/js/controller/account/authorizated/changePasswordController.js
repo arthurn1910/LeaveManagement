@@ -8,13 +8,13 @@ angular.module('leaveManagement')
         $scope.confirmPassword="";
         $scope.savePassword = function() {
             var data=[$scope.actualPassword, $scope.newPassword]
-            $http.post('/savePassword', data).success(function(response) {
-                $scope.message=response;
+            $http.post('/savePassword', data).then(function successCallback(response) {
+                $scope.message=response.data;
                 $scope.actualPassword="";
                 $scope.newPassword="";
                 $scope.confirmPassword="";
-            }).error(function(){
-                console.log("error");
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

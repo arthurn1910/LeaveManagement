@@ -57,13 +57,13 @@ angular.module('leaveManagement')
         }
 
         var countDate=function(dateStart){
-            $http.get('/getLeaveDetails').then(function (response) {
+            $http.get('/getLeaveDetails').then(function successCallback(response) {
                 $scope.thisYear = response.data.leaveThisYear - response.data.reamainingVacationLeaveThisYear;
                 $scope.lastYear = response.data.leaveLastYear - response.data.reamainingVacationLeaveLastYear;
                 var date=countDateEnd(dateStart);
                 setCloseDate($scope.dateStart,date);
-
-
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
@@ -82,7 +82,7 @@ angular.module('leaveManagement')
 
 
         var setCloseDate=function(dateStart1, dateEnd1){
-            $http.get('/getBlockDate').then(function (response) {
+            $http.get('/getBlockDate').then(function successCallback(response) {
                 var blockDate=response.data;
                 var dateTMP=new Date(dateEnd1);
                 console.log(blockDate);
@@ -98,6 +98,8 @@ angular.module('leaveManagement')
                     });
                 });
 
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
@@ -112,14 +114,16 @@ angular.module('leaveManagement')
                 .then(function successCallback(response) {
                     $scope.message = response.data;
                     $scope.flag=false;
-                }, function errorCallback(error) {
-                    $scope.messageRegister = "Błąd";
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
 
         }
 
         $scope.return = function() {
             $http.get('/getCreateLeave').then(function successCallback(response) {
+                $window.location.href = response.data;
+            }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
         }

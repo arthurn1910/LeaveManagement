@@ -59,6 +59,23 @@ public class IndexController {
     public Principal user(Principal user) {return user;
     }
 
+    @RequestMapping("/error404")
+    public String error404() {
+        return "account/error404";
+    }
+    @RequestMapping("/error403")
+    public String error403() {
+        return "account/error403";
+    }
+    @RequestMapping("/error2")
+    public String error2() {
+        return "account/error";
+    }
+    @RequestMapping("/errorOptimistic")
+    public String errorOptimistic() {
+        return "account/errorOptimistic";
+    }
+
     @RequestMapping("/isAuthenticated")
     public  @ResponseBody AuthDTO isAuthenticated()   {
         AuthDTO authDTO=new AuthDTO();
@@ -86,10 +103,7 @@ public class IndexController {
         return authDTO;
     }
 
-    @RequestMapping("/error2")
-    public String error2() {
-        return "account/error";
-    }
+
 
 
 }

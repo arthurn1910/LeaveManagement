@@ -5,10 +5,12 @@ angular.module('leaveManagement')
     .controller('groupPlannedLeaveController', function ($scope,$http,$window, $location) {
         $scope.getGroupLeave = function(){
             $http.get('/getGroupLeave')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.groupLeave = response.data;
                     console.log($scope.groupLeave);
                     // $scope.setLeave($scope.groupLeave);
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 

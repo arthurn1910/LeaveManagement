@@ -6,47 +6,59 @@ angular.module('leaveManagement')
     .controller('usersListController', function ($scope,$http,$window, $location) {
         $scope.getUsersList = function(){
             $http.get('/usersListData')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.rowCollection = response.data;
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         }
 
         $scope.changeUserActiveStatus = function(data) {
             var account =[data.login, data.version];
-            $http.post('/changeUserActiveStatus',account).then(function(response) {
+            $http.post('/changeUserActiveStatus',account).then(function successCallback(response) {
                 $scope.getUsersList();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
 
         }
 
         $scope.changeUserConfirmStatus = function(data) {
             var account =[data.login, data.version];
-            $http.post('/changeUserConfirmStatus',account).then(function(response) {
+            $http.post('/changeUserConfirmStatus',account).then(function successCallback(response) {
                 $scope.getUsersList();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
         $scope.changeUserPassword = function(data) {
-            $http.post('/changeUserPassword',data.login).success(function(response) {
-                $window.location.href=response;
+            $http.post('/changeUserPassword',data.login).then(function successCallback(response) {
+                $window.location.href=response.data;
             }).error(function(){
                 console.log("error changeUserPassword");
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
         $scope.changeUserData = function(data) {
-            $http.post('/editUserAccount',data.login).success(function(response) {
-                $window.location.href=response;
+            $http.post('/editUserAccount',data.login).then(function successCallback(response) {
+                $window.location.href=response.data;
             }).error(function(){
                 console.log("error changeUserData");
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
         $scope.changeUserRole = function(data) {
-            $http.post('/changeUserRole',data.login).success(function(response) {
-                $window.location.href=response;
+            $http.post('/changeUserRole',data.login).then(function successCallback(response) {
+                $window.location.href=response.data;
             }).error(function(){
                 console.log("error changeUserRole");
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

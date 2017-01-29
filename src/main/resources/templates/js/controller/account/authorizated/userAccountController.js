@@ -13,16 +13,18 @@ angular.module('leaveManagement')
 
         $scope.accountDetails = function(){
             $http.get('/getAccountDetails')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.account = response.data;
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         }
 
         $scope.change = function() {
-            $http.get('/editAccountGet').success(function(response) {
-                $window.location.href=response;
-            }).error(function(){
-                console.log("error changeUserData");
+            $http.get('/editAccountGet').then(function successCallback(response) {
+                $window.location.href=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

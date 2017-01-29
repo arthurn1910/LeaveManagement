@@ -17,8 +17,8 @@ angular.module('leaveManagement')
                 .then(function successCallback(response) {
                     $scope.messageRegister = "Account was created.";
                     $("form.css-form").hide();
-                }, function errorCallback(error) {
-                    $scope.messageRegister = "Error.";
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         }
     }).directive('compareTo', function () {

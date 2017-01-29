@@ -281,7 +281,10 @@ public class GroupEndpoint implements GroupEndpointInterface {
             if(leaveList1.size()>0)
                 leaveList.addAll(leaveList1);
         }
-        int tmp=(int) Math.ceil(member*((100-teamGroup.getNumber())/100));
+        System.out.println(100-teamGroup.getNumber());
+        System.out.println((double)((100-teamGroup.getNumber())/100));
+        System.out.println(Math.ceil(member*((double) ((100-teamGroup.getNumber())/100))));
+        int tmp=(int) Math.ceil(member*((double)(100-teamGroup.getNumber())/100));
         if(tmp==0)
             tmp=1;
         if(leaveList.size()>=tmp)

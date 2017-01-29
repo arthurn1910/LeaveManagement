@@ -6,10 +6,12 @@ angular.module('leaveManagement')
         $scope.name='';
         $scope.getLeave = function(){
             $http.get('/getLeave')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.leaveList = response.data;
                     $scope.reportLeave678=$scope.leaveList.slice(0);
                     setDate();
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 

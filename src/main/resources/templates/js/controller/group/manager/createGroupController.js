@@ -15,8 +15,8 @@ angular.module('leaveManagement')
                 .then(function successCallback(response) {
                     $scope.message = "Grupa została stworzona.";
                     $("form.css-form").hide();
-                }, function errorCallback(error) {
-                    $scope.message = "Błąd w trakcie tworzenia grupy.";
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
@@ -24,6 +24,8 @@ angular.module('leaveManagement')
             console.log('!111');
             $http.get('/getGroupList').then(function successCallback(response) {
                 console.log('!222');
+                $window.location.href = response.data;
+            }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
         }

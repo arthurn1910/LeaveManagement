@@ -40,19 +40,31 @@ angular.module('leaveManagement')
         }
 
         $scope.getUserAccount = function() {
-            $http.get('/getUserRole').success(function (response) {
-                $scope.userRole = response;
+            $http.get('/getUserRole').then(function successCallback(response) {
+                console.log(response)
+                $scope.userRole = response.data;
                 $scope.setUserRole();
-            }).error(function () {
-                $scope.message="error";
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         };
         $scope.changeRole = function(roleName, status) {
-            var data=[$scope.userRole[0], roleName, status];
-            $http.post('/setUserRole',data).success(function (response) {
+            var roleNamePost='';
+            console.log("! "+roleName)
+            if(roleName=="ADMINISTRATOR")
+                roleNamePost="ADMINISTRATOR";
+            else if(roleName=="MENADŻER")
+                roleNamePost="MANAGER";
+            else if(roleName=="PRACOWNIK")
+                roleNamePost="EMPLOYEE";
+            else if(roleName=="KSIĘGOWY")
+                roleNamePost="ACCOUNTANT";
+
+            var data=[$scope.userRole[0], roleNamePost, status];
+            $http.post('/setUserRole',data).then(function successCallback(response) {
                 $scope.getUserAccount();
-            }).error(function () {
-                $scope.message="error";
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         };
 

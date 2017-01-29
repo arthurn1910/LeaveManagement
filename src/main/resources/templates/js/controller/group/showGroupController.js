@@ -6,7 +6,7 @@ angular.module('leaveManagement')
         $scope.flag=0;
         $scope.getTeamGroup = function(){
             $http.get('/getTeamGroup')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.flag=1;
                     $scope.teamGroup = response.data;
                 });
@@ -14,17 +14,21 @@ angular.module('leaveManagement')
 
         $scope.getMemberList = function(){
             $http.get('/listMemberGroup')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.setLists(response.data.teamGroupMemberList)
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
         $scope.getUserGroupDTO = function(){
             $http.get('/getUserGroupDTO')
-                .then(function(response) {
+                .then(function successCallback(response) {
                     $scope.userGroupDto = response.data;
                     $scope.getTeamGroup();
                     $scope.getMemberList();
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
                 });
         };
 
@@ -49,11 +53,15 @@ angular.module('leaveManagement')
         $scope.return = function() {
             $http.get('/getGroupList').then(function successCallback(response) {
                 $window.location.href = response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 
         $scope.administration = function() {
             $http.get('/getAdministrationGroup').then(function successCallback(response) {
+                $window.location.href = response.data;
+            }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
         }
@@ -62,6 +70,8 @@ angular.module('leaveManagement')
             var list=[data.id, data.employee.login]
             $http.post('/removeMember', list).then(function successCallback(response) {
                 $scope.getMemberList();
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

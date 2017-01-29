@@ -5,18 +5,21 @@ angular.module('leaveManagement')
     .controller('changeUserPasswordController', function ($scope,$http,$window) {
         $scope.password="";
         $scope.getUserAccount = function() {
-            $http.get('/getUserAccount').success(function (response) {
-                $scope.userAccount = response;
-            }).error(function () {
-                console.log("error");
+            $http.get('/getUserAccount').then(function successCallback(response) {
+                console.log(response);
+                console.log("!!!!@#$")
+                $scope.userAccount = response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
+
         }
         $scope.saveUserPassword = function() {
             var data=[$scope.userAccount.login, $scope.password]
-            $http.post('/saveUserPassword', data).success(function(response) {
-                $scope.message=response;
-            }).error(function(){
-                console.log("error");
+            $http.post('/saveUserPassword', data).then(function successCallback(response) {
+                $scope.message=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

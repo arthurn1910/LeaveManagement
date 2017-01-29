@@ -35,24 +35,24 @@ angular.module('leaveManagement')
         $scope.modelExpirience={year,month,day,workTime}
 
         $scope.getUserAccount = function() {
-            $http.get('/getUserAccount').success(function (response) {
-                $scope.userAccount = response;
+            $http.get('/getUserAccount').then(function successCallback(response) {
+                $scope.userAccount = response.data;
                 $scope.userAccount.startingDate=new Date($scope.userAccount.startingDate);
                 $scope.setSelectBox();
                 $scope.startingDate=$scope.userAccount.startingDate;
 
-            }).error(function () {
-                console.log("error");
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
         $scope.saveUserAccount = function() {
             var data=[$scope.userAccount.login, $scope.userAccount.name,$scope.userAccount.lastname
                 ,$scope.userAccount.email, $scope.userAccount.workTime,$scope.userAccount.startingDate, $scope.userAccount.expirienceYear
                 , $scope.userAccount.expirienceMonth, $scope.userAccount.expirienceDay]
-            $http.post('/saveUserAccount', data).success(function(response) {
-                $scope.message=response;
-            }).error(function(){
-                console.log("error");
+            $http.post('/saveUserAccount', data).then(function successCallback(response) {
+                $scope.message=response.data;
+            }, function errorCallback(response) {
+                $window.location.href = response.data;
             });
         }
 

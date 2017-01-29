@@ -46,14 +46,16 @@ angular.module('leaveManagement')
                 .then(function successCallback(response) {
                     $scope.message = response.data;
                     $scope.flag=false;
-                }, function errorCallback(error) {
-                    $scope.messageRegister = "Błąd";
-            });
+                }, function errorCallback(response) {
+                    $window.location.href = response.data;
+                });
 
         }
 
         $scope.return = function() {
             $http.get('/getCreateLeave').then(function successCallback(response) {
+                $window.location.href = response.data;
+            }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
         }

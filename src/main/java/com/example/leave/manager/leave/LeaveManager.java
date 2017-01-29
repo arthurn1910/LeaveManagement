@@ -87,7 +87,6 @@ public class LeaveManager implements LeaveManagerInterface {
     @Override
     @Transactional
     public List<Leave> findAllByAccountAndActiveAndConfirmAndDate(Account account, Boolean b, Boolean b1, Date date) {
-        System.out.println("wesz");
         return leaveRepository.findAllByAccountAndActiveAndConfirmAndCheckDate(account,b,b1,date);
     }
 

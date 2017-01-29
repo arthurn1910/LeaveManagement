@@ -32,13 +32,9 @@ public class changeUserPasswordController {
 
     @RequestMapping(value = "/saveUserPassword", method = RequestMethod.POST)
     public @ResponseBody String saveUserPassword(@RequestBody List<String> data) {
-        try {
-            accountEndpoint.changeUserPassword(data.get(0), data.get(1));
-            return JSONParser.quote("Password was changed!");
-        }catch(Exception ex){
-           log.warning("Passwoed wasn't changed for user "+data.get(0) );
-            return JSONParser.quote("Password was't changed!");
-        }
+        accountEndpoint.changeUserPassword(data.get(0), data.get(1));
+        return JSONParser.quote("Password was changed!");
+
     }
 
     @RequestMapping(value = "/changeUserPassword", method = RequestMethod.GET)
