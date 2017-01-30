@@ -7,7 +7,6 @@ angular.module('leaveManagement')
             $http.get('/getYourLeave')
                 .then(function successCallback(response) {
                     $scope.leaveList = response.data;
-                    console.log($scope.leaveList);
                 }, function errorCallback(response) {
                     $window.location.href = response.data;
                 });

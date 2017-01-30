@@ -4,7 +4,7 @@
 angular.module('leaveManagement')
     .controller('changeUserRoleController', function ($scope,$http,$window) {
         $scope.roleCollection=[{name:"ADMINISTRATOR", active:false},{name:"PRACOWNIK", active:false},
-            {name:"MENADŻER", active:false},{name:"KSIĘGOWY", active:false}];
+            {name:"MENADzER", active:false},{name:"KSIeGOWY", active:false}];
         $scope.return = function() {
             $window.location.href="/usersList";
         };
@@ -12,10 +12,8 @@ angular.module('leaveManagement')
             for(var i=0;i<$scope.roleCollection.length;i++){
                 $scope.roleCollection[i].active=false;
             }
-            console.log($scope.roleCollection[0].active+' '+$scope.roleCollection[1].active+' '+$scope.roleCollection[2].active+' '+$scope.roleCollection[3].active)
             for(var i=1; i<$scope.userRole.length;i++){
                 var role=$scope.userRole[i];
-                console.log("))) "+role)
                 if(role=="ROLE_ADMINISTRATOR")
                     $scope.roleCollection[0].active=true;
                 else if(role=="ROLE_MANAGER")
@@ -41,7 +39,6 @@ angular.module('leaveManagement')
 
         $scope.getUserAccount = function() {
             $http.get('/getUserRole').then(function successCallback(response) {
-                console.log(response)
                 $scope.userRole = response.data;
                 $scope.setUserRole();
             }, function errorCallback(response) {
@@ -50,14 +47,13 @@ angular.module('leaveManagement')
         };
         $scope.changeRole = function(roleName, status) {
             var roleNamePost='';
-            console.log("! "+roleName)
             if(roleName=="ADMINISTRATOR")
                 roleNamePost="ADMINISTRATOR";
-            else if(roleName=="MENADŻER")
+            else if(roleName=="MENADzER")
                 roleNamePost="MANAGER";
             else if(roleName=="PRACOWNIK")
                 roleNamePost="EMPLOYEE";
-            else if(roleName=="KSIĘGOWY")
+            else if(roleName=="KSIeGOWY")
                 roleNamePost="ACCOUNTANT";
 
             var data=[$scope.userRole[0], roleNamePost, status];

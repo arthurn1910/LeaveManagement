@@ -14,7 +14,6 @@ angular.module('leaveManagement')
             $http.post('/acceptApplication',list).then(function successCallback(response) {
                 if(response.data.length>=26){
                     $scope.messageResponse=response.data;
-                    console.log($scope.messageResponse)
                 } else {
                     $window.location.reload();
                 }
@@ -24,7 +23,6 @@ angular.module('leaveManagement')
         }
         $scope.remove = function(data) {
             var list=[data.id, data.employee.login]
-            console.log(list);
             $http.post('/rejectApplication',list).then(function successCallback(response) {
                 $window.location.reload();
             }, function errorCallback(response) {

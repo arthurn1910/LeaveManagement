@@ -18,7 +18,6 @@ angular.module('leaveManagement')
                 .then(function successCallback(response) {
                     $scope.userGroupDto = response.data;
                     $scope.flag=true;
-                    console.log($scope.userGroupDto);
                 }, function errorCallback(response) {
                     $window.location.href = response.data;
                 });
@@ -63,7 +62,6 @@ angular.module('leaveManagement')
         }
 
         $scope.applyToGroup = function(data) {
-            console.log('juz');
             $http.post('/applyToGroup',data.id).then(function successCallback(response) {
                 $scope.getUserGroupDTO();
             }, function errorCallback(response) {

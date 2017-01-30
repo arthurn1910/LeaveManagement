@@ -34,6 +34,6 @@ public class ViewImportantDatesController {
     @RequestMapping(value = "/removeImportantDates", method = RequestMethod.POST)
     public @ResponseBody String removeImportantDates(@RequestBody String id) {
        groupEndpoint.removeImportantDate(id);
-        return JSONParser.quote("Ważna data "+id+" zmieniona");
+        return JSONParser.quote("Wazna data "+id+" zmieniona");
     }
 }

@@ -14,25 +14,15 @@ angular.module('leaveManagement')
             var list=[];
             for(var i=0;i<$scope.approvedLeave.length;i++) {
                 var tmp=$scope.approvedLeave[i].account.name+" "+$scope.approvedLeave[i].account.lastname;
-                console.log(tmp);
-                console.log($scope.name);
-                console.log(tmp.toUpperCase())
-                console.log($scope.name.toUpperCase())
-                console.log(tmp.toUpperCase().indexOf($scope.name.toUpperCase()))
                 if (tmp.toUpperCase().indexOf($scope.name.toUpperCase()) > -1) {
-                    console.log(list)
                     list.push($scope.approvedLeave[i])
                 }
             }
-            console.log("a2 ")
-            console.log(list)
 
 
             while($scope.leaveInGroupShow.length>0)
                 $scope.leaveInGroupShow.pop();
-            console.log($scope.leaveInGroupShow)
             $scope.leaveInGroupShow=list;
-            console.log($scope.leaveInGroupShow)
         };
 
         $scope.getLeaveInGroup = function(){

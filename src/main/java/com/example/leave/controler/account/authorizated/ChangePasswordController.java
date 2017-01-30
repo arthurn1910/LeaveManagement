@@ -35,9 +35,9 @@ public class ChangePasswordController {
     public @ResponseBody String savePassword(@RequestBody List<String> password) {
         try {
             accountEndpoint.changePassword(password);
-            return JSONParser.quote("Hasło zmienione!");
+            return JSONParser.quote("Haslo zmienione!");
         } catch (Exception e) {
-            return JSONParser.quote("Aktualne hasło niepoprawne");
+            return JSONParser.quote("Aktualne haslo niepoprawne");
         }
 
     }

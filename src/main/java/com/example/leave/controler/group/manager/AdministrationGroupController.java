@@ -44,7 +44,7 @@ public class AdministrationGroupController {
     @RequestMapping(value = "/rejectApplication", method = RequestMethod.POST)
     public @ResponseBody String rejectApplication(@RequestBody List<String> data){
         groupEndpoint.removeMember(data);
-        return JSONParser.quote("Aplikacja użytkownika: "+data.get(1)+" odmówiona");
+        return JSONParser.quote("Aplikacja uzytkownika: "+data.get(1)+" odmowiona");
     }
 
     @RequestMapping(value = "/removeGroup", method = RequestMethod.GET)

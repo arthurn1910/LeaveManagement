@@ -53,7 +53,9 @@ angular.module('leaveManagement')
                 var dateEnd=new Date(new Date().setFullYear(new Date().getFullYear() + 1));
                 dateEnd.setMonth(11);
                 dateEnd.setDate(31);
-                setCloseDate($scope.dateStart,dateEnd);
+                var dateStart2 = new Date($scope.dateStart)
+                dateStart2.setDate(dateStart2.getDate()-1)
+                setCloseDate(dateStart2,dateEnd);
             }
         }
 
@@ -62,7 +64,9 @@ angular.module('leaveManagement')
                 $scope.thisYear = response.data.leaveThisYear - response.data.reamainingVacationLeaveThisYear;
                 $scope.lastYear = response.data.leaveLastYear - response.data.reamainingVacationLeaveLastYear;
                 var date=countDateEnd(dateStart);
-                setCloseDate($scope.dateStart,date);
+                var dateStart2 = new Date($scope.dateStart)
+                dateStart2.setDate(dateStart2.getDate()-1)
+                setCloseDate(dateStart2,date);
             }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
@@ -85,44 +89,27 @@ angular.module('leaveManagement')
         var setCloseDate=function(dateStart1, dateEnd1){
             $http.get('/getBlockDate').then(function successCallback(response) {
                 console.log(response.data);
-                var date=new Date();
-                // console.log(date);
-                date.setTime(response.data);
-                // console.log(date.getDate());
-                date.setTime(date);
-                // console.log(date.getDate());
-                var blockDate=date;
+                var blockDate=response.data;
                 var dateTMP=new Date(dateEnd1);
-                console.log(dateEnd1)
-                console.log(blockDate)
-                console.log(dateEnd1.getTime())
-                console.log(blockDate.getTime())
-                console.log(dateEnd1.getDate())
-                console.log(blockDate.getDate())
 
-                var datetmp2=new Date();
-                console.log(datetmp2)
-                datetmp2.setTime(dateEnd1.getTime())
-                console.log(datetmp2)
-
-                console.log('blockdate' + blockDate.getDate());
-                console.log(blockDate.getDate());
                 for(var i=0;i<blockDate.length;i++){
                     console.log("$")
-                    console.log(blockDate.getDate())
-                    console.log(dateStart1.getDate())
-                    if(blockDate[i].getDate()==dateStart1.getDate()){
-                        var date5=new Date(blockDate.getDate());
+                    var blockdate2=new Date(blockDate[i]);
+                    console.log(blockdate2)
+                    console.log(blockdate2.getTime())
+                    console.log(dateStart1.getTime())
+                    if(blockdate2.getTime()===dateStart1.getTime()){
+                        var date5=new Date(blockdate2.getTime());
                         date5.setDate(date5.getDate()-1);
-                        dateTMP=new Date(date5.getDate())
+                        dateTMP=new Date(date5.getTime())
                         console.log("3")
-                        console.log(dateTMP.getDate())
-                    }else if(blockDate.getDate()>dateStart1.getDate() & blockDate.getDate()<=dateEnd1.getDate() & blockDate.getDate()<dateTMP.getDate()){
-                        var date5=new Date(blockDate.getDate());
-                        date5.setDate(date5.getDate()-1);
-                        dateTMP=new Date(date5.getDate())
+                        console.log(dateTMP.getTime())
+                    }else if(blockdate2.getTime()>dateStart1.getTime() & blockdate2.getTime()<=dateEnd1.getTime() & blockdate2.getTime()<=dateTMP.getTime()){
+                        var date5=new Date(blockdate2.getTime());
+                        date5.setDate(date5.getDate());
+                        dateTMP=new Date(date5.getTime())
                         console.log("4")
-                        console.log(dateTMP.getDate())
+                        console.log(dateTMP.getTime())
                     }
                 }
                 console.log(dateTMP.toJSON().split('T')[0])

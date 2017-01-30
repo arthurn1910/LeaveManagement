@@ -6,8 +6,6 @@ angular.module('leaveManagement')
         $scope.password="";
         $scope.getUserAccount = function() {
             $http.get('/getUserAccount').then(function successCallback(response) {
-                console.log(response);
-                console.log("!!!!@#$")
                 $scope.userAccount = response.data;
             }, function errorCallback(response) {
                 $window.location.href = response.data;

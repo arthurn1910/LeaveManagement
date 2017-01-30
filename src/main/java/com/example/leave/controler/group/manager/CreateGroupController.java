@@ -33,7 +33,7 @@ public class CreateGroupController {
             groupEndpoint.createGroup(data);
             return JSONParser.quote("Grupa stworzona");
         } catch(Exception e){
-            return JSONParser.quote("Grupa nie została stworzona");
+            return JSONParser.quote("Grupa nie zostala stworzona");
         }
     }
 }

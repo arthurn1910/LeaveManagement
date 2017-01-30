@@ -41,7 +41,7 @@ public class LeaveInGroupController {
     @RequestMapping(value = "/rejectLeave", method = RequestMethod.POST)
     public @ResponseBody String rejectApplication(@RequestBody String id){
         groupEndpoint.rejectLeave(id);
-        return JSONParser.quote("Urlop odmówiony");
+        return JSONParser.quote("Urlop odmowiony");
     }
 
     @RequestMapping("/getLeaveInGroup")

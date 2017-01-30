@@ -33,7 +33,7 @@ public class changeUserPasswordController {
     @RequestMapping(value = "/saveUserPassword", method = RequestMethod.POST)
     public @ResponseBody String saveUserPassword(@RequestBody List<String> data) {
         accountEndpoint.changeUserPassword(data.get(0), data.get(1));
-        return JSONParser.quote("Hasło zostało zmienione!");
+        return JSONParser.quote("Haslo zostalo zmienione!");
 
     }
 

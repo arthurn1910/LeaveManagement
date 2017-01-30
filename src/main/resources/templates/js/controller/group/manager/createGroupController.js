@@ -13,7 +13,7 @@ angular.module('leaveManagement')
             var data=[$scope.title, $scope.number]
             $http.post('/createGroup',data)
                 .then(function successCallback(response) {
-                    $scope.message = "Grupa została stworzona.";
+                    $scope.message = "Grupa zostala stworzona.";
                     $("form.css-form").hide();
                 }, function errorCallback(response) {
                     $window.location.href = response.data;
@@ -21,9 +21,7 @@ angular.module('leaveManagement')
         };
 
         $scope.return = function() {
-            console.log('!111');
             $http.get('/getGroupList').then(function successCallback(response) {
-                console.log('!222');
                 $window.location.href = response.data;
             }, function errorCallback(response) {
                 $window.location.href = response.data;

@@ -28,7 +28,7 @@ public class ViewLeaveController {
     @RequestMapping(value = "/removeLeave", method = RequestMethod.POST)
     public @ResponseBody String rejectApplication(@RequestBody String id){
         leaveEndpoint.removeLeave(Long.valueOf(id));
-        return JSONParser.quote("Urlop został usunięty");
+        return JSONParser.quote("Urlop zostal usuniety");
     }
 
     @RequestMapping(value = "/getYourLeave", method = RequestMethod.GET)

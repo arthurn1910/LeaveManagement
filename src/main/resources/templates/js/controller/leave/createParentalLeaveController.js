@@ -14,8 +14,6 @@ angular.module('leaveManagement')
             dateEnd.setMonth(11);
             dateEnd.setDate(31);
             $scope.maxDate=dateEnd;
-            console.log($scope.minDate);
-            console.log($scope.maxDate);
             $(function(){
                 $('[type="date"]').prop('min', function(){
                     return $scope.minDate.toJSON().split('T')[0];

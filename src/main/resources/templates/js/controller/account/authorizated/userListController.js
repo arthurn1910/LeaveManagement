@@ -35,8 +35,6 @@ angular.module('leaveManagement')
         $scope.changeUserPassword = function(data) {
             $http.post('/changeUserPassword',data.login).then(function successCallback(response) {
                 $window.location.href=response.data;
-            }).error(function(){
-                console.log("error changeUserPassword");
             }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
@@ -45,8 +43,6 @@ angular.module('leaveManagement')
         $scope.changeUserData = function(data) {
             $http.post('/editUserAccount',data.login).then(function successCallback(response) {
                 $window.location.href=response.data;
-            }).error(function(){
-                console.log("error changeUserData");
             }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
@@ -55,8 +51,6 @@ angular.module('leaveManagement')
         $scope.changeUserRole = function(data) {
             $http.post('/changeUserRole',data.login).then(function successCallback(response) {
                 $window.location.href=response.data;
-            }).error(function(){
-                console.log("error changeUserRole");
             }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
@@ -68,11 +62,11 @@ angular.module('leaveManagement')
                 if(data[level]=='ADMINISTRATOR')
                     accesslevel += 'ADMINISTRATOR' + " ";
                 else if(data[level]=='ACCOUNTANT')
-                    accesslevel += 'KSIĘGOWY' + " ";
+                    accesslevel += 'KSIeGOWY' + " ";
                 else if(data[level]=='EMPLOYEE')
                     accesslevel += 'PRACOWNIK' + " ";
                 else if(data[level]=='MANAGER')
-                    accesslevel += 'MENADŻER' + " ";
+                    accesslevel += 'MENADzER' + " ";
             }
             return accesslevel;
         }

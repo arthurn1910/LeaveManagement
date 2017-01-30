@@ -67,7 +67,7 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         calendar.add(Calendar.WEEK_OF_YEAR,week);
         Leave leave=new Leave(account,leaveType,date1,0,0,calendar.getTime());
         leaveManager.createLeave(leave);
-        return JSONParser.quote("Urlop został stworzony");
+        return JSONParser.quote("Urlop zostal stworzony");
 
     }
 
@@ -154,12 +154,12 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
                 }
             } else {
                 log.warning("Exception in createLeave. Not days to create paid leave");
-                return "Nie wystarczająca liczba dni do stworzenia urlopu";
+                return "Nie wystarczajaca liczba dni do stworzenia urlopu";
             }
         }
 
         leaveManager.createLeave(leave);
-        return "Urlop został stworzony";
+        return "Urlop zostal stworzony";
     }
 
     private int countDays(Date dateStart, Date dateEnd) {

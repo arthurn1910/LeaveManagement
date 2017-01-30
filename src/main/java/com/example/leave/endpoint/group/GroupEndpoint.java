@@ -118,12 +118,12 @@ public class GroupEndpoint implements GroupEndpointInterface {
                     groupManager.acceptApplication(teamGroupMember);
                 }else{
 //                    groupManager.removeMember(teamGroupMember);
-                    return "Użytkownik należy już do innej grupy";
+                    return "Uzytkownik nalezy juz do innej grupy";
                 }
             }
         }
         this.teamGroup=getTeamGroup();
-        return "Użytkownik zaakceptowany";
+        return "Uzytkownik zaakceptowany";
     }
 
     @Override
@@ -239,14 +239,12 @@ public class GroupEndpoint implements GroupEndpointInterface {
         calendarEnd.setTime(leave.getDateEnd());
         int tmp=0;
         while(!calendarStart.getTime().after(calendarEnd.getTime())){
-            if(tmp!=0) {
-                calendarStart.add(Calendar.DAY_OF_YEAR, 1);
-            }
             if(checkdate(calendarStart.getTime(), teamGroup)==0){
                 rejectLeave(id);
-                return "Urlop zawiera termin: "+calendarStart.getTime().toString()+" w którym osiągnięto maksymalną liczbę pracowników na urlopie";
+                return "Urlop zawiera termin: "+calendarStart.get(Calendar.DATE)+"."+calendarStart.get(Calendar.MONTH)+"."+
+                        calendarStart.get(Calendar.YEAR)+" w ktorym osiagnieto maksymalna liczbe pracownikow na urlopie";
             }
-            tmp++;
+            calendarStart.add(Calendar.DAY_OF_YEAR, 1);
         }
 
 
@@ -257,7 +255,7 @@ public class GroupEndpoint implements GroupEndpointInterface {
             return "Urlop potwierdzony";
         }
         rejectLeave(id);
-        return "Urlop nie został potwierdzony. Użytkownik nie ma wystarczającej liczby dni urlopu";
+        return "Urlop nie zostal potwierdzony. Uzytkownik nie ma wystarczajacej liczby dni urlopu";
     }
 
     @Override
