@@ -229,7 +229,6 @@ public class GroupEndpoint implements GroupEndpointInterface {
     public String confirmLeave(String id) {
         Leave leave=leaveRepository.findOne(Long.valueOf(id));
         LeaveDetailsDTO leaveDetailsDTO=leaveEndpoint.getLeaveDetails(leave);
-        System.out.println("wczesniej sprawdzić czy dany termin nie ejst już zablokowany");
         TeamGroupMember teamGroupMember=groupManager.getTeamGroup(leave.getAccount(), true).get(0);
         TeamGroup teamGroup=groupManager.getTeamGroup(teamGroupMember.getTeamGroup().getId());
 
@@ -281,9 +280,6 @@ public class GroupEndpoint implements GroupEndpointInterface {
             if(leaveList1.size()>0)
                 leaveList.addAll(leaveList1);
         }
-        System.out.println(100-teamGroup.getNumber());
-        System.out.println((double)((100-teamGroup.getNumber())/100));
-        System.out.println(Math.ceil(member*((double) ((100-teamGroup.getNumber())/100))));
         int tmp=(int) Math.ceil(member*((double)(100-teamGroup.getNumber())/100));
         if(tmp==0)
             tmp=1;

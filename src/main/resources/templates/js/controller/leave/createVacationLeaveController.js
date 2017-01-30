@@ -37,6 +37,7 @@ angular.module('leaveManagement')
         $scope.changeDateEnd = function() {
             $scope.dateEnd='';
             var dateTmp=$scope.dateStart
+            console.log($scope.dateStart)
             dateTmp.setDate($scope.dateStart.getDate()+1);
             $(function(){
                 $('[name="dateEnd"]').prop('min', function(){
@@ -83,12 +84,45 @@ angular.module('leaveManagement')
 
         var setCloseDate=function(dateStart1, dateEnd1){
             $http.get('/getBlockDate').then(function successCallback(response) {
-                var blockDate=response.data;
+                console.log(response.data);
+                var date=new Date();
+                // console.log(date);
+                date.setTime(response.data);
+                // console.log(date.getDate());
+                date.setTime(date);
+                // console.log(date.getDate());
+                var blockDate=date;
                 var dateTMP=new Date(dateEnd1);
-                console.log(blockDate);
+                console.log(dateEnd1)
+                console.log(blockDate)
+                console.log(dateEnd1.getTime())
+                console.log(blockDate.getTime())
+                console.log(dateEnd1.getDate())
+                console.log(blockDate.getDate())
+
+                var datetmp2=new Date();
+                console.log(datetmp2)
+                datetmp2.setTime(dateEnd1.getTime())
+                console.log(datetmp2)
+
+                console.log('blockdate' + blockDate.getDate());
+                console.log(blockDate.getDate());
                 for(var i=0;i<blockDate.length;i++){
-                    if(blockDate[i]>=dateStart1 & blockDate[i]<=dateEnd1 & blockDate[i]<dateTMP){
-                        dateTMP=new Date(blockDate[i]);
+                    console.log("$")
+                    console.log(blockDate.getDate())
+                    console.log(dateStart1.getDate())
+                    if(blockDate[i].getDate()==dateStart1.getDate()){
+                        var date5=new Date(blockDate.getDate());
+                        date5.setDate(date5.getDate()-1);
+                        dateTMP=new Date(date5.getDate())
+                        console.log("3")
+                        console.log(dateTMP.getDate())
+                    }else if(blockDate.getDate()>dateStart1.getDate() & blockDate.getDate()<=dateEnd1.getDate() & blockDate.getDate()<dateTMP.getDate()){
+                        var date5=new Date(blockDate.getDate());
+                        date5.setDate(date5.getDate()-1);
+                        dateTMP=new Date(date5.getDate())
+                        console.log("4")
+                        console.log(dateTMP.getDate())
                     }
                 }
                 console.log(dateTMP.toJSON().split('T')[0])

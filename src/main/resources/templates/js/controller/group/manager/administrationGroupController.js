@@ -3,6 +3,7 @@
  */
 angular.module('leaveManagement')
     .controller('administrationGroupController', function ($scope,$http,$window) {
+        $scope.messageResponse= "aa";
         $scope.return = function() {
             $http.get('/getShowGroup').then(function successCallback(response) {
                 $window.location.href = response.data;
@@ -31,7 +32,7 @@ angular.module('leaveManagement')
             });
         }
 
-        $scope.messageResponse= "";
+
 
 
     })

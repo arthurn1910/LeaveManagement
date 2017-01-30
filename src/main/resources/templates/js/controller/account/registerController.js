@@ -15,7 +15,7 @@ angular.module('leaveManagement')
         $scope.register = function() {
             $http.post('/register',$scope.registerDTO)
                 .then(function successCallback(response) {
-                    $scope.messageRegister = "Account was created.";
+                    $scope.messageRegister = "Konto zostało stworzone.";
                     $("form.css-form").hide();
                 }, function errorCallback(response) {
                     $window.location.href = response.data;

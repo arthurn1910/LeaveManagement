@@ -3,6 +3,7 @@ package com.example.leave.endpoint.leave;
 import com.example.leave.dto.leave.LeaveDTO;
 import com.example.leave.dto.leave.LeaveDetailsDTO;
 import com.example.leave.endpoint.account.AccountEndpoint;
+import com.example.leave.endpoint.group.GroupEndpoint;
 import com.example.leave.entity.account.Account;
 import com.example.leave.entity.group.ImportantDates;
 import com.example.leave.entity.group.TeamGroup;
@@ -36,6 +37,8 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
     AccountRepository accountRepository;
     @Autowired
     LeaveManager leaveManager;
+    @Autowired
+    GroupEndpoint groupEndpoint;
     @Autowired
     LeaveTypeRepository leaveTypeRepository;
     @Autowired
@@ -84,17 +87,19 @@ public class LeaveEndpoint implements LeaveEndpointInterface {
         calendar.set(Calendar.SECOND,0);
         calendar.set(Calendar.MINUTE,0);
         calendar.set(Calendar.HOUR,0);
-        List<ImportantDates> importantDatesList1= importantDatesRepository.findAllByTeamGroup(teamGroup);
         List<ImportantDates> importantDatesList= importantDatesRepository.findAllByTeamGroupAfterNow(teamGroup,calendar.getTime());
         int sizeTeam=teamGroup.getTeamGroupMembers().size();
         for(ImportantDates importantDates : importantDatesList){
-            List<Leave> leaveList=leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(1L),teamGroup,importantDates.getDate());
+            /*List<Leave> leaveList=leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(1L),teamGroup,importantDates.getDate());
             leaveList.addAll(leaveManager.getLeaveWithTypeAndTeamAndDate(leaveTypeRepository.findOne(2L),teamGroup,importantDates.getDate()));
             int member=(int)((100-teamGroup.getNumber())/100)*sizeTeam;
             if(member==0)
                 member=1;
             if(member<=leaveList.size())
+                dateList.add(importantDates.getDate());*/
+            if(groupEndpoint.checkdate(importantDates.getDate(), teamGroup)==0){
                 dateList.add(importantDates.getDate());
+            }
 
         }
 
