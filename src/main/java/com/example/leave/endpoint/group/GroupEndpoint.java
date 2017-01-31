@@ -240,9 +240,11 @@ public class GroupEndpoint implements GroupEndpointInterface {
         int tmp=0;
         while(!calendarStart.getTime().after(calendarEnd.getTime())){
             if(checkdate(calendarStart.getTime(), teamGroup)==0){
-                rejectLeave(id);
-                return "Urlop zawiera termin: "+calendarStart.get(Calendar.DATE)+"."+calendarStart.get(Calendar.MONTH)+"."+
-                        calendarStart.get(Calendar.YEAR)+" w ktorym osiagnieto maksymalna liczbe pracownikow na urlopie";
+//                rejectLeave(id);
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+                String formatted = format1.format(calendarStart.getTime());
+
+                return "Urlop zawiera termin: "+formatted+" w ktorym osiagnieto maksymalna liczbe pracownikow na urlopie";
             }
             calendarStart.add(Calendar.DAY_OF_YEAR, 1);
         }
