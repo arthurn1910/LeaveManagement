@@ -4,6 +4,8 @@
 angular.module('leaveManagement')
     .controller('changeUserPasswordController', function ($scope,$http,$window) {
         $scope.password="";
+        $scope.confirmPassword="";
+
         $scope.getUserAccount = function() {
             $http.get('/getUserAccount').then(function successCallback(response) {
                 $scope.userAccount = response.data;
@@ -26,4 +28,21 @@ angular.module('leaveManagement')
         }
 
         $scope.getUserAccount();
-})
+}).directive('compareTo', function () {
+    return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.compareTo = function(modelValue) {
+                return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+                ngModel.$validate();
+            });
+        }
+    }
+});

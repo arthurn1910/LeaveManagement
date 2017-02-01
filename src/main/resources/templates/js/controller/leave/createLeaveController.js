@@ -7,9 +7,9 @@ angular.module('leaveManagement')
             $http.get('/getLeaveDetails').then(function successCallback(response) {
                 console.log(response.data);
                 var thisYear=response.data.leaveThisYear-response.data.reamainingVacationLeaveThisYear;
-                $scope.thisYear=thisYear+' / '+response.data.leaveThisYear;
+                $scope.thisYear='dostepne: '+thisYear+', wykorzystano: '+response.data.reamainingVacationLeaveThisYear+', nalezne: '+response.data.leaveThisYear;
                 var lastYear=response.data.leaveLastYear-response.data.reamainingVacationLeaveLastYear;
-                $scope.lastYear=lastYear+' / '+response.data.leaveLastYear;
+                $scope.lastYear='dostepne: '+lastYear+', wykorzystano: '+response.data.reamainingVacationLeaveLastYear+', nalezne: '+response.data.leaveLastYear;
             }, function errorCallback(response) {
                 $window.location.href = response.data;
             });
